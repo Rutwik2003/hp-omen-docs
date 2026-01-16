@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: your-username/hp-omen-website # <--- REPLACE THIS with your actual 'username/repo'
+  repo: Rutwik2003/hp-omen-docs # <--- REPLACE THIS with your actual 'username/repo'
   branch: main
   # base_url: https://your-oauth-app.vercel.app # You will set this up later for production
 
