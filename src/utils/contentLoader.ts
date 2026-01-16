@@ -76,7 +76,7 @@ export interface SearchIndexItem {
     content: string; // Full text content
 }
 
-export const getAllDocs = (): DocSummary[] => {
+export const getAllDocs = (): any[] => {
     return Object.keys(contentModules).map((path) => {
         // Cast the module to have a default export of type DocPage
         const module = contentModules[path] as { default: DocPage };
@@ -89,6 +89,7 @@ export const getAllDocs = (): DocSummary[] => {
         const folderCategory = categoryFolders[categoryFolders.length - 2];
 
         return {
+            ...data, // Spread all original data (steps, blocks, etc.)
             id: data.id || slug,
             title: data.title,
             description: data.description,
