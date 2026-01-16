@@ -1,0 +1,161 @@
+{
+    "id": "performance-guide",
+    "title": "Performance Optimization",
+    "description": "Maximize your HP OMEN laptop's performance for gaming, productivity, and content creation.",
+    "category": "Performance",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "15 min",
+        "lastUpdated": "Nov 2024"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Performance"
+        },
+        {
+            "label": "Optimization Guide"
+        }
+    ],
+    "steps": [
+        {
+            "id": "power",
+            "title": "Power & Thermal Management",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b1",
+                    "type": "text",
+                    "content": "<p>Optimize power consumption and thermal performance to prevent throttling.</p>"
+                },
+                {
+                    "id": "b2",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "OMEN Gaming Hub",
+                    "content": "<p>Use <strong>Performance</strong> mode for gaming. Use <strong>Comfort</strong> mode for daily tasks to keep fans quiet.</p>"
+                },
+                {
+                    "id": "b3",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "pc1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Windows Power Plan"
+                                },
+                                {
+                                    "id": "p1",
+                                    "type": "text",
+                                    "content": "<p>Set to <strong>High Performance</strong> in Control Panel. Disable 'USB selective suspend'.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "pc2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Background Apps"
+                                },
+                                {
+                                    "id": "p2",
+                                    "type": "text",
+                                    "content": "<p>Disable startup apps in Task Manager. Turn off Windows Game Mode for some competitive titles if it causes input lag.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "gpu",
+            "title": "Graphics Optimization",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b4",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "NVIDIA Control Panel"
+                },
+                {
+                    "id": "b5",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Power Management Mode: Prefer Maximum Performance",
+                            "Texture Filtering Quality: High Performance",
+                            "Vertical Sync: Off (Use in-game settings)",
+                            "Max Frame Rate: Cap at your monitor's refresh rate (e.g. 144Hz) to reduce heat"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "benchmarks",
+            "title": "Benchmark Tools",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b6",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "bc1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "bt1",
+                                    "type": "callout",
+                                    "variant": "success",
+                                    "title": "3DMark",
+                                    "content": "<p>Standard for testing GPU performance.</p>"
+                                },
+                                {
+                                    "id": "bt2",
+                                    "type": "callout",
+                                    "variant": "info",
+                                    "title": "Cinebench R23",
+                                    "content": "<p>Best for testing CPU rendering speed and thermal stability.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "bc2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "bt3",
+                                    "type": "callout",
+                                    "variant": "warning",
+                                    "title": "MSI Afterburner",
+                                    "content": "<p>Essential for monitoring temperatures and frametimes in-game.</p>"
+                                },
+                                {
+                                    "id": "bt4",
+                                    "type": "callout",
+                                    "variant": "tip",
+                                    "title": "UserBenchmark",
+                                    "content": "<p>Quick check to see if components are performing below expectations.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

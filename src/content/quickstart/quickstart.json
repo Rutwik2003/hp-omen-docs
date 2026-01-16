@@ -1,0 +1,207 @@
+{
+    "id": "quickstart",
+    "title": "Quick Start Guide",
+    "description": "Get your OMEN laptop set up and optimized in just a few steps. Follow this guide to ensure you're getting the best performance from day one.",
+    "category": "Quick Start",
+    "metadata": {
+        "difficulty": "Beginner",
+        "readTime": "5 min",
+        "lastUpdated": "Sep 2024"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Quick Start"
+        },
+        {
+            "label": "Initial Setup"
+        }
+    ],
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "Unbox and Initial Setup",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b1",
+                    "type": "text",
+                    "content": "<p>Get your OMEN laptop ready for first use.</p>"
+                },
+                {
+                    "id": "b2",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Remove all packaging materials and protective films",
+                            "Connect the power adapter and charge to 100%",
+                            "Power on and complete Windows setup wizard",
+                            "Connect to Wi-Fi network",
+                            "Update Windows to latest version"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "step-2",
+            "title": "Essential Software Installation",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b3",
+                    "type": "text",
+                    "content": "<p>Install critical HP software and drivers.</p>"
+                },
+                {
+                    "id": "b4",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Download and install HP Support Assistant",
+                            "Install OMEN Gaming Hub from Microsoft Store",
+                            "Update all drivers through HP Support Assistant",
+                            "Install latest NVIDIA/AMD graphics drivers",
+                            "Configure Windows Update settings"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "step-3",
+            "title": "Performance Configuration",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b5",
+                    "type": "text",
+                    "content": "<p>Optimize your system for gaming and productivity.</p>"
+                },
+                {
+                    "id": "b6",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Configure power plans in OMEN Gaming Hub",
+                            "Set up thermal profiles for different use cases",
+                            "Configure RGB lighting preferences",
+                            "Adjust display settings (refresh rate, color profile)",
+                            "Enable XMP/DOCP in BIOS if supported"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "step-4",
+            "title": "Gaming Setup",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b7",
+                    "type": "text",
+                    "content": "<p>Configure your laptop for optimal gaming experience.</p>"
+                },
+                {
+                    "id": "b8",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Install Steam, Epic Games, or preferred game launchers",
+                            "Configure NVIDIA Control Panel/AMD Radeon Software",
+                            "Set up Game Mode in Windows",
+                            "Configure audio settings and spatial sound",
+                            "Test performance with benchmark tools"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "step-5",
+            "title": "Essential Downloads",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b9",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "g1-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "b10",
+                                    "type": "callout",
+                                    "variant": "info",
+                                    "title": "HP Support Assistant",
+                                    "content": "<p>Automatic driver updates and system diagnostics.</p><a href='https://support.hp.com/us-en/help/hp-support-assistant'>Download</a>"
+                                },
+                                {
+                                    "id": "b11",
+                                    "type": "callout",
+                                    "variant": "success",
+                                    "title": "NVIDIA GeForce Experience",
+                                    "content": "<p>Graphics driver updates and game optimization.</p><a href='https://www.nvidia.com/en-us/geforce/geforce-experience/'>Download</a>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g1-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "b12",
+                                    "type": "callout",
+                                    "variant": "info",
+                                    "title": "OMEN Gaming Hub",
+                                    "content": "<p>Performance monitoring and system optimization.</p><a href='ms-windows-store://pdp/?productid=9NRDR7P8S58S'>Download</a>"
+                                },
+                                {
+                                    "id": "b13",
+                                    "type": "callout",
+                                    "variant": "success",
+                                    "title": "AMD Radeon Software",
+                                    "content": "<p>AMD graphics drivers and optimization tools.</p><a href='https://www.amd.com/en/support'>Download</a>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "step-6",
+            "title": "Important Tips",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b14",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "First Boot Tips",
+                    "content": "<p>Allow your laptop to fully boot and complete initial Windows setup before installing additional software. This prevents conflicts and ensures smooth operation.</p>"
+                },
+                {
+                    "id": "b15",
+                    "type": "callout",
+                    "variant": "tip",
+                    "title": "BIOS Settings",
+                    "content": "<p>Access BIOS by pressing F10 during startup. Enable XMP/DOCP for RAM, set boot priority, and configure thermal settings if needed.</p>"
+                },
+                {
+                    "id": "b16",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Thermal Management",
+                    "content": "<p>Use OMEN Gaming Hub to create performance profiles. \"Comfort\" for daily use, \"Performance\" for gaming, and \"Cool\" for quiet operation.</p>"
+                }
+            ]
+        }
+    ]
+}

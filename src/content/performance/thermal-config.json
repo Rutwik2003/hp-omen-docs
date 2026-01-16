@@ -1,0 +1,26 @@
+{
+    "id": "thermal-config",
+    "title": "Thermal Configuration",
+    "description": "Advanced fan control and repasting guide.",
+    "category": "Performance",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "45 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Performance",
+            "path": "/performance"
+        },
+        {
+            "label": "Thermal Config"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

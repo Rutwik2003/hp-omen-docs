@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* OMEN Dark Theme */
+:root {
+  /* Core Colors */
+  --omen-primary: #ff6b35;
+  --omen-secondary: #ff4500;
+  --omen-accent: #ff8c42;
+  --omen-dark: #0a0a0a;
+  --omen-darker: #050505;
+  --omen-gray: #1a1a1a;
+  --omen-light-gray: #2a2a2a;
+
+  /* Glassmorphism & Neon */
+  --glass-bg: rgba(26, 26, 26, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --neon-blue: #00f3ff;
+  --neon-purple: #bd00ff;
+  --neon-orange: #ff6b35;
+  
+  /* Layout */
+  --sidebar-width: 280px;
+  --header-height: 64px;
+}
+
+body {
+  background-color: var(--omen-dark);
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--omen-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--omen-light-gray);
+  border-radius: 4px;
+  border: 2px solid var(--omen-darker);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--omen-primary);
+}
+
+/* OMEN glow effects */
+.omen-glow {
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+}
+
+.omen-glow-text {
+  text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+}
+
+.neon-border {
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 0 5px rgba(255, 107, 53, 0.2), inset 0 0 10px rgba(255, 107, 53, 0.05);
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Utility Animations */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 53, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(255, 107, 53, 0.4); }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s infinite;
+}
+
+/* Documentation Content Styling */
+.documentation-content {
+  @apply text-gray-300 leading-relaxed;
+}
+
+.documentation-content h1 {
+  @apply text-4xl font-bold text-white mb-8 mt-4 tracking-tight;
+  font-family: 'Outfit', sans-serif;
+}
+
+.documentation-content h2 {
+  @apply text-2xl font-semibold text-white mb-6 mt-10 flex items-center;
+  font-family: 'Outfit', sans-serif;
+}
+
+.documentation-content h2::before {
+  content: '';
+  @apply w-1.5 h-8 bg-orange-500 rounded-full mr-3 block;
+}
+
+.documentation-content h3 {
+  @apply text-xl font-medium text-orange-400 mb-4 mt-8;
+}
+
+.documentation-content p {
+  @apply mb-6 text-gray-300 leading-7;
+}
+
+.documentation-content ul {
+  @apply mb-6 space-y-3 pl-2;
+}
+
+.documentation-content li {
+  @apply flex items-start space-x-3;
+}
+
+.documentation-content li::before {
+  content: "→";
+  @apply text-orange-500 font-bold mt-0.5;
+}
+
+.documentation-content code {
+  @apply bg-gray-900 border border-gray-700 text-orange-300 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.documentation-content pre {
+  @apply bg-[#050505] border border-gray-800 rounded-xl p-5 mb-6 overflow-x-auto;
+}
+
+.documentation-content pre code {
+  @apply bg-transparent border-none text-gray-300 p-0;
+}
+
+.documentation-content a {
+  @apply text-orange-400 hover:text-orange-300 border-b border-orange-500/30 hover:border-orange-500 transition-all no-underline;
+}
+
+/* Layout Utilities */
+.safe-area-inset {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}

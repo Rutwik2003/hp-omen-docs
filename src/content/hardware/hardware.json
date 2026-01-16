@@ -1,0 +1,164 @@
+{
+    "id": "hardware-upgrades",
+    "title": "Hardware Upgrades",
+    "description": "Complete guides for upgrading RAM, SSD, and maintaining your HP OMEN laptop hardware.",
+    "category": "Hardware",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "25 min",
+        "lastUpdated": "Dec 2024"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Hardware"
+        },
+        {
+            "label": "Upgrades"
+        }
+    ],
+    "steps": [
+        {
+            "id": "safety",
+            "title": "Safety First",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b0",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Before You Start",
+                    "content": "<p>Always <strong>power off</strong> your laptop and disconnect the charger. Use an <strong>anti-static wrist strap</strong> or touch a grounded metal object before touching components.</p>"
+                }
+            ]
+        },
+        {
+            "id": "ram",
+            "title": "RAM Upgrade",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b1",
+                    "type": "text",
+                    "content": "<p>Upgrade your system memory for better multitasking and gaming performance.</p>"
+                },
+                {
+                    "id": "b2",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "ram-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Compatibility"
+                                },
+                                {
+                                    "id": "p1",
+                                    "type": "text",
+                                    "content": "<ul><li>DDR4-3200MHz SO-DIMM</li><li>Up to 64GB (2x32GB) supported</li><li>Dual-channel recommended</li></ul>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ram-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Tools Needed"
+                                },
+                                {
+                                    "id": "p2",
+                                    "type": "text",
+                                    "content": "<ul><li>Phillips #0 screwdriver</li><li>Plastic pry tool</li></ul>"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "b3",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Remove bottom panel screws",
+                            "Gently pry open the case starting from the hinge",
+                            "Locate RAM slots (under metal shield on some models)",
+                            "Push metal clips outward to release old stick",
+                            "Insert new stick at 45° angle and push down"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "ssd",
+            "title": "SSD Upgrade",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b4",
+                    "type": "text",
+                    "content": "<p>Add more storage or replace your primary drive for more games.</p>"
+                },
+                {
+                    "id": "b5",
+                    "type": "callout",
+                    "variant": "tip",
+                    "title": "Pro Tip",
+                    "content": "<p>Most OMEN laptops have <strong>two M.2 slots</strong>. You can often add a drive without removing the original.</p>"
+                },
+                {
+                    "id": "b6",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Locate the empty M.2 slot",
+                            "Remove the retaining screw",
+                            "Insert M.2 NVMe SSD at 30° angle",
+                            "Secure with the screw (do not overtighten)",
+                            "Initialize drive in Windows Disk Management"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "maintenance",
+            "title": "Maintenance",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b7",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Cleaning Fans"
+                },
+                {
+                    "id": "b8",
+                    "type": "text",
+                    "content": "<p>Dust buildup causes overheating. Use compressed air to clean vents every 3-6 months. Hold the fans still while spraying to prevent damage.</p>"
+                },
+                {
+                    "id": "b9",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Battery Health"
+                },
+                {
+                    "id": "b10",
+                    "type": "text",
+                    "content": "<p>Perform a battery calibration via HP Support Assistant once a year to keep percentage readings accurate.</p>"
+                }
+            ]
+        }
+    ]
+}

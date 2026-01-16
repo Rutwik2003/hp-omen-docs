@@ -1,0 +1,26 @@
+{
+    "id": "thermal-mgmt",
+    "title": "Thermal Management",
+    "description": "Managing heat and fan curves.",
+    "category": "Windows",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "15 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Windows",
+            "path": "/windows"
+        },
+        {
+            "label": "Thermal Mgmt"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

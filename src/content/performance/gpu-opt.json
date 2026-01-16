@@ -1,0 +1,26 @@
+{
+    "id": "gpu-opt",
+    "title": "GPU Optimization",
+    "description": "Overclocking and driver tuning.",
+    "category": "Performance",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "30 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Performance",
+            "path": "/performance"
+        },
+        {
+            "label": "GPU Opt"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

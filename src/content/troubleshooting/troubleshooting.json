@@ -1,0 +1,119 @@
+{
+    "id": "common-issues",
+    "title": "Troubleshooting Guide",
+    "description": "Solutions to common HP OMEN laptop issues, including performance drops, overheating, and hardware glitches.",
+    "category": "Troubleshooting",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "10 min",
+        "lastUpdated": "Oct 2024"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Troubleshooting"
+        },
+        {
+            "label": "Common Issues"
+        }
+    ],
+    "steps": [
+        {
+            "id": "perf-issues",
+            "title": "Performance Issues",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b1",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Low FPS / Stuttering"
+                },
+                {
+                    "id": "b2",
+                    "type": "text",
+                    "content": "<p><strong>Symptoms:</strong> Low frame rates, lag, slowdowns.</p>"
+                },
+                {
+                    "id": "b3",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Check if running on Integrated Graphics (orange power light = dGPU active)",
+                            "Plug in power adapter (battery limits performance)",
+                            "Check temperatures for throttling (>95°C CPU or >86°C GPU)",
+                            "Update GPU drivers via GeForce Experience"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "thermal",
+            "title": "Overheating",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b4",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "High Temperatures",
+                    "content": "<p>If your laptop is shutting down or throttling heavily, ensure vents are clear. Elevate the back of the laptop for better airflow.</p>"
+                },
+                {
+                    "id": "b5",
+                    "type": "text",
+                    "content": "<p><strong>Fans Running Loudly:</strong> This is normal during gaming. If they run loud at idle, check Task Manager for background processes or update BIOS.</p>"
+                }
+            ]
+        },
+        {
+            "id": "hardware",
+            "title": "Hardware Glitches",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b6",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "hc1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "ht1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Trackpad"
+                                },
+                                {
+                                    "id": "hp1",
+                                    "type": "text",
+                                    "content": "<p>If trackpad stops working, check if disabled (Fn+F11 or similar). Check device manager for driver errors.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "hc2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "ht2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "WiFi"
+                                },
+                                {
+                                    "id": "hp2",
+                                    "type": "text",
+                                    "content": "<p>If WiFi disappears, hold power button for 30s to reset EC (Embedded Controller). Update Intel/Realtek drivers.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

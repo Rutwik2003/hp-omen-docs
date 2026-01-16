@@ -1,0 +1,26 @@
+{
+    "id": "performance-config",
+    "title": "Performance Configuration",
+    "description": "Learn how to tune your OMEN laptop for the best balance of speed and thermals.",
+    "category": "Quick Start",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "10 mins",
+        "lastUpdated": "Aug 2025"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Quick Start",
+            "path": "/quickstart"
+        },
+        {
+            "label": "Performance Config"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "This detailed guide is currently being written. Please check back later."
+        }
+    ]
+}

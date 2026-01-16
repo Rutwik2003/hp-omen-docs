@@ -1,0 +1,68 @@
+{
+    "id": "gaming-setup",
+    "title": "Windows Gaming Setup",
+    "description": "Optimize your Windows 11 installation for maximum gaming performance and minimum latency. This guide covers essential debloating and configuration steps.",
+    "category": "Windows",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "20-30 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Windows Guides",
+            "path": "/windows"
+        },
+        {
+            "label": "Gaming Setup"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Optimization Goal",
+            "content": "The goal of this guide is to reduce background processes, optimize system scheduling for games, and ensure your input latency is as low as possible.",
+            "infoBox": {
+                "type": "info",
+                "title": "Goal",
+                "content": "Reduce background processes, optimize system scheduling, and minimize input latency."
+            }
+        },
+        {
+            "title": "1. Debloat Windows",
+            "content": "Windows 11 comes with many pre-installed applications that consume system resources. Removing them frees up memory and CPU cycles.",
+            "prerequisites": [
+                "Bloatbox (Open source debloater)",
+                "O&O ShutUp10++ (Privacy and formatting tool)"
+            ],
+            "infoBox": {
+                "type": "warning",
+                "title": "Backup First",
+                "content": "Always create a System Restore point before removing system components."
+            }
+        },
+        {
+            "title": "2. Power Plan Configuration",
+            "content": "Ensure your laptop is running in High Performance mode to prevent frequency throttling during gameplay. <br/> 1. Open Control Panel. <br/> 2. Navigate to <strong>Hardware and Sound > Power Options</strong>. <br/> 3. Select <strong>High Performance</strong> or <strong>Ultimate Performance</strong>."
+        },
+        {
+            "title": "3. Disable Mouse Acceleration",
+            "content": "Mouse acceleration (Enhanced Pointer Precision) ruins muscle memory in FPS games.",
+            "prerequisites": [
+                "Open Mouse Settings",
+                "Click 'Additional mouse settings'",
+                "Go to 'Pointer Options' tab",
+                "Uncheck 'Enhance pointer precision'",
+                "Click Apply and OK"
+            ]
+        },
+        {
+            "title": "4. Game Mode & Graphics Settings",
+            "content": "Windows Game Mode helps prioritize games over background tasks. <br/> <ul><li>Go to <strong>Settings > Gaming > Game Mode</strong> and turn it <strong>ON</strong>.</li><li>Go to <strong>Settings > System > Display > Graphics</strong>.</li><li>Click 'Change default graphics settings'.</li><li>Turn <strong>ON</strong> 'Hardware-accelerated GPU scheduling'.</li></ul>",
+            "infoBox": {
+                "type": "tip",
+                "title": "Restart Required",
+                "content": "Hardware-accelerated GPU scheduling requires a system restart to take effect."
+            }
+        }
+    ]
+}

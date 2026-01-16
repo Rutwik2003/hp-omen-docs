@@ -1,0 +1,205 @@
+{
+    "id": "linux-guide",
+    "title": "Linux on OMEN",
+    "description": "Complete setup and optimization guide for running Linux on your HP OMEN laptop. From installation to gaming.",
+    "category": "Linux",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "20 min",
+        "lastUpdated": "Nov 2024"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Linux"
+        },
+        {
+            "label": "Setup Guide"
+        }
+    ],
+    "steps": [
+        {
+            "id": "distros",
+            "title": "Recommended Distributions",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b1",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Pop!_OS (Recommended)"
+                                },
+                                {
+                                    "id": "p1",
+                                    "type": "text",
+                                    "content": "<p>Gaming-focused, pre-installed NVIDIA drivers, excellent hardware support.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Ubuntu 24.04 LTS"
+                                },
+                                {
+                                    "id": "p2",
+                                    "type": "text",
+                                    "content": "<p>Most popular, stable, easy driver installation, huge community support.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "c3",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t3",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Manjaro / Arch"
+                                },
+                                {
+                                    "id": "p3",
+                                    "type": "text",
+                                    "content": "<p>For advanced users. Latest kernels/drivers, AUR access, performance focus.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "c4",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t4",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Fedora"
+                                },
+                                {
+                                    "id": "p4",
+                                    "type": "text",
+                                    "content": "<p>Cutting-edge features, Wayland support, pure GNOME experience.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "setup",
+            "title": "Initial Setup",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b2",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Disable Secure Boot in BIOS (F10)",
+                            "Create bootable USB using Rufus (Windows) or Etcher",
+                            "Boot from USB (F9)",
+                            "Install OS (Select 'Install third-party software' for drivers)",
+                            "Update system: `sudo apt update && sudo apt upgrade`"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "drivers",
+            "title": "Graphics Drivers",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b3",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "NVIDIA Driver Installation"
+                },
+                {
+                    "id": "b4",
+                    "type": "code",
+                    "language": "bash",
+                    "code": "# Ubuntu/Pop!_OS\nsudo apt install nvidia-driver-535\n\n# Arch/Manjaro\nsudo pacman -S nvidia nvidia-utils"
+                },
+                {
+                    "id": "b5",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Hybrid Graphics",
+                    "content": "<p>For laptops, you need to manage switching between iGPU and dGPU. We recommend <strong>optimus-manager</strong> (Arch) or using the built-in prime-select tool (Ubuntu).</p>"
+                }
+            ]
+        },
+        {
+            "id": "gaming",
+            "title": "Gaming Setup",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b6",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Install Steam Native",
+                            "Enable Steam Play (Proton) for all titles in Settings",
+                            "Install Lutris for non-Steam games (Epic, GOG)",
+                            "Install GameMode: `sudo apt install gamemode`"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "commands",
+            "title": "Essential Commands",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b7",
+                    "type": "table",
+                    "content": {
+                        "headers": [
+                            "Command",
+                            "Description"
+                        ],
+                        "rows": [
+                            [
+                                "nvidia-smi",
+                                "Check GPU status and usage"
+                            ],
+                            [
+                                "htop",
+                                "Monitor system resources"
+                            ],
+                            [
+                                "sensors",
+                                "Check temperatures"
+                            ],
+                            [
+                                "lscpu",
+                                "CPU information"
+                            ]
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

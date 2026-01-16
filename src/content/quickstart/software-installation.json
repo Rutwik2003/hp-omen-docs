@@ -1,0 +1,85 @@
+{
+    "id": "software-installation",
+    "title": "Essential Software Installation",
+    "description": "Install critical HP software and drivers to ensure your OMEN laptop runs at peak performance. This guide covers the essential software every OMEN user should install.",
+    "category": "Quick Start",
+    "metadata": {
+        "difficulty": "Beginner",
+        "readTime": "15-20 mins",
+        "lastUpdated": "Aug 2025"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Quick Start",
+            "path": "/quickstart"
+        },
+        {
+            "label": "Software Installation"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Installation Order Matters",
+            "content": "Install software in the order presented below for best compatibility and to avoid conflicts.",
+            "infoBox": {
+                "type": "warning",
+                "title": "Important",
+                "content": "Install software in the order presented below for best compatibility and to avoid conflicts."
+            }
+        },
+        {
+            "title": "1. HP Support Assistant",
+            "content": "Automatic driver updates and system diagnostics. <br/> **Duration**: 5 minutes <br/> **Priority**: Critical",
+            "prerequisites": [
+                "Download and run the installer from HP's official website",
+                "Follow the installation wizard (accept defaults)",
+                "Allow automatic startup for continuous monitoring",
+                "Run initial system scan after installation"
+            ],
+            "codeBlock": {
+                "language": "url",
+                "code": "https://support.hp.com/us-en/help/hp-support-assistant",
+                "copyable": true
+            }
+        },
+        {
+            "title": "2. OMEN Gaming Hub",
+            "content": "Performance monitoring and system optimization. <br/> **Duration**: 3 minutes <br/> **Priority**: Critical",
+            "prerequisites": [
+                "Open Microsoft Store and search for 'OMEN Gaming Hub'",
+                "Click 'Install' and wait for download completion",
+                "Launch and complete initial setup wizard",
+                "Configure performance profiles for your usage"
+            ],
+            "codeBlock": {
+                "language": "url",
+                "code": "ms-windows-store://pdp/?productid=9NRDR7P8S58S",
+                "copyable": true
+            }
+        },
+        {
+            "title": "3. Graphics Drivers (NVIDIA/AMD)",
+            "content": "Graphics driver updates and game optimization. <br/> **Duration**: 10 minutes <br/> **Priority**: Important",
+            "prerequisites": [
+                "Download NVIDIA GeForce Experience or AMD Radeon Software",
+                "Run installer with administrator privileges",
+                "Choose 'Express Installation' for automatic setup",
+                "Restart computer when prompted"
+            ],
+            "codeBlock": {
+                "language": "url",
+                "code": "https://www.nvidia.com/en-us/geforce/geforce-experience/",
+                "copyable": true
+            }
+        },
+        {
+            "title": "Verify Installation",
+            "content": "After installing all essential software, verify everything is working correctly.",
+            "infoBox": {
+                "type": "success",
+                "title": "Verification Checklist",
+                "content": "<ul><li>Check HP Support Assistant for any pending updates</li><li>Open OMEN Gaming Hub and verify all hardware is detected</li><li>Check graphics driver status in Device Manager</li></ul>"
+            }
+        }
+    ]
+}

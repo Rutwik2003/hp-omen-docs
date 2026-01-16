@@ -1,0 +1,26 @@
+{
+    "id": "security-updates",
+    "title": "Security & Updates",
+    "description": "Staying safe without compromising performance.",
+    "category": "Windows",
+    "metadata": {
+        "difficulty": "Beginner",
+        "readTime": "5 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Windows",
+            "path": "/windows"
+        },
+        {
+            "label": "Security"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+    "id": "gaming-setup",
+    "title": "Ultimate Gaming Setup",
+    "description": "Transform your HP OMEN laptop into the ultimate gaming machine. Set up game libraries, optimize graphics settings, and configure essential gaming tools for the best experience.",
+    "category": "Quick Start",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "20-30 mins",
+        "lastUpdated": "Sep 2025"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Quick Start",
+            "path": "/quickstart"
+        },
+        {
+            "label": "Gaming Setup"
+        }
+    ],
+    "prerequisites": {
+        "title": "Before You Begin",
+        "type": "info",
+        "items": [
+            "Performance Configuration completed",
+            "Stable internet connection",
+            "At least 50GB free storage",
+            "Gaming headset or speakers (Recommended)",
+            "External gaming mouse (Recommended)"
+        ]
+    },
+    "steps": [
+        {
+            "title": "1. Gaming Platforms Setup",
+            "content": "Install and configure major gaming platforms to access your game library and optimize downloads.<br/><br/><strong>Steam Setup</strong>:<br/>- <a href='https://store.steampowered.com/' target='_blank' class='text-blue-400'>Download Steam</a><br/>- Settings > Downloads > Set download region to nearest location<br/><br/><strong>Epic Games Store</strong>:<br/>- <a href='https://www.epicgames.com/store/' target='_blank' class='text-purple-400'>Download Launcher</a><br/>- Enable 'Close launcher when game starts'<br/><br/><strong>Xbox Game Pass</strong>:<br/>- Download Xbox App from Microsoft Store<br/>- Sign in and subscribed to Game Pass Ultimate"
+        },
+        {
+            "title": "2. Graphics & Display Settings",
+            "content": "Configure optimal graphics settings for different game types.<br/><br/><strong>Competitive Gaming (FPS, MOBA)</strong>:<br/>- Resolution: 1080p<br/>- Graphics: Medium-Low<br/>- V-Sync: Off<br/>- FPS: Uncapped<br/><br/><strong>Cinematic Gaming (Story)</strong>:<br/>- Resolution: Max supported<br/>- Graphics: Ultra/Max<br/>- V-Sync: On<br/>- Anti-Aliasing: MSAA 4x/8x"
+        },
+        {
+            "title": "3. Gaming Peripherals & Audio",
+            "content": "<strong>Audio Optimization</strong>:<br/>- Enable Spatial Audio (Windows Sonic)<br/>- Use OMEN Audio Control for equalizer<br/><br/><strong>Mouse & Keyboard</strong>:<br/>- Set Mouse DPI to 800-1600<br/>- Disable Mouse Acceleration (Enhance pointer precision)<br/>- Enable Gaming Mode on keyboard to disable Windows key"
+        },
+        {
+            "title": "4. Network & Connection",
+            "content": "Optimize your network for low latency.<br/>- Use Wired Ethernet when possible<br/>- For Wi-Fi, connect to 5GHz band<br/>- Enable 'Gaming Mode' in router settings if available"
+        },
+        {
+            "title": "5. Essential Gaming Tools",
+            "content": "Install useful tools to enhance experience:<br/>- <strong>MSI Afterburner</strong>: GPU monitoring<br/>- <strong>HWiNFO64</strong>: System monitoring<br/>- <strong>Discord</strong>: Voice chat<br/>- <strong>OBS Studio</strong>: Streaming/Recording"
+        },
+        {
+            "title": "Troubleshooting Common Issues",
+            "content": "<strong>Low FPS / Stuttering</strong>:<br/>- Switch to Performance Mode in OMEN Hub<br/>- Lower shadows/AA<br/><br/><strong>Game Won't Launch</strong>:<br/>- Run as Administrator<br/>- Verify game files<br/><br/><strong>Audio Issues</strong>:<br/>- Check default device<br/>- Disable exclusive mode"
+        }
+    ]
+}

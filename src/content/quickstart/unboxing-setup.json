@@ -1,0 +1,78 @@
+{
+    "id": "unboxing-setup",
+    "title": "Unboxing and Initial Setup",
+    "description": "Your HP OMEN laptop comes carefully packaged with everything you need to get started. Follow this step-by-step guide to safely unbox and perform the initial setup.",
+    "category": "Quick Start",
+    "metadata": {
+        "difficulty": "Beginner",
+        "readTime": "30-45 mins",
+        "lastUpdated": "Aug 2025"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Quick Start",
+            "path": "/quickstart"
+        },
+        {
+            "label": "Unboxing & Initial Setup"
+        }
+    ],
+    "prerequisites": {
+        "title": "Before You Begin",
+        "type": "warning",
+        "items": [
+            "Ensure you have a stable Wi-Fi connection available",
+            "Have your Microsoft account credentials ready",
+            "Set aside 30-45 minutes for initial setup"
+        ]
+    },
+    "steps": [
+        {
+            "title": "Unboxing Your OMEN",
+            "content": "Carefully remove your OMEN laptop from the box and inspect all included items. <br/><br/> **What's in the Box:**",
+            "prerequisites": [
+                "HP OMEN Laptop",
+                "Power Adapter and Cable",
+                "Documentation and Warranty Information",
+                "Quick Start Guide"
+            ],
+            "infoBox": {
+                "type": "info",
+                "title": "Tip",
+                "content": "Keep all packaging materials until you're satisfied with your purchase. They may be needed if you need to return or exchange the laptop."
+            }
+        },
+        {
+            "title": "Initial Power Setup",
+            "content": "Before first use, charge your laptop and perform initial power configuration. <br/> 1. Connect the power adapter to your laptop and plug into wall outlet <br/> 2. Allow the laptop to charge to 100% before first boot (usually 2-3 hours) <br/> 3. Press the power button to turn on your OMEN laptop",
+            "infoBox": {
+                "type": "warning",
+                "title": "Important",
+                "content": "Don't skip the initial charging. This helps calibrate the battery and ensures optimal battery life from day one."
+            }
+        },
+        {
+            "title": "Windows Setup Wizard",
+            "content": "Complete the Windows 11 setup process to configure your user account and preferences. Standard setup involves selecting your region, connecting to Wi-Fi, and signing in with Microsoft.",
+            "codeBlock": {
+                "language": "bash",
+                "code": "OOBE\\BYPASSNRO",
+                "copyable": true
+            },
+            "infoBox": {
+                "type": "info",
+                "title": "Skip Network Setup (Advanced)",
+                "content": "If you prefer to set up Windows 11 without connecting to Wi-Fi initially (to create a local account), press **Shift + F10** at the network screen, type the command above, and restart."
+            }
+        },
+        {
+            "title": "Initial Updates",
+            "content": "After completing setup, install critical system updates. <br/> 1. Open Settings (Windows key + I) <br/> 2. Navigate to Windows Update <br/> 3. Click 'Check for updates' and install all available updates",
+            "infoBox": {
+                "type": "success",
+                "title": "Success!",
+                "content": "Your OMEN laptop is now ready for software installation and configuration. This completes the initial unboxing and setup process."
+            }
+        }
+    ]
+}

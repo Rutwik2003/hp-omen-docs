@@ -1,0 +1,26 @@
+{
+    "id": "performance-opt",
+    "title": "Windows Performance Optimization",
+    "description": "Deep dive into Windows registry tweaks and services for maximum FPS.",
+    "category": "Windows",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "25 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Windows",
+            "path": "/windows"
+        },
+        {
+            "label": "Performance Opt"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

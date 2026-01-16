@@ -1,0 +1,26 @@
+{
+    "id": "storage-opt",
+    "title": "Storage Optimization",
+    "description": "SSD maintenance and partition management.",
+    "category": "Performance",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "15 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Performance",
+            "path": "/performance"
+        },
+        {
+            "label": "Storage Opt"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

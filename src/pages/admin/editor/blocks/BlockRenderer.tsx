@@ -1,0 +1,78 @@
+import React from 'react';
+import { GripVertical, X } from 'lucide-react';
+import { Block } from '../../../../types/blocks';
+import { useEditorStore } from '../../../../store/editorStore';
+import RichTextBlock from './RichTextBlock';
+import CodeBlockEditor from './CodeBlockEditor';
+import CalloutBlockEditor from './CalloutBlockEditor';
+import GridBlockEditor from './GridBlockEditor';
+import TableBlockEditor from './TableBlockEditor';
+import ImageBlockEditor from './ImageBlockEditor';
+
+interface BlockRendererProps {
+  stepId: string;
+  block: Block;
+  dragHandleProps?: any;
+  level?: number;
+}
+
+const BlockRenderer: React.FC<BlockRendererProps> = ({ stepId, block, dragHandleProps, level = 0 }) => {
+  const { removeBlock } = useEditorStore();
+  const isNested = level > 0;
+
+  const renderContent = () => {
+    switch (block.type) {
+      case 'text':
+      case 'heading':
+        return <RichTextBlock stepId={stepId} block={block} />;
+      case 'code':
+        return <CodeBlockEditor stepId={stepId} block={block as any} />;
+      case 'callout':
+        return <CalloutBlockEditor stepId={stepId} block={block as any} />;
+      case 'grid':
+        return <GridBlockEditor stepId={stepId} block={block as any} />;
+      case 'table':
+          return <TableBlockEditor stepId={stepId} block={block as any} />;
+      case 'image':
+          return <ImageBlockEditor stepId={stepId} block={block as any} />;
+      default:
+        return <div className="text-red-500">Unknown block type: {block.type}</div>;
+    }
+  };
+
+  return (
+    <div className={`group relative flex items-start ${isNested ? '' : ''} pr-4`}>
+       {/* Hover Controls */}
+       <div className={`opacity-0 group-hover:opacity-100 transition-opacity absolute right-full ${isNested ? 'mr-1' : 'mr-2'} flex items-center h-full pt-1.5 top-0`}>
+          <div className={`flex ${isNested ? 'flex-col' : 'flex-row'} bg-neutral-900 border border-neutral-700 rounded shadow-lg overflow-hidden`}>
+             <button 
+                {...dragHandleProps}
+                className="p-1.5 text-neutral-400 hover:text-white cursor-grab hover:bg-neutral-800"
+                title="Drag to move"
+             >
+                <GripVertical className="w-4 h-4" />
+             </button>
+             <button 
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Removing block', stepId, block.id);
+                    removeBlock(stepId, block.id); 
+                }}
+                className="p-1.5 text-neutral-400 hover:text-red-400 hover:bg-neutral-800"
+                title="Delete block"
+             >
+                <X className="w-4 h-4" />
+             </button>
+          </div>
+       </div>
+
+       {/* Block Content */}
+       <div className="flex-1 min-w-0">
+           {renderContent()}
+       </div>
+    </div>
+  );
+};
+
+export default BlockRenderer;

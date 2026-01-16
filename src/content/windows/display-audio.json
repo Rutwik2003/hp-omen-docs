@@ -1,0 +1,26 @@
+{
+    "id": "display-audio",
+    "title": "Display & Audio Settings",
+    "description": "Calibrating your screen and speakers.",
+    "category": "Windows",
+    "metadata": {
+        "difficulty": "Beginner",
+        "readTime": "10 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Windows",
+            "path": "/windows"
+        },
+        {
+            "label": "Display & Audio"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

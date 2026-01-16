@@ -1,0 +1,26 @@
+{
+    "id": "cpu-opt",
+    "title": "CPU Optimization",
+    "description": "Undervolting and power limits.",
+    "category": "Performance",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "30 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Performance",
+            "path": "/performance"
+        },
+        {
+            "label": "CPU Opt"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}

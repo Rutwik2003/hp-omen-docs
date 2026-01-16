@@ -1,0 +1,155 @@
+{
+    "id": "optimization",
+    "title": "Windows Optimization",
+    "description": "Comprehensive guide to optimizing Windows for gaming performance on your HP OMEN.",
+    "category": "Windows",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "15 min",
+        "lastUpdated": "Oct 2024"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Windows"
+        },
+        {
+            "label": "Optimization"
+        }
+    ],
+    "steps": [
+        {
+            "id": "step-1",
+            "title": "Gaming Setup & Optimization",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b1",
+                    "type": "text",
+                    "content": "<p>Configure Windows for optimal gaming performance.</p>"
+                },
+                {
+                    "id": "b2",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Game Mode configuration: Turn ON in Windows Settings > Gaming",
+                            "Graphics settings: Set High Performance for games",
+                            "Install Visual C++ Redistributables (All years)",
+                            "Disable Fullscreen Optimizations for older titles"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "step-2",
+            "title": "Driver Management",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b3",
+                    "type": "text",
+                    "content": "<p>Keep your drivers up-to-date for best performance.</p>"
+                },
+                {
+                    "id": "b4",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "col1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "HP Support Assistant"
+                                },
+                                {
+                                    "id": "p1",
+                                    "type": "text",
+                                    "content": "<p>Use for BIOS, Audio, and Chipset updates.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "col2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "t2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "GPU Drivers"
+                                },
+                                {
+                                    "id": "p2",
+                                    "type": "text",
+                                    "content": "<p>Use NVIDIA GeForce Experience or AMD Adrenalin for graphics drivers.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "step-3",
+            "title": "Thermal Management",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b5",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "OMEN Gaming Hub",
+                    "content": "<p>Use the <strong>Performance Control</strong> tab to manage fan curves. 'Max' fans are recommended for heavy gaming sessions.</p>"
+                }
+            ]
+        },
+        {
+            "id": "step-4",
+            "title": "Common Tasks",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "b6",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Configure Game Mode"
+                },
+                {
+                    "id": "b7",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Open Windows Settings (Win + I)",
+                            "Go to Gaming > Game Mode",
+                            "Toggle 'On'"
+                        ]
+                    }
+                },
+                {
+                    "id": "b8",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Set High Performance Power Plan"
+                },
+                {
+                    "id": "b9",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Open Control Panel > Power Options",
+                            "Select 'High Performance' (or OMEN Power Plan if available)"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

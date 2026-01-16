@@ -1,0 +1,52 @@
+[
+  {
+    "id": "hall-sensor",
+    "problem": "Hall Sensor Issue",
+    "description": "Design flaw in 2023 models affecting the Hall Sensor ribbon cable placement, often causing black screen issues or sleep mode problems.",
+    "symptoms": [
+      "Black screen upon opening lid",
+      "Laptop failing to wake from sleep",
+      "Intermittent display issues"
+    ],
+    "solutions": [
+      "Disconnect the Hall Sensor ribbon cable (loss of lid close sleep function)",
+      "Contact HP Support for motherboard replacement (if under warranty)",
+      "Professional repair service to reroute/replace ribbon cable"
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "battery-drain",
+    "problem": "High Battery Drain",
+    "description": "Excessive battery consumption even during light usage or sleep.",
+    "symptoms": [
+      "Battery depleting rapidly in standby",
+      "Low battery life during non-gaming tasks",
+      "Laptop warm to touch while in sleep mode"
+    ],
+    "solutions": [
+      "Update BIOS to latest version",
+      "Disable 'Fast Startup' in Windows Power Options",
+      "Check for background apps preventing sleep",
+      "Calibrate battery using HP Support Assistant"
+    ],
+    "severity": "high"
+  },
+  {
+    "id": "driver-power-state",
+    "problem": "Driver Power State Failure",
+    "description": "Blue Screen of Death (BSOD) with error DRIVER_POWER_STATE_FAILURE, usually linked to power management transitions.",
+    "symptoms": [
+      "Blue Screen of Death (BSOD)",
+      "System freeze during sleep/wake cycles",
+      "Crash when switching power states"
+    ],
+    "solutions": [
+      "Update graphics and chipset drivers",
+      "Change Power Plan to High Performance",
+      "Disable 'Link State Power Management' in Power Options",
+      "Run Windows Driver Verifier (advanced)"
+    ],
+    "severity": "medium"
+  }
+]

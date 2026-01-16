@@ -1,0 +1,24 @@
+{
+  "name": "HP OMEN Community Documentation - Unofficial Guide",
+  "short_name": "OMEN Community Docs",
+  "description": "Community-driven HP OMEN laptop documentation and guides created by fans and enthusiasts",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#ff6b35",
+  "background_color": "#0a0a0a",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}

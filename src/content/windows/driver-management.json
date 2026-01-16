@@ -1,0 +1,26 @@
+{
+    "id": "driver-management",
+    "title": "Driver Management",
+    "description": "Best practices for keeping your system drivers up to date without bloat.",
+    "category": "Windows",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "15 mins",
+        "lastUpdated": "Jan 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Windows",
+            "path": "/windows"
+        },
+        {
+            "label": "Driver Management"
+        }
+    ],
+    "steps": [
+        {
+            "title": "Coming Soon",
+            "content": "Content under development."
+        }
+    ]
+}
