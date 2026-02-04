@@ -5,6 +5,13 @@ import './index.css';
 
 import { HelmetProvider } from 'react-helmet-async';
 
+// Declare the global hideOmenLoader function from index.html
+declare global {
+  interface Window {
+    hideOmenLoader?: () => void;
+  }
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
@@ -12,3 +19,10 @@ createRoot(document.getElementById('root')!).render(
     </HelmetProvider>
   </StrictMode>
 );
+
+// Hide the loading screen once React app has mounted
+requestAnimationFrame(() => {
+  if (window.hideOmenLoader) {
+    window.hideOmenLoader();
+  }
+});

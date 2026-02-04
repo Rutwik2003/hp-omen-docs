@@ -1,12 +1,12 @@
 {
     "id": "driver-management",
-    "title": "Driver Management",
-    "description": "Best practices for keeping your system drivers up to date without bloat.",
+    "title": "Driver Installation & Management",
+    "description": "Keep your HP OMEN drivers up-to-date for optimal performance, stability, and hardware compatibility. Learn the best practices for driver management.",
     "category": "Windows",
     "metadata": {
         "difficulty": "Intermediate",
-        "readTime": "15 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "30-45 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -19,8 +19,35 @@
     ],
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "Where to Get Drivers",
+            "content": "Use these sources for driver updates, listed by priority:<br/><br/>**HP Support Assistant** (Primary)<br/>Official HP tool for automatic driver detection and updates<br/>✓ Automatic detection, Safe updates, System diagnostics<br/>✗ May not have latest GPU drivers<br/><br/>**Windows Update** (Secondary)<br/>Built-in Windows driver updates<br/>Location: Settings → Windows Update<br/>✓ Automatic, Tested for stability, Integrated<br/>✗ Often outdated, Limited control<br/><br/>**Manufacturer Websites** (For Latest Drivers)<br/>Direct downloads from NVIDIA, AMD, Intel, Realtek<br/>✓ Latest versions, Full control, Beta access<br/>✗ Manual process, Must verify compatibility",
+            "infoBox": {
+                "type": "info",
+                "title": "Best Practice",
+                "content": "Use HP Support Assistant for most drivers, but get your GPU drivers directly from NVIDIA or AMD for the latest game-ready optimizations."
+            }
+        },
+        {
+            "title": "Critical Drivers Overview",
+            "content": "Know which drivers matter most for your system:<br/><br/>**Graphics Driver (NVIDIA/AMD)** - Critical<br/>Update: Monthly or with new games<br/>Source: NVIDIA GeForce Experience / AMD Radeon Software<br/>Note: Always use Game Ready drivers for gaming<br/><br/>**Chipset Driver** - Critical<br/>Update: Every 3-6 months<br/>Source: HP Support Assistant / AMD/Intel website<br/>Note: Affects USB, power management, and system stability<br/><br/>**Audio Driver (Realtek)** - Important<br/>Update: When issues occur<br/>Source: HP Support Assistant<br/>Note: Includes Bang & Olufsen audio enhancements<br/><br/>**Network/WiFi Driver** - Important<br/>Update: Every 3-6 months<br/>Source: Intel Driver Support Assistant<br/>Note: Critical for WiFi 6 performance<br/><br/>**BIOS/Firmware** - Critical<br/>Update: When available<br/>Source: HP Support Assistant<br/>Note: Always on AC power, never interrupt"
+        },
+        {
+            "title": "Clean Driver Installation (DDU)",
+            "content": "Use Display Driver Uninstaller (DDU) when switching GPU brands, experiencing driver issues, or when regular installation fails.<br/><br/>**DDU Clean Installation Steps:**<br/>1. Download DDU from guru3d.com<br/>2. Download new driver but don't install yet<br/>3. Disconnect from internet (prevents Windows auto-install)<br/>4. Boot into Safe Mode (Shift + Restart → Troubleshoot → Advanced → Startup Settings)<br/>5. Run DDU and select \"Clean and restart\"<br/>6. After restart, install new driver<br/>7. Reconnect to internet",
+            "infoBox": {
+                "type": "warning",
+                "title": "When to Use DDU",
+                "content": "DDU is only needed when switching between NVIDIA and AMD, or when experiencing persistent driver issues. Not needed for routine updates."
+            }
+        },
+        {
+            "title": "Troubleshooting Driver Issues",
+            "content": "Common driver problems and their solutions:<br/><br/>**Driver installation fails**<br/>• Run installer as Administrator<br/>• Temporarily disable antivirus<br/>• Use DDU to clean previous installation<br/>• Check Windows Event Viewer for errors<br/><br/>**Black screen after driver update**<br/>• Boot into Safe Mode and rollback driver<br/>• Use DDU to remove driver completely<br/>• Install previous stable version<br/>• Check if secure boot is causing issues<br/><br/>**Performance worse after update**<br/>• Check if Windows reset NVIDIA Control Panel settings<br/>• Verify correct GPU is being used (not integrated)<br/>• Try previous driver version<br/>• Reset graphics settings in games",
+            "infoBox": {
+                "type": "info",
+                "title": "Driver Rollback",
+                "content": "To rollback a driver: Device Manager → Display Adapters → Right-click GPU → Properties → Driver tab → Roll Back Driver"
+            }
         }
     ]
 }

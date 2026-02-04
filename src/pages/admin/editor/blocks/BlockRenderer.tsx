@@ -41,16 +41,16 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ stepId, block, dragHandle
   };
 
   return (
-    <div className={`group relative flex items-start ${isNested ? '' : ''} pr-4`}>
-       {/* Hover Controls */}
-       <div className={`opacity-0 group-hover:opacity-100 transition-opacity absolute right-full ${isNested ? 'mr-1' : 'mr-2'} flex items-center h-full pt-1.5 top-0`}>
-          <div className={`flex ${isNested ? 'flex-col' : 'flex-row'} bg-neutral-900 border border-neutral-700 rounded shadow-lg overflow-hidden`}>
+    <div className={`group relative flex items-start ${isNested ? '' : ''} pr-1 sm:pr-4`}>
+       {/* Hover Controls - Inline on mobile, absolute on desktop */}
+       <div className={`flex-shrink-0 sm:opacity-0 group-hover:opacity-100 transition-opacity sm:absolute sm:right-full ${isNested ? 'mr-0.5 sm:mr-1' : 'mr-1 sm:mr-2'} flex items-center sm:h-full pt-0.5 sm:pt-1.5 sm:top-0`}>
+          <div className={`flex flex-col sm:${isNested ? 'flex-col' : 'flex-row'} bg-neutral-800 sm:bg-neutral-900 border border-neutral-700 rounded shadow-lg overflow-hidden`}>
              <button 
                 {...dragHandleProps}
-                className="p-1.5 text-neutral-400 hover:text-white cursor-grab hover:bg-neutral-800"
+                className="p-1 sm:p-1.5 text-neutral-400 hover:text-white cursor-grab hover:bg-neutral-800"
                 title="Drag to move"
              >
-                <GripVertical className="w-4 h-4" />
+                <GripVertical className="w-3 h-3 sm:w-4 sm:h-4" />
              </button>
              <button 
                 onClick={(e) => {
@@ -59,10 +59,10 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ stepId, block, dragHandle
                     console.log('Removing block', stepId, block.id);
                     removeBlock(stepId, block.id); 
                 }}
-                className="p-1.5 text-neutral-400 hover:text-red-400 hover:bg-neutral-800"
+                className="p-1 sm:p-1.5 text-neutral-400 hover:text-red-400 hover:bg-neutral-800"
                 title="Delete block"
              >
-                <X className="w-4 h-4" />
+                <X className="w-3 h-3 sm:w-4 sm:h-4" />
              </button>
           </div>
        </div>

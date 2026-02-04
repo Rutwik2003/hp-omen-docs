@@ -1,12 +1,12 @@
 {
     "id": "security-updates",
-    "title": "Security & Updates",
-    "description": "Staying safe without compromising performance.",
+    "title": "System Security & Updates",
+    "description": "Keep your HP OMEN secure and up-to-date. Configure Windows Security, manage updates, and set up proper backups for peace of mind.",
     "category": "Windows",
     "metadata": {
         "difficulty": "Beginner",
-        "readTime": "5 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "25-35 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -19,8 +19,39 @@
     ],
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "Windows Security Settings",
+            "content": "Configure essential Windows Security features:<br/><br/>**Windows Defender Antivirus** (Critical)<br/>Location: Windows Security → Virus & threat protection<br/>✓ Keep enabled with real-time protection on<br/><br/>**Firewall & Network Protection** (Critical)<br/>Location: Windows Security → Firewall & network protection<br/>✓ Keep enabled for all network types<br/><br/>**Controlled Folder Access** (Recommended)<br/>Location: Windows Security → Ransomware protection<br/>✓ Enable to protect important folders from ransomware<br/><br/>**Core Isolation** (Recommended)<br/>Location: Windows Security → Device security → Core isolation<br/>✓ Enable Memory Integrity for enhanced security",
+            "infoBox": {
+                "type": "warning",
+                "title": "Important",
+                "content": "Never disable Windows Defender unless you have another reputable antivirus installed. Your gaming laptop is a valuable target for malware."
+            }
+        },
+        {
+            "title": "Update Management",
+            "content": "Keep your system up to date for security and performance:<br/><br/>**Windows Update**<br/>Location: Settings → Windows Update<br/>• Check for updates weekly<br/>• Install security updates promptly<br/>• Schedule restarts for convenient times<br/>• Pause updates only when necessary<br/><br/>**Driver Updates**<br/>Location: Settings → Windows Update → Advanced options → Optional updates<br/>• Review optional driver updates carefully<br/>• Prefer manufacturer drivers for GPU<br/>• Keep chipset drivers updated<br/>• Backup before major driver changes<br/><br/>**Microsoft Store Apps**<br/>Location: Microsoft Store → Library<br/>• Enable automatic updates for apps<br/>• Regularly update OMEN Command Center<br/>• Keep Xbox app updated for Game Pass<br/>• Update system apps periodically"
+        },
+        {
+            "title": "Backup & Recovery",
+            "content": "Protect your data with proper backup strategies:<br/><br/>**System Restore**<br/>Create restore points before major changes<br/>Location: Create a restore point (search)<br/>Frequency: Before driver/software installs<br/><br/>**File History**<br/>Automatic backup of personal files<br/>Location: Settings → Accounts → Windows backup<br/>Frequency: Continuous (hourly)<br/><br/>**Recovery Drive**<br/>Bootable drive to recover Windows<br/>Location: Create a recovery drive (search)<br/>Frequency: Once (update after major Windows updates)<br/><br/>**System Image**<br/>Full system backup including Windows<br/>Location: Control Panel → Backup and Restore<br/>Frequency: Monthly or before major changes"
+        },
+        {
+            "title": "Gaming & Security Balance",
+            "content": "Optimize security settings for gaming without compromising protection:<br/><br/>**Add game folders to exclusions**<br/>Prevent antivirus from scanning game files during gameplay<br/>How: Windows Security → Virus & threat protection → Exclusions → Add folder<br/><br/>**Use Gaming Mode**<br/>Reduces Windows Defender notifications during games<br/>How: Settings → Gaming → Game Mode → On<br/><br/>**Verify game integrity**<br/>Fix corrupted files that may trigger false positives<br/>How: Steam/Epic → Game Properties → Verify Integrity",
+            "infoBox": {
+                "type": "info",
+                "title": "Security Tip",
+                "content": "Only add exclusions for trusted sources like Steam, Epic, GOG, or official game installers. Never add exclusions for downloaded files from unknown sources."
+            }
+        },
+        {
+            "title": "Weekly Security Checklist",
+            "content": "Perform these tasks weekly to maintain security:<br/><br/>☐ Check Windows Update for new updates<br/>☐ Run Windows Security quick scan<br/>☐ Verify backup is working<br/>☐ Review recent app installations<br/>☐ Check browser extensions<br/>☐ Update password manager",
+            "infoBox": {
+                "type": "success",
+                "title": "Good Practice",
+                "content": "Set a weekly reminder to go through this checklist. Regular maintenance prevents most security issues before they become problems."
+            }
         }
     ]
 }

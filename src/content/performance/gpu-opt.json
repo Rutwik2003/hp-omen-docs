@@ -1,12 +1,12 @@
 {
     "id": "gpu-opt",
     "title": "GPU Optimization",
-    "description": "Overclocking and driver tuning.",
+    "description": "Maximize your graphics card performance with overclocking, driver tuning, and optimal NVIDIA/AMD control panel settings.",
     "category": "Performance",
     "metadata": {
         "difficulty": "Advanced",
-        "readTime": "30 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "30-40 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -17,10 +17,50 @@
             "label": "GPU Opt"
         }
     ],
+    "prerequisites": {
+        "title": "Before You Begin",
+        "type": "warning",
+        "items": [
+            "Install latest GPU drivers from NVIDIA or AMD",
+            "Download MSI Afterburner for overclocking",
+            "Have a benchmarking tool ready (3DMark, Unigine Heaven)"
+        ]
+    },
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "NVIDIA Control Panel Optimization",
+            "content": "Optimize NVIDIA settings for maximum gaming performance.<br/><br/>**Access:** Right-click desktop → NVIDIA Control Panel<br/><br/>**Manage 3D Settings → Global Settings:**<br/>• Image Sharpening: On (GPU Scaling enabled)<br/>• Anisotropic Filtering: Application-controlled or 16x<br/>• Low Latency Mode: Ultra (for competitive games)<br/>• Max Frame Rate: Match your monitor refresh rate<br/>• Power Management Mode: Prefer Maximum Performance<br/>• Preferred Refresh Rate: Highest available<br/>• Texture Filtering Quality: High Performance<br/>• Threaded Optimization: Auto<br/>• Triple Buffering: Off<br/>• Vertical Sync: Off (use in-game or G-Sync instead)<br/><br/>**Set PhysX Configuration:**<br/>Set to your discrete GPU, not Auto-select",
+            "infoBox": {
+                "type": "info",
+                "title": "Per-Game Settings",
+                "content": "You can create per-game profiles with different settings. Useful for competitive games (lower quality, higher FPS) vs. single-player games (higher quality)."
+            }
+        },
+        {
+            "title": "AMD Radeon Software Optimization",
+            "content": "Optimize AMD GPU settings for gaming.<br/><br/>**Access:** Right-click desktop → AMD Radeon Software<br/><br/>**Graphics → Global Graphics:**<br/>• Radeon Anti-Lag: Enabled<br/>• Radeon Chill: Off (unless you want power savings)<br/>• Radeon Boost: On for supported games<br/>• Radeon Image Sharpening: On (50-80%)<br/>• Wait for Vertical Refresh: Off, unless application specifies<br/><br/>**Advanced Settings:**<br/>• Anti-Aliasing: Use application settings<br/>• Anisotropic Filtering: Enabled, 16x<br/>• Texture Filtering Quality: Performance<br/>• Surface Format Optimization: Enabled<br/>• Tessellation Mode: Override application settings (8x or 16x)<br/>• Frame Rate Target Control: Set to monitor refresh rate"
+        },
+        {
+            "title": "GPU Overclocking with MSI Afterburner",
+            "content": "Safely overclock your GPU for extra performance.<br/><br/>**Initial Setup:**<br/>1. Download MSI Afterburner from MSI website<br/>2. Launch and familiarize with the interface<br/>3. Set up monitoring (on-screen display) in settings<br/><br/>**Safe Overclocking Steps:**<br/>1. **Power Limit**: Increase to maximum (usually +10-20%)<br/>2. **Temperature Limit**: Set to 85-87°C<br/>3. **Core Clock**: Start with +50 MHz<br/>4. **Memory Clock**: Start with +100 MHz<br/><br/>**Testing Process:**<br/>1. Apply settings<br/>2. Run benchmark (3DMark, Unigine Heaven)<br/>3. Monitor for artifacts or crashes<br/>4. If stable, increase by small increments<br/>5. If unstable, reduce last increase by 10-20 MHz<br/><br/>**Save Profile:**<br/>Once stable, save to a profile slot for easy recall",
+            "infoBox": {
+                "type": "warning",
+                "title": "Laptop Thermal Limits",
+                "content": "Laptops have limited cooling compared to desktops. Start with conservative overclocks and monitor temperatures carefully. If temps exceed 85°C, reduce settings."
+            }
+        },
+        {
+            "title": "GPU Undervolting",
+            "content": "Reduce GPU temperatures while maintaining performance.<br/><br/>**NVIDIA Undervolting (MSI Afterburner):**<br/>1. Press Ctrl+F to open voltage/frequency curve<br/>2. Find your target frequency (e.g., 1800 MHz)<br/>3. Drag that point down to a lower voltage<br/>4. Select the point and press L to lock<br/>5. Apply and test stability<br/><br/>**AMD Undervolting (Radeon Software):**<br/>1. Open Radeon Software → Performance → Tuning<br/>2. Enable \"GPU Tuning\"<br/>3. Select \"Undervolt GPU\"<br/>4. Or manually reduce voltage offset<br/>5. Test with benchmarks<br/><br/>**Expected Results:**<br/>• 5-15°C temperature reduction<br/>• Same or better sustained performance<br/>• Quieter fan operation<br/>• Longer GPU lifespan"
+        },
+        {
+            "title": "Driver Optimization Tips",
+            "content": "Keep your GPU drivers optimized:<br/><br/>**Driver Selection:**<br/>• Use Game Ready (NVIDIA) or Recommended (AMD) drivers<br/>• Studio drivers are for content creation, not gaming<br/>• Beta drivers may have bugs - use stable releases<br/><br/>**Clean Driver Installation:**<br/>1. Download latest driver<br/>2. Use DDU (Display Driver Uninstaller) in Safe Mode<br/>3. Install fresh driver<br/>4. Reconfigure your settings<br/><br/>**NVIDIA GeForce Experience Tips:**<br/>• Disable \"Automatic Performance Tuning\" if manually tuning<br/>• Keep ShadowPlay/Instant Replay ready for captures<br/>• Use \"Optimal\" settings only as a starting point<br/><br/>**Shader Cache:**<br/>• Enable shader cache in driver settings<br/>• Consider increasing cache size for SSDs<br/>• Clear cache if experiencing stuttering",
+            "infoBox": {
+                "type": "success",
+                "title": "Performance Gains",
+                "content": "Proper GPU optimization can yield 5-15% performance improvement through overclocking, plus significantly better thermals through undervolting."
+            }
         }
     ]
 }

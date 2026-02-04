@@ -19,10 +19,10 @@ const GridBlockEditor: React.FC<GridBlockEditorProps> = ({ stepId, block }) => {
         </div>
 
         {/* Columns Container */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 p-2 sm:p-4">
             {block.children.map((column, index) => (
-                <div key={column.id} className="flex flex-col gap-2 min-w-0 pl-12 border-l border-white/5 relative">
-                     <div className="text-xs uppercase font-mono text-neutral-600 mb-1">Column {index + 1}</div>
+                <div key={column.id} className="flex flex-col gap-2 min-w-0 pl-2 sm:pl-4 lg:pl-6 border-l border-white/10 relative">
+                     <div className="text-[10px] sm:text-xs uppercase font-mono text-neutral-500 mb-1">Col {index + 1}</div>
                      <BlockList 
                         stepId={stepId} 
                         parentId={column.id} 

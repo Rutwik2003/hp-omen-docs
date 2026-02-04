@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>502 - Bad Gateway | HP OMEN Community Docs</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #000000 50%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container { max-width: 600px; text-align: center; }
+    .error-code {
+      font-size: clamp(100px, 25vw, 180px);
+      font-weight: 900;
+      background: linear-gradient(135deg, #eab308, #a16207);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .icon {
+      width: 80px; height: 80px;
+      margin: 0 auto 24px; padding: 16px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(234, 179, 8, 0.3);
+      border-radius: 16px;
+    }
+    .icon svg { width: 100%; height: 100%; stroke: #eab308; }
+    h1 { font-size: clamp(24px, 5vw, 36px); margin-bottom: 16px; }
+    .message { font-size: 18px; color: #9ca3af; margin-bottom: 12px; }
+    .tip { font-size: 14px; color: #6b7280; margin-bottom: 32px; }
+    .buttons { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; font-size: 16px; font-weight: 600;
+      text-decoration: none; border-radius: 8px; transition: all 0.2s; cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b35, #c41e3a);
+      color: #fff; border: none;
+    }
+    .btn-primary:hover { transform: scale(1.05); }
+    .btn-secondary {
+      background: transparent; color: #9ca3af; border: 1px solid #4b5563;
+    }
+    .btn-secondary:hover { border-color: #ff6b35; color: #ff6b35; }
+    .footer { margin-top: 48px; font-size: 14px; color: #4b5563; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="error-code">502</div>
+    <div class="icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+      </svg>
+    </div>
+    <h1>Bad Gateway</h1>
+    <p class="message">The gateway guardian is blocking our path. We're working on a bypass.</p>
+    <p class="tip">💡 This usually fixes itself. Try again in a moment.</p>
+    <div class="buttons">
+      <button onclick="location.reload()" class="btn btn-secondary">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        Try Again
+      </button>
+      <a href="/" class="btn btn-primary">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        Back to Home
+      </a>
+    </div>
+    <div class="footer">HP OMEN Community Documentation</div>
+  </div>
+</body>
+</html>

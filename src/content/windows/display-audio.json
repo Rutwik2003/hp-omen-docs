@@ -1,12 +1,12 @@
 {
     "id": "display-audio",
-    "title": "Display & Audio Settings",
-    "description": "Calibrating your screen and speakers.",
+    "title": "Display & Audio Configuration",
+    "description": "Optimize your HP OMEN's display settings for the best visual experience and configure audio for immersive gaming and entertainment.",
     "category": "Windows",
     "metadata": {
         "difficulty": "Beginner",
-        "readTime": "10 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "20-30 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -19,8 +19,44 @@
     ],
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "Display Settings Overview",
+            "content": "Configure your display for optimal visual quality and gaming performance.<br/><br/>**Key Display Settings:**<br/><br/>• **Refresh Rate** - Higher rates provide smoother visuals. Location: Settings → Display → Advanced display. Use highest available (144Hz, 165Hz, or 300Hz).<br/><br/>• **Resolution** - Native resolution provides the sharpest image. Location: Settings → Display → Display resolution. Use native (usually 1920x1080 or 2560x1440).<br/><br/>• **HDR** - Enhanced colors and contrast on supported displays. Location: Settings → Display → HDR. Enable if your display supports HDR.<br/><br/>• **Night Light** - Reduces blue light for comfortable viewing. Location: Settings → Display → Night light. Schedule for evening hours.",
+            "infoBox": {
+                "type": "info",
+                "title": "Tip",
+                "content": "Higher refresh rates provide smoother visuals but may reduce battery life. Consider using 60Hz when on battery for productivity tasks."
+            }
+        },
+        {
+            "title": "Display Color Calibration",
+            "content": "Use Windows built-in calibration tool for accurate colors.<br/><br/>**Calibration Steps:**<br/><br/>1. **Open Display Color Calibration** - Search for \"Calibrate display color\" in Windows<br/><br/>2. **Adjust Gamma** - Follow on-screen guide. Circles should blend into background when correct<br/><br/>3. **Set Brightness & Contrast** - Use monitor OSD or Windows settings. Shirt should be barely visible, X should be crisp<br/><br/>4. **Adjust Color Balance** - Move sliders until gray bars appear neutral. Remove any color tint from gray tones<br/><br/>5. **Save Calibration** - Click Finish and compare before/after. Create a color profile for your display",
+            "infoBox": {
+                "type": "success",
+                "title": "Pro Tip",
+                "content": "For professional work requiring color accuracy, consider using a hardware colorimeter like X-Rite i1Display or Datacolor Spyder."
+            }
+        },
+        {
+            "title": "Audio Configuration",
+            "content": "Configure audio settings for the best gaming and entertainment experience.<br/><br/>**Spatial Sound:**<br/>Right-click speaker → Spatial sound<br/>• Windows Sonic (Free, good for gaming) ✓ Recommended<br/>• Dolby Atmos (Premium, cinema quality)<br/>• DTS Headphone:X (Premium, gaming focused)<br/><br/>**Sample Rate & Bit Depth:**<br/>Sound settings → Device properties → Advanced<br/>• 24-bit, 48000 Hz (Studio quality) ✓ Recommended<br/>• 24-bit, 96000 Hz (High quality, more CPU usage)<br/>• 16-bit, 44100 Hz (CD quality, lower CPU)<br/><br/>**Audio Enhancements:**<br/>Sound settings → Device properties → Enhancements<br/>• Bass Boost - Enhance low frequencies<br/>• Virtual Surround - 3D audio simulation ✓ Recommended<br/>• Loudness Equalization - Consistent volume levels"
+        },
+        {
+            "title": "Bang & Olufsen Audio Setup",
+            "content": "Your HP OMEN features Bang & Olufsen tuned speakers. Configure them for optimal audio:<br/><br/>1. Open HP Audio Control (pre-installed)<br/><br/>2. Select your audio profile (Music, Movies, Voice, or Custom)<br/><br/>3. Adjust equalizer settings to your preference<br/><br/>4. Enable B&O Audio Enhancement<br/><br/>5. Configure speaker or headphone output<br/><br/>6. Save your custom profile",
+            "infoBox": {
+                "type": "info",
+                "title": "Tip",
+                "content": "The B&O audio enhancement includes bass boost and spatial audio features. Experiment with different profiles to find what works best for your content."
+            }
+        },
+        {
+            "title": "Gaming Audio Tips",
+            "content": "Optimize audio settings specifically for gaming:<br/><br/>**Use Communication Settings:**<br/>Settings → Sound → More sound settings → Communications<br/>Set to \"Do nothing\" to prevent volume reduction during voice chat<br/><br/>**Disable Exclusive Mode:**<br/>Sound settings → Device properties → Advanced<br/>Uncheck \"Allow applications to take exclusive control\" for consistent volume<br/><br/>**Set Default Devices:**<br/>Sound settings → More sound settings<br/>Set default playback and communication devices separately",
+            "infoBox": {
+                "type": "warning",
+                "title": "Important",
+                "content": "Windows Sonic and other spatial audio can interfere with games that have their own 3D audio. Disable spatial sound for games with built-in HRTF or 3D audio support."
+            }
         }
     ]
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 
@@ -28,8 +28,32 @@ export const useToast = () => {
 
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  
+  // Track recent toasts to prevent duplicates (stores toast keys with timestamps)
+  const recentToastsRef = useRef<Map<string, number>>(new Map());
+  const DUPLICATE_THRESHOLD_MS = 1000; // Prevent same toast within 1 second
 
   const addToast = useCallback((type: ToastType, title: string, message?: string) => {
+    // Create a key to identify duplicate toasts
+    const toastKey = `${type}-${title}-${message || ''}`;
+    const now = Date.now();
+    const lastShown = recentToastsRef.current.get(toastKey);
+    
+    // Prevent duplicate toasts within the threshold
+    if (lastShown && now - lastShown < DUPLICATE_THRESHOLD_MS) {
+      return; // Skip this duplicate toast
+    }
+    
+    // Record this toast
+    recentToastsRef.current.set(toastKey, now);
+    
+    // Clean up old entries (older than 5 seconds)
+    recentToastsRef.current.forEach((timestamp, key) => {
+      if (now - timestamp > 5000) {
+        recentToastsRef.current.delete(key);
+      }
+    });
+    
     const id = Math.random().toString(36).substr(2, 9);
     setToasts((prev) => [...prev, { id, type, title, message }]);
 

@@ -3,30 +3,95 @@ import { temporal } from 'zundo';
 import { produce } from 'immer';
 import { v4 as uuidv4 } from 'uuid';
 import { DocPage, GuideStep } from '../types/docs';
-import { Block, BlockType, GridBlock, ColumnBlock } from '../types/blocks';
+import { Block, BlockType, GridBlock, ColumnBlock, TextBlock, HeadingBlock, CodeBlock, CalloutBlock, ImageBlock, VideoBlock, TableBlock } from '../types/blocks';
+
+/**
+ * Factory function to create a new block with proper default values.
+ * Each block type has specific required properties initialized.
+ * 
+ * @param type - The type of block to create
+ * @returns A new Block with a unique ID and type-specific defaults
+ * 
+ * @example
+ * const textBlock = createBlock('text'); // { id: 'uuid', type: 'text', content: '' }
+ * const gridBlock = createBlock('grid'); // { id: 'uuid', type: 'grid', columns: 2, children: [...] }
+ */
+const createBlock = (type: BlockType): Block => {
+    const id = uuidv4();
+    
+    switch (type) {
+        case 'text':
+            return { id, type: 'text', content: '' } as TextBlock;
+        case 'heading':
+            return { id, type: 'heading', content: '', level: 2 } as HeadingBlock;
+        case 'code':
+            return { id, type: 'code', language: 'javascript', code: '' } as CodeBlock;
+        case 'callout':
+            return { id, type: 'callout', variant: 'info', content: '' } as CalloutBlock;
+        case 'image':
+            return { id, type: 'image', url: '' } as ImageBlock;
+        case 'video':
+            return { id, type: 'video', url: '', provider: 'youtube' } as VideoBlock;
+        case 'table':
+            return { id, type: 'table', content: { headers: [], rows: [] } } as TableBlock;
+        case 'divider':
+            return { id, type: 'divider' } as Block;
+        case 'grid': {
+            const columnId1 = uuidv4();
+            const columnId2 = uuidv4();
+            return {
+                id,
+                type: 'grid',
+                columns: 2,
+                children: [
+                    { id: columnId1, type: 'column', children: [] } as ColumnBlock,
+                    { id: columnId2, type: 'column', children: [] } as ColumnBlock
+                ]
+            } as GridBlock;
+        }
+        case 'column':
+            return { id, type: 'column', children: [] } as ColumnBlock;
+        default:
+            return { id, type: 'text', content: '' } as TextBlock;
+    }
+};
 
 interface EditorState {
     guide: Partial<DocPage>;
     activeStepId: string | null;
 
-    // Global Actions
+    /** Set the entire guide data */
     setGuide: (guide: Partial<DocPage>) => void;
+    /** Set the currently active step for editing */
     setActiveStep: (id: string | null) => void;
 
-    // Step Actions
+    /** Add a new empty step to the guide */
     addStep: () => void;
+    /** Remove a step by ID */
     removeStep: (id: string) => void;
+    /** Update a step's title */
     updateStepTitle: (id: string, title: string) => void;
+    /** Reorder steps (for drag-and-drop) */
     reorderSteps: (steps: GuideStep[]) => void;
 
-    // Block Actions
+    /** Add a new block to a step, optionally at a specific index or inside a parent container */
     addBlock: (stepId: string, type: BlockType, index?: number, parentId?: string) => void;
+    /** Update a block's properties */
     updateBlock: (stepId: string, blockId: string, data: Partial<Block>) => void;
+    /** Remove a block from a step */
     removeBlock: (stepId: string, blockId: string) => void;
+    /** Move a block within the same step (for drag-and-drop) */
     moveBlock: (stepId: string, fromIndex: number, toIndex: number, parentId?: string) => void;
 }
 
-// Recursive helper to find a block's container (children array)
+/**
+ * Recursively searches for a block's children array by parent ID.
+ * Used to find the container when adding/moving blocks inside Grid or Column blocks.
+ * 
+ * @param blocks - Array of blocks to search through
+ * @param parentId - ID of the parent block whose children we want
+ * @returns The children array of the found block, or undefined if not found
+ */
 const findContainer = (blocks: Block[], parentId: string): Block[] | undefined => {
     for (const block of blocks) {
         if (block.id === parentId) {
@@ -34,16 +99,24 @@ const findContainer = (blocks: Block[], parentId: string): Block[] | undefined =
             if (block.type === 'grid') return (block as GridBlock).children;
             if (block.type === 'column') return (block as ColumnBlock).children;
         }
-        // Recurse
-        if ('children' in block) {
-            const found = findContainer((block as any).children, parentId);
+        // Recurse into grid/column children
+        if (block.type === 'grid' || block.type === 'column') {
+            const containerBlock = block as GridBlock | ColumnBlock;
+            const found = findContainer(containerBlock.children, parentId);
             if (found) return found;
         }
     }
     return undefined;
 };
 
-// Recursive helper to find and remove a block
+/**
+ * Recursively finds and removes a block from a nested block structure.
+ * Handles blocks inside Grid and Column containers.
+ * 
+ * @param blocks - Array of blocks to search and modify
+ * @param blockId - ID of the block to remove
+ * @returns true if block was found and removed, false otherwise
+ */
 const removeBlockRecursive = (blocks: Block[], blockId: string): boolean => {
     const index = blocks.findIndex(b => b.id === blockId);
     if (index !== -1) {
@@ -51,24 +124,35 @@ const removeBlockRecursive = (blocks: Block[], blockId: string): boolean => {
         return true;
     }
     for (const block of blocks) {
-        if ('children' in block) {
-            if (removeBlockRecursive((block as any).children, blockId)) return true;
+        if (block.type === 'grid' || block.type === 'column') {
+            const containerBlock = block as GridBlock | ColumnBlock;
+            if (removeBlockRecursive(containerBlock.children, blockId)) return true;
         }
     }
     return false;
 };
 
-// Recursive helper to find and update a block
+/**
+ * Recursively finds and updates a block in a nested block structure.
+ * Merges new data with existing block properties while preserving the type.
+ * 
+ * @param blocks - Array of blocks to search and modify
+ * @param blockId - ID of the block to update
+ * @param data - Partial block data to merge with existing properties
+ * @returns true if block was found and updated, false otherwise
+ */
 const updateBlockRecursive = (blocks: Block[], blockId: string, data: Partial<Block>): boolean => {
     const index = blocks.findIndex(b => b.id === blockId);
     if (index !== -1) {
-        // Cast to any to avoid complex union type spread errors
-        blocks[index] = { ...blocks[index], ...data } as any;
+        // Merge existing block with new data, preserving the type
+        const existingBlock = blocks[index];
+        blocks[index] = { ...existingBlock, ...data } as Block;
         return true;
     }
     for (const block of blocks) {
-        if ('children' in block) {
-            if (updateBlockRecursive((block as any).children, blockId, data)) return true;
+        if (block.type === 'grid' || block.type === 'column') {
+            const containerBlock = block as GridBlock | ColumnBlock;
+            if (updateBlockRecursive(containerBlock.children, blockId, data)) return true;
         }
     }
     return false;
@@ -113,19 +197,7 @@ export const useEditorStore = create<EditorState>()(
                 const step = draft.guide.steps?.find(s => s.id === stepId);
                 if (!step) return;
 
-                const newBlock: any = {
-                    id: uuidv4(),
-                    type,
-                    content: '',
-                };
-
-                if (type === 'grid') {
-                    newBlock.columns = 2;
-                    newBlock.children = [
-                        { id: uuidv4(), type: 'column', children: [] },
-                        { id: uuidv4(), type: 'column', children: [] }
-                    ];
-                }
+                const newBlock = createBlock(type);
 
                 let targetList: Block[] = step.blocks || [];
 

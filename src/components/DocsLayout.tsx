@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { 
   Home, 
@@ -14,7 +14,6 @@ import {
   ExternalLink
 } from 'lucide-react';
 import AnimatedLayout from './AnimatedLayout';
-import { PageTransitionWrapper } from './EnhancedAnimations';
 
 interface DocsLayoutProps {
   children?: React.ReactNode;
@@ -26,6 +25,11 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const allDocs = getAllDocs();
+
+  // Auto-close sidebar on route changes (for mobile reliability)
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
 
   // Helper to get items for a category
   const getCategoryItems = (cat: string) => {
@@ -95,16 +99,16 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({ children }) => {
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-2">
+        <nav className="flex-1 overflow-y-auto px-2 lg:px-4 py-4 lg:py-6 space-y-1 lg:space-y-2">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href || location.pathname.startsWith(item.href + '/'); // Basic active check
             const hasChildren = item.items && item.items.length > 0;
             
             return (
-              <div key={item.name} className="mb-1">
+              <div key={item.name} className="mb-0.5 lg:mb-1">
                 <Link
                   to={item.href}
-                  className={`group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                  className={`group flex items-center px-3 lg:px-4 py-2.5 lg:py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                     isActive && !hasChildren
                       ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-400 border border-orange-500/30 omen-glow'
                       : 'text-gray-300 hover:bg-gray-800/50 hover:text-orange-400 hover:border-orange-500/20 border border-transparent'
@@ -112,16 +116,16 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({ children }) => {
                   onClick={() => !hasChildren && setSidebarOpen(false)}
                 >
                   <item.icon
-                    className={`mr-4 h-5 w-5 transition-colors ${
+                    className={`mr-3 lg:mr-4 h-4 w-4 lg:h-5 lg:w-5 transition-colors ${
                       isActive ? 'text-orange-400' : 'text-gray-400 group-hover:text-orange-400'
                     }`}
                   />
-                  <span className="truncate text-base">{item.name}</span>
+                  <span className="truncate text-sm lg:text-base">{item.name}</span>
                 </Link>
 
                 {/* Render Nested Items if any */}
                 {hasChildren && (
-                  <div className="ml-12 mt-1 space-y-1 border-l border-gray-800 pl-2">
+                  <div className="ml-8 lg:ml-12 mt-1 space-y-0.5 lg:space-y-1 border-l border-gray-800 pl-2">
                     {item.items?.map((subItem) => {
                       const isSubActive = location.pathname === subItem.href;
                       return (
@@ -129,7 +133,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({ children }) => {
                           key={subItem.name}
                           to={subItem.href}
                           onClick={() => setSidebarOpen(false)}
-                          className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                          className={`block px-2 lg:px-3 py-1.5 lg:py-2 text-xs lg:text-sm rounded-lg transition-colors ${
                             isSubActive 
                               ? 'text-orange-400 bg-orange-500/10 border border-orange-500/20' 
                               : 'text-gray-400 hover:text-white hover:bg-gray-800'
@@ -147,23 +151,21 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({ children }) => {
         </nav>
 
         {/* Community Links */}
-        <div className="flex-shrink-0 p-6 border-t border-orange-500/20 bg-gradient-to-t from-black to-transparent">
-          <div className="space-y-3">
-            <a
-              href="https://discord.com/invite/omen-by-hp-750760232954888363"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center px-4 py-3 text-sm text-gray-400 hover:text-red-400 hover:bg-gray-800/50 rounded-xl transition-all duration-200 group"
-            >
-              <MessageCircle className="mr-4 h-5 w-5 group-hover:text-red-400" />
-              <span className="text-base">Discord Server</span>
-              <ExternalLink className="ml-auto h-4 w-4" />
-            </a>
-          </div>
-          <div className="mt-4 text-center">
-            <div className="text-sm text-gray-500">OMEN Gaming</div>
-            <div className="text-sm text-orange-400 font-medium">Community Docs</div>
-            <div className="text-xs text-gray-600 mt-1">Unofficial Fan Project</div>
+        <div className="flex-shrink-0 p-3 lg:p-6 border-t border-orange-500/20 bg-gradient-to-t from-black to-transparent">
+          <a
+            href="https://discord.com/invite/omen-by-hp-750760232954888363"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center px-3 py-2 lg:px-4 lg:py-3 text-sm text-gray-400 hover:text-red-400 hover:bg-gray-800/50 rounded-xl transition-all duration-200 group"
+          >
+            <MessageCircle className="mr-3 lg:mr-4 h-4 w-4 lg:h-5 lg:w-5 group-hover:text-red-400" />
+            <span className="text-sm lg:text-base">Discord</span>
+            <ExternalLink className="ml-auto h-3 w-3 lg:h-4 lg:w-4" />
+          </a>
+          <div className="mt-2 lg:mt-4 text-center">
+            <div className='text-sm text-gray-500'>OMEN Gaming</div>
+            <div className="text-xs lg:text-sm text-orange-400 font-medium">Community Docs</div>
+            <div className="text-[10px] lg:text-xs text-gray-600">Unofficial Fan Project</div>
           </div>
         </div>
       </div>
@@ -196,9 +198,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({ children }) => {
         {/* Page content */}
         <main className="flex-1 overflow-y-auto bg-gradient-to-br from-gray-900 via-black to-gray-900">
           <AnimatedLayout>
-            <PageTransitionWrapper>
-              {children || <Outlet />}
-            </PageTransitionWrapper>
+            {children || <Outlet />}
           </AnimatedLayout>
         </main>
       </div>

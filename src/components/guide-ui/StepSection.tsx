@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { getStepIllustration } from './PageIllustrations';
 
 interface StepSectionProps {
   number: number | string;
@@ -7,18 +9,59 @@ interface StepSectionProps {
 }
 
 const StepSection: React.FC<StepSectionProps> = ({ number, title, children }) => {
+  // Get relevant illustration for this step
+  const Illustration = getStepIllustration(title);
+  
   return (
-    <section className="bg-gray-900/40 border border-gray-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm hover:border-orange-500/30 transition-all duration-300">
-      <div className="flex items-start gap-4 mb-6">
-        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-orange-500/20">
+    <motion.section 
+      className="relative bg-gradient-to-br from-gray-900/60 to-gray-900/30 border border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm hover:border-orange-500/30 transition-all duration-300 overflow-hidden group"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 0.5, 
+        ease: [0.25, 0.46, 0.45, 0.94],
+        delay: typeof number === 'number' ? number * 0.05 : 0
+      }}
+    >
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-orange-500/5 to-transparent rounded-full blur-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-tr from-red-500/5 to-transparent rounded-full blur-2xl pointer-events-none" />
+      
+      {/* Step indicator line */}
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange-500/50 via-red-500/30 to-transparent rounded-l-2xl" />
+
+      {/* Inline Illustration - appears in top right corner */}
+      {Illustration && (
+        <motion.div 
+          className="absolute top-4 right-4 hidden lg:block pointer-events-none opacity-60 group-hover:opacity-80 transition-opacity"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 0.6, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          <Illustration size="sm" />
+        </motion.div>
+      )}
+      
+      <div className="flex items-start gap-4 mb-6 relative z-10">
+        <motion.div 
+          className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-orange-500/25 border border-orange-400/20"
+          initial={{ scale: 0.8, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
           {number}
+        </motion.div>
+        <div className="flex-1 pt-2 pr-20 lg:pr-28">
+          <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">{title}</h2>
         </div>
-        <h2 className="text-2xl font-bold text-white pt-1">{title}</h2>
       </div>
-      <div className="pl-0 md:pl-14 text-gray-300 space-y-4">
+      <div className="pl-0 md:pl-16 text-gray-300 space-y-4 relative z-10">
         {children}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

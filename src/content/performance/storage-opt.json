@@ -1,12 +1,12 @@
 {
     "id": "storage-opt",
     "title": "Storage Optimization",
-    "description": "SSD maintenance and partition management.",
+    "description": "Optimize your SSD performance, manage storage efficiently, and maintain your drives for maximum longevity and speed.",
     "category": "Performance",
     "metadata": {
         "difficulty": "Intermediate",
-        "readTime": "15 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "20-30 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -19,8 +19,44 @@
     ],
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "SSD Health & Performance Basics",
+            "content": "Understanding your SSD for optimal performance:<br/><br/>**Check SSD Health:**<br/>Use CrystalDiskInfo to monitor:<br/>• Health Status (Good/Caution/Bad)<br/>• Temperature<br/>• Total Host Writes (TBW remaining)<br/>• Power On Hours<br/><br/>**NVMe vs SATA Performance:**<br/>• NVMe: Up to 7000+ MB/s read/write<br/>• SATA: Up to 550 MB/s read/write<br/>Your OMEN likely has NVMe for the OS drive<br/><br/>**Temperature Guidelines:**<br/>• Normal: 30-50°C<br/>• Under load: 50-70°C<br/>• Throttling: 70°C+",
+            "infoBox": {
+                "type": "info",
+                "title": "SSD Lifespan",
+                "content": "Modern SSDs typically last 5-10 years with normal use. Check TBW (Terabytes Written) rating - most users never reach this limit."
+            }
+        },
+        {
+            "title": "Windows Storage Settings",
+            "content": "Optimize Windows settings for SSD performance:<br/><br/>**Enable TRIM (Usually automatic):**<br/>1. Open Command Prompt as Admin<br/>2. Run: fsutil behavior query DisableDeleteNotify<br/>3. If result is 0, TRIM is enabled<br/>4. If 1, enable with: fsutil behavior set DisableDeleteNotify 0<br/><br/>**Disable Disk Defragmentation for SSDs:**<br/>1. Search \"Defragment and Optimize Drives\"<br/>2. Select your SSD<br/>3. Click \"Change settings\"<br/>4. Ensure \"Optimize\" is set, not \"Defragment\"<br/>Note: Windows 10/11 automatically optimizes SSDs (TRIM), not defragment<br/><br/>**Disable Superfetch/SysMain (Optional):**<br/>1. Press Win + R, type services.msc<br/>2. Find \"SysMain\"<br/>3. Right-click → Properties → Stop<br/>4. Set Startup type to Disabled<br/>Note: This is optional and may not noticeably improve modern SSDs",
+            "infoBox": {
+                "type": "warning",
+                "title": "Don't Defragment SSDs",
+                "content": "Traditional defragmentation is harmful to SSDs and unnecessary. Windows automatically uses TRIM instead, which is the correct optimization for SSDs."
+            }
+        },
+        {
+            "title": "Storage Cleanup & Maintenance",
+            "content": "Keep your SSD clean for best performance:<br/><br/>**Disk Cleanup:**<br/>1. Win + R → cleanmgr<br/>2. Select drive → OK<br/>3. Click \"Clean up system files\"<br/>4. Select:<br/>• Windows Update Cleanup<br/>• Previous Windows installations<br/>• Temporary files<br/>• Thumbnails<br/><br/>**Storage Sense (Automatic):**<br/>1. Settings → System → Storage<br/>2. Enable Storage Sense<br/>3. Configure:<br/>• Run during low disk space<br/>• Delete temp files older than 1 day<br/>• Delete Recycle Bin items older than 30 days<br/><br/>**Clear Browser Cache:**<br/>Browsers can accumulate GBs of cache data<br/>Chrome: Settings → Privacy → Clear browsing data<br/>Firefox: Settings → Privacy → Clear Data<br/>Edge: Settings → Privacy → Clear browsing data"
+        },
+        {
+            "title": "Game Storage Management",
+            "content": "Optimize storage for gaming:<br/><br/>**Install Games on Fast Drive:**<br/>• Install competitive/frequently played games on NVMe SSD<br/>• Move older/casual games to secondary storage<br/>• Steam: Settings → Downloads → Steam Library Folders<br/>• Epic: Settings → Manage Games → Install Location<br/><br/>**Move Game Libraries:**<br/>**Steam:**<br/>1. Create new library folder on target drive<br/>2. Right-click game → Properties → Local Files<br/>3. Move Install Folder → Select new location<br/><br/>**Epic Games:**<br/>1. Move folder manually to new location<br/>2. Uninstall from Epic (keep files)<br/>3. Reinstall and point to moved folder<br/><br/>**DirectStorage:**<br/>Windows 11 feature for faster game loading<br/>Requirements: NVMe SSD, DirectX 12, supported game<br/>Enable: Games automatically use when available",
+            "infoBox": {
+                "type": "success",
+                "title": "Performance Tip",
+                "content": "Keep 10-20% of your SSD free for optimal performance. SSDs slow down significantly when nearly full due to how they write data."
+            }
+        },
+        {
+            "title": "Advanced Storage Tips",
+            "content": "Advanced optimization techniques:<br/><br/>**Page File Optimization:**<br/>1. System Properties → Advanced → Performance Settings<br/>2. Advanced tab → Virtual Memory → Change<br/>3. For SSDs: System managed or fixed size<br/>4. Recommended: 1.5x RAM if you have space<br/><br/>**Disable Hibernation (Save Space):**<br/>1. Open Command Prompt as Admin<br/>2. Run: powercfg -h off<br/>3. Frees up RAM-sized space (8-32GB)<br/>Note: Disables hybrid sleep/fast startup<br/><br/>**Move User Folders:**<br/>Move large folders (Downloads, Videos) to secondary drive:<br/>1. Right-click folder in File Explorer<br/>2. Properties → Location tab<br/>3. Move to new location<br/><br/>**Symbolic Links:**<br/>For apps that don't support custom install locations:<br/>mklink /D \"C:\\OriginalPath\" \"D:\\NewPath\"",
+            "infoBox": {
+                "type": "info",
+                "title": "SSD Over-Provisioning",
+                "content": "Leaving 10% of SSD unpartitioned can improve performance and lifespan. This space is used for wear leveling and garbage collection."
+            }
         }
     ]
 }

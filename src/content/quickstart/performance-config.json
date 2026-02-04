@@ -1,12 +1,12 @@
 {
     "id": "performance-config",
     "title": "Performance Configuration",
-    "description": "Learn how to tune your OMEN laptop for the best balance of speed and thermals.",
+    "description": "Optimize your HP OMEN laptop's power settings, thermal profiles, and display configuration for the best performance in gaming and productivity tasks.",
     "category": "Quick Start",
     "metadata": {
         "difficulty": "Intermediate",
-        "readTime": "10 mins",
-        "lastUpdated": "Aug 2025"
+        "readTime": "15-25 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -17,10 +17,41 @@
             "label": "Performance Config"
         }
     ],
+    "prerequisites": {
+        "title": "Prerequisites",
+        "type": "info",
+        "items": [
+            "OMEN Command Center installed",
+            "Latest graphics drivers installed",
+            "Windows fully updated"
+        ]
+    },
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "This detailed guide is currently being written. Please check back later."
+            "title": "OMEN Performance Profiles",
+            "content": "OMEN Command Center offers three performance profiles. Choose based on your current activity:<br/><br/>**🌿 Comfort Mode**<br/>Balanced performance with quiet operation<br/>Best For: Web browsing, Office work, Video streaming<br/>Fan Noise: Low | Performance: Moderate | Thermals: Cool<br/><br/>**⚖️ Default Mode**<br/>Optimal balance between performance and thermals<br/>Best For: Light gaming, Productivity, Everyday use<br/>Fan Noise: Medium | Performance: Good | Thermals: Warm<br/><br/>**🚀 Performance Mode**<br/>Maximum performance for demanding tasks<br/>Best For: Gaming, Video editing, 3D rendering<br/>Fan Noise: High | Performance: Maximum | Thermals: Hot",
+            "infoBox": {
+                "type": "info",
+                "title": "Quick Switch",
+                "content": "Use keyboard shortcut Fn + P to quickly cycle through thermal profiles without opening OMEN Command Center."
+            }
+        },
+        {
+            "title": "Power Plan Configuration",
+            "content": "Configure Windows and NVIDIA power settings for optimal performance.<br/><br/>**Windows Power Plan**<br/>Location: Settings → System → Power & battery<br/>Recommended: High Performance or Balanced<br/>Steps:<br/>1. Open Windows Settings (Win + I)<br/>2. Navigate to System → Power & battery<br/>3. Under Power mode, select \"Best performance\"<br/>4. For laptops on battery, consider \"Balanced\"<br/><br/>**OMEN Command Center Profile**<br/>Location: OMEN Command Center → Performance Control<br/>Recommended: Performance Mode for gaming<br/>Steps:<br/>1. Open OMEN Command Center<br/>2. Go to Performance Control tab<br/>3. Select your preferred mode<br/>4. Optionally create custom profiles<br/><br/>**NVIDIA Control Panel**<br/>Location: Right-click desktop → NVIDIA Control Panel<br/>Recommended: Prefer Maximum Performance<br/>Steps:<br/>1. Open NVIDIA Control Panel<br/>2. Go to Manage 3D Settings<br/>3. Set \"Power management mode\" to \"Prefer maximum performance\"<br/>4. Apply settings"
+        },
+        {
+            "title": "Display Optimization",
+            "content": "Configure display settings for the best gaming experience.<br/><br/>**Refresh Rate**<br/>Higher refresh rates provide smoother visuals<br/>Location: Settings → Display → Advanced display → Choose a refresh rate<br/>💡 Use your highest available refresh rate (144Hz, 165Hz, or 300Hz)<br/><br/>**G-Sync / FreeSync**<br/>Eliminates screen tearing during gameplay<br/>Location: NVIDIA Control Panel → Set up G-SYNC<br/>💡 Enable for smoother gaming experience<br/><br/>**HDR**<br/>High Dynamic Range for better colors and contrast<br/>Location: Settings → Display → HDR<br/>💡 Enable if your display supports it and you prefer vibrant colors"
+        },
+        {
+            "title": "RGB Lighting Configuration",
+            "content": "Customize your OMEN's RGB lighting through OMEN Command Center:<br/><br/>1. Open OMEN Command Center and navigate to the Lighting tab<br/><br/>2. Choose from preset lighting effects or create custom colors<br/><br/>3. Adjust brightness and speed for animated effects<br/><br/>4. Save your configuration as a custom profile",
+            "infoBox": {
+                "type": "info",
+                "title": "Battery Tip",
+                "content": "Disabling RGB lighting can slightly improve battery life on unplugged use."
+            }
         }
     ]
 }

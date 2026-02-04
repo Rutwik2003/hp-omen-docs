@@ -1,7 +1,6 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
-import Link from '@tiptap/extension-link';
 import { useEffect } from 'react';
 import { useEditorStore } from '../../../../store/editorStore';
 import { Block } from '../../../../types/blocks';
@@ -15,9 +14,13 @@ const RichTextBlock = ({ stepId, block }: { stepId: string; block: Block }) => {
   
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      // StarterKit v3 includes Link by default - configure it here
+      StarterKit.configure({
+        link: {
+          openOnClick: false,
+        },
+      }),
       Image,
-      Link.configure({ openOnClick: false }),
     ],
     content: (block as any).content || '',
     editorProps: {

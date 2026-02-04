@@ -5,16 +5,21 @@ import { CalloutBlock } from '../../../../types/blocks';
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
+
+// StarterKit v3 includes Link by default - configure it in the options
+const extensions = [
+  StarterKit.configure({
+    link: {
+      openOnClick: false,
+    },
+  }),
+];
 
 const CalloutBlockEditor = ({ stepId, block }: { stepId: string; block: CalloutBlock }) => {
   const { updateBlock } = useEditorStore();
   
   const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Link.configure({ openOnClick: false }),
-    ],
+    extensions,
     content: block.content || '',
     editorProps: {
         attributes: {

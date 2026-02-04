@@ -48,16 +48,24 @@ const EnhancedAnimation: React.FC<EnhancedAnimationProps> = ({
   );
 };
 
-export const PageTransitionWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    transition={{ duration: 0.3, ease: 'easeInOut' }}
-  >
-    {children}
-  </motion.div>
-);
+// Modern page transition - simpler approach without exit animations
+// to avoid the flash issue
+export const PageTransitionWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ 
+        opacity: 1,
+        transition: {
+          duration: 0.2,
+          ease: 'easeOut',
+        }
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export const StaggerContainer: React.FC<{ children: React.ReactNode; className?: string }> = ({ 
   children, 

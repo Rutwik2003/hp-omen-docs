@@ -1,8 +1,163 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { GuideLayout, StepSection, InfoBox } from '../components/guide-ui';
-import { GitPullRequest, Edit, Github } from 'lucide-react';
+import { GitPullRequest, Edit, Github, Clock, FileText, Trash2, ChevronRight, Loader2, AlertTriangle, X } from 'lucide-react';
+import { useDraftList } from '../hooks/useDraftList';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// Helper to format relative time
+const formatRelativeTime = (timestamp: number): string => {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes}m ago`;
+    if (hours < 24) return `${hours}h ago`;
+    if (days < 7) return `${days}d ago`;
+    return new Date(timestamp).toLocaleDateString();
+};
+
+// Custom Delete Confirmation Modal
+const DeleteConfirmModal = ({ 
+  isOpen, 
+  onClose, 
+  onConfirm, 
+  draftTitle,
+  isDeleting 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  onConfirm: () => void;
+  draftTitle: string;
+  isDeleting: boolean;
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100]"
+            onClick={onClose}
+          />
+          
+          {/* Modal Container - Full screen flex centering */}
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: 'spring', duration: 0.3 }}
+              className="w-full max-w-md pointer-events-auto"
+            >
+              <div className="bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between p-4 border-b border-neutral-800">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 bg-red-500/10 rounded-lg flex items-center justify-center">
+                      <AlertTriangle className="h-5 w-5 text-red-400" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white">Delete Draft</h3>
+                  </div>
+                  <button 
+                    onClick={onClose}
+                  className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              
+              {/* Content */}
+              <div className="p-4 sm:p-6">
+                <p className="text-gray-300 mb-2">
+                  Are you sure you want to delete this draft?
+                </p>
+                <p className="text-sm text-gray-500 bg-neutral-800/50 px-3 py-2 rounded-lg truncate">
+                  "{draftTitle || 'Untitled Draft'}"
+                </p>
+                <p className="text-xs text-red-400/80 mt-3">
+                  This action cannot be undone.
+                </p>
+              </div>
+              
+              {/* Actions */}
+              <div className="flex gap-3 p-4 bg-neutral-950/50 border-t border-neutral-800">
+                <button
+                  onClick={onClose}
+                  disabled={isDeleting}
+                  className="flex-1 px-4 py-2.5 bg-neutral-800 text-white rounded-lg font-medium hover:bg-neutral-700 transition-colors disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onConfirm}
+                  disabled={isDeleting}
+                  className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-500 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isDeleting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="h-4 w-4" />
+                      Delete
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+            </motion.div>
+          </div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
 
 const Contribute: React.FC = () => {
+  const { drafts, loading, deleteDraft, hasDrafts } = useDraftList();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string; title: string }>({
+    isOpen: false,
+    id: '',
+    title: ''
+  });
+
+  const openDeleteModal = (id: string, title: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDeleteModal({ isOpen: true, id, title });
+  };
+
+  const closeDeleteModal = () => {
+    if (!deletingId) {
+      setDeleteModal({ isOpen: false, id: '', title: '' });
+    }
+  };
+
+  const confirmDelete = async () => {
+    setDeletingId(deleteModal.id);
+    await deleteDraft(deleteModal.id);
+    setDeletingId(null);
+    setDeleteModal({ isOpen: false, id: '', title: '' });
+  };
+
+  // Helper to get the correct edit URL for a draft
+  const getDraftEditUrl = (draftId: string) => {
+    // All drafts go to /contribute/edit/:id - the editor will load from IndexedDB
+    return `/contribute/edit/${encodeURIComponent(draftId)}`;
+  };
+
   return (
     <GuideLayout
       title="Contribute to OMEN Docs"
@@ -22,50 +177,154 @@ const Contribute: React.FC = () => {
           We use a transparent 'Editorial Workflow'. You don't need permission to submit! Your changes will be saved as a 'Draft' for our admins to review before going live.
         </InfoBox>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {/* Option 1: The Public Creator */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-orange-500/50 transition-colors group">
-            <div className="h-12 w-12 bg-orange-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-orange-500/20 transition-colors">
-              <Edit className="h-6 w-6 text-orange-400" />
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 sm:p-6 hover:border-orange-500/50 transition-colors group">
+            <div className="h-10 w-10 sm:h-12 sm:w-12 bg-orange-500/10 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-orange-500/20 transition-colors">
+              <Edit className="h-5 w-5 sm:h-6 sm:w-6 text-orange-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Create a Guide</h3>
-            <p className="text-gray-400 text-sm mb-6 h-20">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Create a Guide</h3>
+            <p className="text-gray-400 text-sm mb-4 sm:mb-6 min-h-[60px] sm:h-20">
               Use our visual tool to draft a new guide. It runs right in your browser. When you're done, export it and send it to us!
             </p>
             <div className="flex flex-col space-y-2">
-                <a 
-                href="/contribute/new" 
-                className="inline-flex items-center justify-center w-full px-4 py-2 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:from-orange-500 hover:to-red-500 transition-all"
+                <Link 
+                to="/contribute/new" 
+                className="inline-flex items-center justify-center w-full px-4 py-2.5 sm:py-2 bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg font-medium hover:from-orange-500 hover:to-red-500 transition-all text-sm sm:text-base"
                 >
                 Start Writing <Edit className="ml-2 h-4 w-4" />
-                </a>
-                <a 
-                href="/contribute/playground" 
+                </Link>
+                <Link 
+                to="/contribute/playground" 
                 className="inline-flex items-center justify-center w-full px-4 py-2 bg-neutral-800 text-neutral-400 text-sm hover:text-white rounded-lg hover:bg-neutral-700 transition-all"
                 >
                 Try the Playground
-                </a>
+                </Link>
             </div>
           </div>
 
           {/* Option 2: GitHub Direct */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-blue-500/50 transition-colors group">
-            <div className="h-12 w-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors">
-              <Github className="h-6 w-6 text-blue-400" />
+          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-4 sm:p-6 hover:border-blue-500/50 transition-colors group">
+            <div className="h-10 w-10 sm:h-12 sm:w-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-blue-500/20 transition-colors">
+              <Github className="h-5 w-5 sm:h-6 sm:w-6 text-blue-400" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">GitHub Power User?</h3>
-            <p className="text-gray-400 text-sm mb-6 h-20">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">GitHub Power User?</h3>
+            <p className="text-gray-400 text-sm mb-4 sm:mb-6 min-h-[60px] sm:h-20">
               Prefer raw Markdown? Fork our repository, make your changes in `src/content/`, and open a Pull Request directly.
             </p>
             <a 
               href="https://github.com/rutwi123/hp-omen-reborn" 
               target="_blank"
-              className="inline-flex items-center justify-center w-full px-4 py-2 bg-neutral-800 text-white border border-neutral-700 rounded-lg font-medium hover:bg-neutral-700 transition-all"
+              className="inline-flex items-center justify-center w-full px-4 py-2.5 sm:py-2 bg-neutral-800 text-white border border-neutral-700 rounded-lg font-medium hover:bg-neutral-700 transition-all text-sm sm:text-base"
             >
               View Repository <GitPullRequest className="ml-2 h-4 w-4" />
             </a>
           </div>
         </section>
+
+        {/* Your Drafts Section */}
+        {(hasDrafts || loading) && (
+          <section className="bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 rounded-xl overflow-hidden">
+            <div className="p-4 sm:p-6 border-b border-neutral-800">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 bg-orange-500/10 rounded-lg flex items-center justify-center">
+                    <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-bold text-white">Your Drafts</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">Saved locally in your browser</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  {drafts.length > 5 && (
+                    <span className="text-[10px] sm:text-xs text-gray-500">Scroll for more</span>
+                  )}
+                  {hasDrafts && (
+                    <span className="bg-orange-500/20 text-orange-400 text-xs font-medium px-2 py-1 rounded-full">
+                      {drafts.length} {drafts.length === 1 ? 'draft' : 'drafts'}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="divide-y divide-neutral-800/50 max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+                {loading ? (
+                  <div className="p-8 text-center">
+                    <Loader2 className="h-6 w-6 animate-spin text-orange-400 mx-auto mb-2" />
+                    <p className="text-sm text-gray-500">Loading drafts...</p>
+                  </div>
+                ) : (
+                drafts.map((draft) => (
+                  <Link
+                    key={draft.id}
+                    to={getDraftEditUrl(draft.id)}
+                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-white/5 transition-colors group"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm sm:text-base font-medium text-white truncate group-hover:text-orange-400 transition-colors">
+                        {draft.title || 'Untitled Draft'}
+                      </h4>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {formatRelativeTime(draft.lastModified)}
+                        </span>
+                        {draft.category && (
+                          <span className="bg-neutral-800 px-1.5 py-0.5 rounded text-gray-400">
+                            {draft.category}
+                          </span>
+                        )}
+                        {draft.stepCount !== undefined && draft.stepCount > 0 && (
+                          <span>{draft.stepCount} {draft.stepCount === 1 ? 'step' : 'steps'}</span>
+                        )}
+                        {draft.wordCount !== undefined && draft.wordCount > 0 && (
+                          <span className="hidden sm:inline">~{draft.wordCount} words</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button
+                        onClick={(e) => openDeleteModal(draft.id, draft.title, e)}
+                        className="p-1.5 sm:p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                        title="Delete draft"
+                      >
+                        {deletingId === draft.id ? (
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                          <Trash2 className="h-4 w-4" />
+                        )}
+                      </button>
+                      <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 group-hover:text-orange-400 transition-colors" />
+                    </div>
+                  </Link>
+                ))
+              )}
+              </div>
+              {/* Fade gradient at bottom when scrollable */}
+              {drafts.length > 5 && (
+                <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-neutral-900 to-transparent pointer-events-none" />
+              )}
+            </div>
+
+            {hasDrafts && (
+              <div className="p-3 sm:p-4 bg-neutral-950/50 border-t border-neutral-800">
+                <Link
+                  to="/contribute/new"
+                  className="text-sm text-orange-400 hover:text-orange-300 font-medium flex items-center gap-2"
+                >
+                  <Edit className="h-4 w-4" />
+                  Start a new guide
+                </Link>
+              </div>
+            )}
+          </section>
+        )}
+
 
         <StepSection number={1} title="Choose a Topic">
           <p className="text-gray-300 mb-4">
@@ -110,6 +369,15 @@ const Contribute: React.FC = () => {
           </div>
         </section>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmModal
+        isOpen={deleteModal.isOpen}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+        draftTitle={deleteModal.title}
+        isDeleting={deletingId === deleteModal.id}
+      />
     </GuideLayout>
   );
 };
