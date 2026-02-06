@@ -1,12 +1,12 @@
 {
     "id": "cpu-opt",
     "title": "CPU Optimization",
-    "description": "Undervolting and power limits.",
+    "description": "Advanced techniques for optimizing CPU performance including undervolting, power limits, and thermal management for Intel and AMD processors.",
     "category": "Performance",
     "metadata": {
         "difficulty": "Advanced",
-        "readTime": "30 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "30-45 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -17,10 +17,55 @@
             "label": "CPU Opt"
         }
     ],
+    "prerequisites": {
+        "title": "Before You Begin",
+        "type": "warning",
+        "items": [
+            "Create a system restore point before making any changes",
+            "Understand that improper settings can cause system instability",
+            "Have a stress testing tool ready (Prime95, AIDA64, Cinebench)"
+        ]
+    },
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "Understanding CPU Optimization",
+            "content": "CPU optimization involves balancing performance, power consumption, and thermals. Key concepts:<br/><br/>**Undervolting**<br/>Reduces voltage supplied to CPU cores without reducing clock speed. Results in lower temperatures and potentially better sustained performance.<br/><br/>**Power Limits (PL1/PL2)**<br/>PL1 = Sustained power limit (long-term)<br/>PL2 = Boost power limit (short-term burst)<br/>Adjusting these affects sustained vs. burst performance.<br/><br/>**Thermal Design Power (TDP)**<br/>The amount of heat the cooling system is designed to dissipate. Higher TDP = more performance but more heat.",
+            "infoBox": {
+                "type": "info",
+                "title": "Why Undervolt?",
+                "content": "Modern CPUs are often shipped with higher voltages than necessary for stability margin. Undervolting removes this excess, reducing heat without losing performance."
+            }
+        },
+        {
+            "title": "Intel CPU Undervolting",
+            "content": "Use Intel XTU or ThrottleStop for Intel processors.<br/><br/>**Intel XTU (Official Tool)**<br/>1. Download from Intel's website<br/>2. Launch Intel XTU<br/>3. Go to \"Core\" section<br/>4. Reduce \"Core Voltage Offset\" by -50mV<br/>5. Click Apply<br/><br/>**ThrottleStop (Third-Party)**<br/>1. Download from techpowerup.com<br/>2. Launch ThrottleStop<br/>3. Click \"FIVR\"<br/>4. Select \"CPU Core\" and \"CPU Cache\"<br/>5. Check \"Unlock Adjustable Voltage\"<br/>6. Set Offset Voltage to -50mV<br/>7. Click Apply and OK<br/><br/>**Testing Undervolt Stability:**<br/>1. Run Prime95 for 30+ minutes<br/>2. Monitor temperatures with HWiNFO64<br/>3. If stable, increase undervolt by -10mV<br/>4. Repeat until instability occurs<br/>5. Back off to last stable value",
+            "infoBox": {
+                "type": "warning",
+                "title": "Stability Note",
+                "content": "If you experience crashes or blue screens, reduce the undervolt. Typical stable values range from -80mV to -150mV depending on your specific CPU."
+            }
+        },
+        {
+            "title": "AMD Ryzen Optimization",
+            "content": "Use Ryzen Controller or Ryzen Master for AMD processors.<br/><br/>**Ryzen Controller**<br/>1. Download from GitHub<br/>2. Launch Ryzen Controller<br/>3. Adjust these settings for balanced optimization:<br/>• Temperature Limit: 85-90°C<br/>• STAPM Limit: 35-45W (adjust based on cooling)<br/>• Fast Limit: 45-65W<br/>• Slow Limit: 35-45W<br/><br/>**AMD Ryzen Master (Official)**<br/>1. Download from AMD's website<br/>2. Select \"Manual\" profile<br/>3. Adjust PPT (Package Power Tracking)<br/>4. Set TDC (Thermal Design Current)<br/>5. Configure EDC (Electrical Design Current)<br/>6. Apply and test stability<br/><br/>**Curve Optimizer (Zen 3+)**<br/>Available in BIOS for Ryzen 5000+ series. Allows per-core voltage curve optimization for better efficiency."
+        },
+        {
+            "title": "Process Priority Management",
+            "content": "Optimize CPU priority for gaming:<br/><br/>**Manual Priority Adjustment:**<br/>1. Open Task Manager while game is running<br/>2. Go to \"Details\" tab<br/>3. Find the game process<br/>4. Right-click → Set priority → \"High\" (not Realtime)<br/><br/>**Automatic Priority with Process Lasso:**<br/>1. Download Process Lasso<br/>2. Right-click game process<br/>3. Select CPU Priority → Always → High<br/>4. Process Lasso will automatically apply this setting<br/><br/>**Recommended Priority Settings:**<br/>• Games: High<br/>• Discord/Voice Chat: Above Normal<br/>• Browser during gaming: Below Normal<br/>• Background apps: Low",
+            "infoBox": {
+                "type": "warning",
+                "title": "Never Use Realtime",
+                "content": "Never set any process to \"Realtime\" priority. This can cause system instability and potentially freeze your computer."
+            }
+        },
+        {
+            "title": "CPU Affinity & Core Parking",
+            "content": "Advanced CPU optimization techniques:<br/><br/>**CPU Affinity**<br/>Assign specific CPU cores to applications:<br/>1. Open Task Manager → Details tab<br/>2. Right-click process → Set affinity<br/>3. Select which cores the process can use<br/><br/>**Disable Core Parking (Performance Mode)**<br/>Windows may \"park\" unused cores to save power. To disable:<br/>1. Open Power Options → Change plan settings → Advanced<br/>2. Processor power management → Minimum processor state: 100%<br/><br/>**High Performance Plan Tweaks:**<br/>• Minimum processor state: 5-10%<br/>• Maximum processor state: 100%<br/>• System cooling policy: Active<br/>• Processor performance boost mode: Aggressive",
+            "infoBox": {
+                "type": "success",
+                "title": "Expected Results",
+                "content": "After CPU optimization, expect 5-15°C lower temperatures and more consistent frame rates due to reduced thermal throttling."
+            }
         }
     ]
 }

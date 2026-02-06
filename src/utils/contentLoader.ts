@@ -1,4 +1,5 @@
 import { DocPage } from '../types/docs';
+import { Block } from '../types/blocks';
 
 // Eagerly load all content JSONs
 const contentModules = import.meta.glob('../content/**/*.json', { eager: true });
@@ -16,8 +17,15 @@ export interface DocSummary {
     };
 }
 
+/** Extended DocSummary with full document data for admin/editor use */
+export interface DocWithContent extends DocSummary {
+    steps: DocPage['steps'];
+    breadcrumbs?: DocPage['breadcrumbs'];
+    prerequisites?: DocPage['prerequisites'];
+}
+
 // Helper to extract text from various block types
-const extractTextFromBlocks = (blocks: any[]): string => {
+const extractTextFromBlocks = (blocks: Block[]): string => {
     if (!blocks) return '';
     return blocks.map(block => {
         if (block.type === 'text' || block.type === 'heading' || block.type === 'callout') {
@@ -76,7 +84,7 @@ export interface SearchIndexItem {
     content: string; // Full text content
 }
 
-export const getAllDocs = (): any[] => {
+export const getAllDocs = (): DocWithContent[] => {
     return Object.keys(contentModules).map((path) => {
         // Cast the module to have a default export of type DocPage
         const module = contentModules[path] as { default: DocPage };

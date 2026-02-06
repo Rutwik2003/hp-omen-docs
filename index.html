@@ -12,6 +12,9 @@
     <!-- Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
     
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/HP_Omen_logo.svg" as="image" type="image/svg+xml" />
+    
     <!-- Viewport and SEO -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Community-driven HP OMEN laptop documentation, guides, and troubleshooting resources created by fans" />
@@ -32,12 +35,154 @@
     
     <title>HP OMEN Community Documentation - Unofficial Guide & Resources</title>
   </head>
-  <body class="bg-black">
-    <div id="root">
-       <!-- Initial Dark Loader -->
-       <div style="position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;">
-          <div style="width:32px;height:32px;border:2px solid #333;border-top-color:#f97316;border-radius:50%;animation:spin 1s linear infinite;"></div>
-          <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+  <body class="bg-black" style="background-color:#000;margin:0;">
+    <div id="root" style="background-color:#000;min-height:100vh;">
+       <!-- OMEN Gaming Hub Style Loading Screen -->
+       <div id="omen-loader" style="position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px;">
+          
+          <!-- OMEN Logo with Diamond Mask Effect -->
+          <div id="logoContainer" style="position:relative;width:min(100px, 25vw);height:min(100px, 25vw);margin-bottom:clamp(16px, 4vh, 32px);">
+            <!-- Main Logo with inline SVG fallback -->
+            <img id="omenLogo" src="/HP_Omen_logo.svg" alt="OMEN" style="width:100%;height:100%;object-fit:contain;" 
+                 onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block';" />
+            <!-- Inline SVG fallback for slow networks -->
+            <svg id="logoFallback" style="display:none;width:100%;height:100%;" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 5L5 50L50 95L95 50L50 5Z" fill="url(#omenGrad)"/>
+              <defs><linearGradient id="omenGrad" x1="5" y1="5" x2="95" y2="95"><stop stop-color="#FF6B35"/><stop offset="1" stop-color="#C41E3A"/></linearGradient></defs>
+            </svg>
+            
+            <!-- Diamond tiles overlay for dissolve effect -->
+            <div id="diamondGrid" style="position:absolute;top:-15%;left:-15%;width:130%;height:130%;pointer-events:none;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:0;"></div>
+          </div>
+          
+          <!-- Loading Message -->
+          <p id="loadingMsg" style="color:#fff;font-size:clamp(14px, 4vw, 18px);font-weight:500;letter-spacing:0.3px;margin:0;text-align:center;max-width:90vw;">Getting out of silver...</p>
+          
+          <style>
+            .diamond-tile {
+              width: 100%;
+              height: 100%;
+              background: #000;
+              transform: rotate(45deg) scale(2);
+              opacity: 0;
+              transition: opacity 0.12s ease-out;
+            }
+            .diamond-tile.visible {
+              opacity: 1;
+            }
+            /* Accessibility: reduce motion for users who prefer it */
+            @media (prefers-reduced-motion: reduce) {
+              .diamond-tile {
+                transition: opacity 0.01s;
+              }
+            }
+            /* Smooth fade out when loader is removed */
+            #omen-loader.fade-out {
+              opacity: 0;
+              transition: opacity 0.3s ease-out;
+              pointer-events: none;
+            }
+          </style>
+          
+          <script>
+            (function() {
+              // Loading messages
+              var msgs = [
+                "Getting out of silver...",
+                "Looking behind the waterfall...",
+                "Downloading more RAM...",
+                "Warming up the RGB...",
+                "Loading epic moments...",
+                "Pressing F to pay respects...",
+                "Speedrunning the loading..."
+              ];
+              var msgEl = document.getElementById('loadingMsg');
+              var msgIdx = Math.floor(Math.random() * msgs.length);
+              if (msgEl) msgEl.textContent = msgs[msgIdx];
+              var msgInterval = setInterval(function() {
+                msgIdx = (msgIdx + 1) % msgs.length;
+                if (msgEl) msgEl.textContent = msgs[msgIdx];
+              }, 2500);
+              
+              // Create diamond grid
+              var grid = document.getElementById('diamondGrid');
+              var tiles = [];
+              var rows = 6;
+              var cols = 6;
+              
+              for (var i = 0; i < rows * cols; i++) {
+                var tile = document.createElement('div');
+                tile.className = 'diamond-tile';
+                grid.appendChild(tile);
+                tiles.push(tile);
+              }
+              
+              // Animation: dissolve left to right
+              function dissolve() {
+                for (var col = 0; col < cols; col++) {
+                  (function(c) {
+                    setTimeout(function() {
+                      for (var row = 0; row < rows; row++) {
+                        var idx = row * cols + c;
+                        if (tiles[idx]) tiles[idx].classList.add('visible');
+                      }
+                    }, c * 60);
+                  })(col);
+                }
+              }
+              
+              // Animation: reform left to right
+              function reform() {
+                for (var col = 0; col < cols; col++) {
+                  (function(c) {
+                    setTimeout(function() {
+                      for (var row = 0; row < rows; row++) {
+                        var idx = row * cols + c;
+                        if (tiles[idx]) tiles[idx].classList.remove('visible');
+                      }
+                    }, c * 60);
+                  })(col);
+                }
+              }
+              
+              var animationTimer1, animationTimer2;
+              
+              // Animation loop
+              function runAnimation() {
+                dissolve();
+                animationTimer1 = setTimeout(function() {
+                  reform();
+                }, cols * 80 + 300);
+                animationTimer2 = setTimeout(function() {
+                  runAnimation();
+                }, cols * 80 * 2 + 600);
+              }
+              
+              // Start animation
+              setTimeout(runAnimation, 200);
+              
+              // Cleanup function - called when React app mounts
+              window.hideOmenLoader = function() {
+                var loader = document.getElementById('omen-loader');
+                if (loader) {
+                  clearInterval(msgInterval);
+                  clearTimeout(animationTimer1);
+                  clearTimeout(animationTimer2);
+                  loader.classList.add('fade-out');
+                  setTimeout(function() {
+                    if (loader.parentNode) loader.parentNode.removeChild(loader);
+                  }, 300);
+                }
+              };
+              
+              // Fallback: auto-hide after 10 seconds max (for slow networks)
+              setTimeout(function() {
+                if (document.getElementById('omen-loader')) {
+                  window.hideOmenLoader();
+                }
+              }, 10000);
+            })();
+          </script>
        </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>

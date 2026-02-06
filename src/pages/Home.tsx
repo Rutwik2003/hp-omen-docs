@@ -1,17 +1,21 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, lazy, Suspense } from 'react';
 
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import SearchModal from '../components/SearchModal';
 import { BentoGrid, BentoGridItem } from '../components/BentoGrid';
 
 import { AnimatedMonitor, AnimatedSettings, AnimatedDownload, AnimatedWrench, AnimatedBook, AnimatedSearch } from '../components/animated-icons';
-import WindowsSkeleton from '../components/home/WindowsSkeleton';
-import LinuxSkeleton from '../components/home/LinuxSkeleton';
-import HardwareSkeleton from '../components/home/HardwareSkeleton';
-import DriversSkeleton from '../components/home/DriversSkeleton';
-import DocsSkeleton from '../components/home/DocsSkeleton';
+import { 
+  WindowsSkeleton, 
+  LinuxSkeleton, 
+  HardwareSkeleton, 
+  DriversSkeleton, 
+  DocsSkeleton 
+} from '../components/skeletons';
+
+// Lazy load SearchModal - only loaded when user opens search
+const SearchModal = lazy(() => import('../components/docs/SearchModal'));
 
 const Home: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -188,10 +192,15 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <SearchModal 
-        isOpen={isSearchOpen} 
-        onClose={() => setIsSearchOpen(false)} 
-      />
+      {/* Lazy loaded SearchModal */}
+      {isSearchOpen && (
+        <Suspense fallback={null}>
+          <SearchModal 
+            isOpen={isSearchOpen} 
+            onClose={() => setIsSearchOpen(false)} 
+          />
+        </Suspense>
+      )}
     </div>
   );
 };

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Type, Code, Info, LayoutGrid, Table, Image as ImageIcon } from 'lucide-react';
+import { BlockType } from '../../../types/blocks';
 
 interface SlashCommandMenuProps {
   position: { top: number; left: number } | null;
-  onSelect: (type: any) => void;
+  onSelect: (type: BlockType) => void;
   onClose: () => void;
 }
 

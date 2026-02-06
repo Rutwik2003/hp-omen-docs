@@ -37,3 +37,6 @@ build
 
 # Testing
 coverage
+
+*storybook.log
+storybook-static

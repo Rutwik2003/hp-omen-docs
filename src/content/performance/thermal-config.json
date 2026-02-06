@@ -1,12 +1,12 @@
 {
     "id": "thermal-config",
-    "title": "Thermal Configuration",
-    "description": "Advanced fan control and repasting guide.",
+    "title": "Advanced Thermal Configuration",
+    "description": "Master your HP OMEN's cooling system with custom fan curves, thermal paste replacement, and advanced cooling modifications.",
     "category": "Performance",
     "metadata": {
         "difficulty": "Advanced",
-        "readTime": "45 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "45-60 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -17,10 +17,56 @@
             "label": "Thermal Config"
         }
     ],
+    "prerequisites": {
+        "title": "Before You Begin",
+        "type": "warning",
+        "items": [
+            "Opening your laptop may void warranty - check HP warranty terms",
+            "Have proper tools: precision screwdrivers, plastic pry tools",
+            "For repasting: quality thermal paste (Thermal Grizzly Kryonaut, Noctua NT-H1)",
+            "Work in static-free environment with ESD precautions"
+        ]
+    },
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "Custom Fan Curves in OMEN Command Center",
+            "content": "Create custom fan curves for your specific needs:<br/><br/>**Access Fan Control:**<br/>1. Open OMEN Command Center<br/>2. Go to Performance Control<br/>3. Select \"System Vitals\" or \"Fan Speed\"<br/><br/>**Understanding Fan Curve:**<br/>• X-axis: Temperature (°C)<br/>• Y-axis: Fan Speed (%)<br/>• Create points to define fan response<br/><br/>**Recommended Curve (Balanced):**<br/>• 40°C → 30% fan speed<br/>• 50°C → 40% fan speed<br/>• 60°C → 50% fan speed<br/>• 70°C → 65% fan speed<br/>• 80°C → 85% fan speed<br/>• 85°C+ → 100% fan speed<br/><br/>**Aggressive Curve (Max Cooling):**<br/>• 40°C → 40% fan speed<br/>• 50°C → 55% fan speed<br/>• 60°C → 70% fan speed<br/>• 70°C → 85% fan speed<br/>• 75°C+ → 100% fan speed",
+            "infoBox": {
+                "type": "info",
+                "title": "Fan Noise Trade-off",
+                "content": "Aggressive fan curves keep temperatures lower but increase noise. Find a balance that works for your environment and gaming style."
+            }
+        },
+        {
+            "title": "Third-Party Fan Control (Advanced)",
+            "content": "For more control beyond OMEN Command Center:<br/><br/>**FanControl (Open Source)**<br/>1. Download from github.com/Rem0o/FanControl.Releases<br/>2. Install and run as Administrator<br/>3. Detect fans and temperature sensors<br/>4. Create custom curves with more granularity<br/><br/>**Notebook FanControl**<br/>1. Download from github.com/hirschmann/nbfc<br/>2. Check if your OMEN model is supported<br/>3. Apply pre-made or custom configuration<br/><br/>**Important Notes:**<br/>• Third-party tools may conflict with OMEN Command Center<br/>• Close OMEN Command Center when using alternatives<br/>• Some tools require configuration files specific to your model<br/>• Always test thoroughly before relying on custom fan control",
+            "infoBox": {
+                "type": "warning",
+                "title": "Compatibility Warning",
+                "content": "Third-party fan control tools may not work correctly with all OMEN models. Always have a way to reset to default fan control if something goes wrong."
+            }
+        },
+        {
+            "title": "Thermal Paste Replacement",
+            "content": "Improve cooling by replacing factory thermal paste (typically after 2-3 years):<br/><br/>**Required Materials:**<br/>• High-quality thermal paste (Thermal Grizzly Kryonaut, Noctua NT-H1, Arctic MX-4)<br/>• Isopropyl alcohol (90%+) and lint-free cloths<br/>• Precision screwdriver set<br/>• Plastic pry tools<br/><br/>**General Steps:**<br/>1. Power off and disconnect all cables<br/>2. Remove battery (if possible) or disconnect internal battery<br/>3. Remove bottom panel screws<br/>4. Carefully pry open bottom panel<br/>5. Locate heatsink assembly<br/>6. Remove heatsink screws in reverse order (check for numbered sequence)<br/>7. Gently lift heatsink off CPU/GPU<br/>8. Clean old paste with isopropyl alcohol<br/>9. Apply small amount of new paste (pea-sized for each chip)<br/>10. Reattach heatsink in numbered sequence<br/>11. Reassemble laptop<br/><br/>**Expected Results:**<br/>• 5-15°C temperature reduction<br/>• Better sustained performance<br/>• Quieter fan operation",
+            "infoBox": {
+                "type": "warning",
+                "title": "Warranty Notice",
+                "content": "Opening your laptop and replacing thermal paste may void your warranty. Check HP warranty terms before proceeding. Consider professional service if under warranty."
+            }
+        },
+        {
+            "title": "Laptop Cooling Pad Selection",
+            "content": "External cooling can significantly help laptop thermals:<br/><br/>**What to Look For:**<br/>• Fan size: Larger fans (140mm+) are quieter and move more air<br/>• Fan count: 2-4 fans for even coverage<br/>• Height adjustment: Ergonomic positioning<br/>• Airflow direction: Should match your laptop's intake vents<br/><br/>**Recommended Features:**<br/>• Adjustable fan speed control<br/>• Metal mesh surface (better heat dissipation)<br/>• USB passthrough<br/>• Non-slip surface<br/><br/>**Expected Results:**<br/>• 3-8°C temperature reduction<br/>• Better sustained boost clocks<br/>• Reduced fan noise from laptop itself<br/><br/>**Alternative Cooling Methods:**<br/>• Elevated laptop stand (passive, improves airflow)<br/>• External desk fan pointed at laptop vents<br/>• Air-conditioned room (obvious but effective)"
+        },
+        {
+            "title": "Advanced Thermal Modifications",
+            "content": "For enthusiasts willing to go further:<br/><br/>**Thermal Pad Replacement:**<br/>• Replace factory thermal pads on VRM and VRAM<br/>• Use quality pads (Gelid GP-Extreme, Thermal Grizzly Minus Pad 8)<br/>• Match original pad thickness (measure before removing)<br/><br/>**Copper Shim Installation:**<br/>• Fills gaps between heatsink and chips<br/>• Improves thermal transfer<br/>• Requires precise measurement of gap<br/>• Risk of damage if incorrectly sized<br/><br/>**Liquid Metal (Extreme):**<br/>• Conducts better than paste (Thermal Grizzly Conductonaut)<br/>• Significant temperature reduction (10-20°C)<br/>• Electrically conductive - VERY risky<br/>• Can damage aluminum heatsinks<br/>• Not recommended unless very experienced<br/><br/>**Internal Dust Cleaning:**<br/>• Open laptop and use compressed air<br/>• Clean fan blades carefully<br/>• Clean heatsink fins<br/>• Do this every 6-12 months",
+            "infoBox": {
+                "type": "warning",
+                "title": "Extreme Modifications Warning",
+                "content": "Liquid metal and physical modifications carry significant risk of permanent damage. Only attempt if you're experienced and accept the risk of destroying your laptop."
+            }
         }
     ]
 }

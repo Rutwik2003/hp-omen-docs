@@ -1,20 +1,83 @@
 import Dexie, { Table } from 'dexie';
+import { GuideDraftData } from '../types/docs';
 
+/**
+ * Represents a saved draft guide in IndexedDB.
+ * Contains both metadata (for listing) and full content (for restoration).
+ */
 export interface DraftGuide {
-    id: string; // The guide ID or "new"
+    /** Unique identifier - either the guide ID being edited or 'new_guide_draft' */
+    id: string;
+    /** Guide title for display in draft list */
     title: string;
-    content: any; // Full form data state
+    /** Full form data state (GuideDraftData) for restoration */
+    content: GuideDraftData;
+    /** Unix timestamp of last modification */
     lastModified: number;
+    /** Unix timestamp of initial creation */
+    createdAt?: number;
+    /** Number of steps in the guide */
+    stepCount?: number;
+    /** Approximate word count across all content */
+    wordCount?: number;
+    /** Category for filtering (e.g., 'Performance', 'Troubleshooting') */
+    category?: string;
 }
 
+/**
+ * IndexedDB database for storing guide drafts locally.
+ * Uses Dexie.js for simplified IndexedDB access.
+ * 
+ * Schema (v2):
+ * - drafts: Primary key 'id', indexed by 'lastModified' and 'createdAt'
+ * 
+ * @example
+ * import { db } from './draftDatabase';
+ * await db.drafts.put({ id: 'guide-1', title: 'My Guide', ... });
+ * const draft = await db.drafts.get('guide-1');
+ */
 export class HpOmenDocsDB extends Dexie {
     drafts!: Table<DraftGuide>;
 
     constructor() {
         super('HpOmenDocsDB');
-        this.version(1).stores({
-            drafts: 'id, lastModified'
+        this.version(2).stores({
+            drafts: 'id, lastModified, createdAt'
         });
+    }
+
+    /**
+     * Retrieves all drafts sorted by last modified date (newest first).
+     * Used for displaying the draft list in the Contribute page.
+     * 
+     * @returns Array of all drafts, sorted by lastModified descending
+     */
+    async getAllDrafts(): Promise<DraftGuide[]> {
+        return await this.drafts.orderBy('lastModified').reverse().toArray();
+    }
+
+    /**
+     * Returns the total number of saved drafts.
+     * Useful for showing draft count badges.
+     * 
+     * @returns Number of drafts in the database
+     */
+    async getDraftCount(): Promise<number> {
+        return await this.drafts.count();
+    }
+
+    /**
+     * Removes old drafts, keeping only the most recent N drafts.
+     * Call periodically to prevent database bloat.
+     * 
+     * @param keepCount - Number of recent drafts to keep (default: 10)
+     */
+    async cleanupOldDrafts(keepCount: number = 10): Promise<void> {
+        const drafts = await this.getAllDrafts();
+        if (drafts.length > keepCount) {
+            const toDelete = drafts.slice(keepCount);
+            await Promise.all(toDelete.map(d => this.drafts.delete(d.id)));
+        }
     }
 }
 

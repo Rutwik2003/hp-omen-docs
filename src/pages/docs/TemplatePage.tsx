@@ -14,7 +14,8 @@ const TemplatePage: React.FC<TemplatePageProps> = ({ data }) => {
       description={data.description}
       breadcrumbs={data.breadcrumbs}
       metadata={data.metadata}
-      backgroundImage="/Hp_Omen_image.avif" // Could be dynamic too
+      backgroundImage="/Hp_Omen_image.avif"
+      pageId={data.id} // Pass the page ID for illustration matching
     >
       <DocRenderer data={data} />
     </GuideLayout>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

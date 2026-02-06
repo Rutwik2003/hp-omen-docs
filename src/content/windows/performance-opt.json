@@ -1,12 +1,12 @@
 {
     "id": "performance-opt",
     "title": "Windows Performance Optimization",
-    "description": "Deep dive into Windows registry tweaks and services for maximum FPS.",
+    "description": "Fine-tune Windows settings to maximize your HP OMEN laptop performance for gaming, productivity, and everyday use.",
     "category": "Windows",
     "metadata": {
         "difficulty": "Advanced",
-        "readTime": "25 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "35-50 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -17,10 +17,62 @@
             "label": "Performance Opt"
         }
     ],
+    "prerequisites": {
+        "title": "Before You Start",
+        "type": "warning",
+        "items": [
+            "Create a system restore point before making performance tweaks",
+            "This allows you to easily revert changes if something doesn't work as expected"
+        ]
+    },
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "Power Plan Configuration",
+            "content": "Create a custom high-performance power plan for maximum performance.<br/><br/>**Steps:**<br/>1. Right-click Start → \"Power Options\" → \"Additional power settings\"<br/>2. Click \"Create a power plan\" → Select \"High performance\" as base<br/>3. Click \"Change advanced power settings\" and customize:<br/><br/>**Recommended Settings:**<br/>• Processor power management: Min 5%, Max 100%<br/>• PCI Express Link State Power Management: Off<br/>• USB selective suspend: Disabled<br/>• Graphics settings: Maximum performance",
+            "infoBox": {
+                "type": "warning",
+                "title": "Battery Impact",
+                "content": "High-performance power plans significantly reduce battery life. Use \"Balanced\" mode when on battery and switch to \"High Performance\" when plugged in."
+            }
+        },
+        {
+            "title": "Startup Optimization",
+            "content": "Reduce boot time and free up system resources by managing startup applications.<br/><br/>**Method 1: Task Manager**<br/>1. Press Ctrl + Shift + Esc<br/>2. Click \"Startup\" tab<br/>3. Right-click unwanted apps → \"Disable\"<br/><br/>**Method 2: Settings App**<br/>1. Open Settings → Apps → Startup<br/>2. Toggle off apps you don't need<br/><br/>**Recommended Apps to Keep Enabled:**<br/>✓ OMEN Gaming Hub<br/>✓ HP Support Assistant<br/>✓ Windows Security<br/>✓ Audio drivers (Realtek/Bang & Olufsen)<br/>✓ Graphics driver tools (if needed)<br/>✓ Your preferred cloud sync"
+        },
+        {
+            "title": "Background Apps Management",
+            "content": "Disable unnecessary background apps to free up resources.<br/><br/>**Steps:**<br/>1. Settings → Privacy → Background apps (Windows 10) or Settings → Apps → Installed apps → App settings (Windows 11)<br/><br/>2. Disable unnecessary apps:<br/>• Calculator, Calendar, Camera<br/>• Mail & Calendar (if not using)<br/>• Maps, People, Phone Link<br/>• Weather, Widgets, Xbox services (if not gaming)",
+            "infoBox": {
+                "type": "success",
+                "title": "Pro Tip",
+                "content": "Keep Xbox Game Bar and related Xbox services enabled if you use them for screenshots, recordings, or Game Pass gaming."
+            }
+        },
+        {
+            "title": "Memory Optimization",
+            "content": "Configure virtual memory for optimal performance.<br/><br/>**Steps:**<br/>1. Right-click Start → System → Advanced system settings → Advanced tab<br/>2. Performance Settings → Advanced → Virtual memory → Change<br/>3. Uncheck \"Automatically manage\"<br/>4. Select system drive and set custom size<br/><br/>**Recommended Page File Sizes:**<br/>• 8 GB RAM: Initial 4096 MB, Max 8192 MB<br/>• 16 GB RAM: Initial 8192 MB, Max 16384 MB<br/>• 32 GB+ RAM: System Managed (automatic)"
+        },
+        {
+            "title": "Storage Cleanup & Optimization",
+            "content": "Keep your storage clean for optimal performance.<br/><br/>**Disk Cleanup:**<br/>1. Press Win + R<br/>2. Type \"cleanmgr\"<br/>3. Select drive and check all boxes<br/>4. Click \"Clean up system files\"<br/>5. Select Windows Update Cleanup, Temp files<br/><br/>**Storage Sense:**<br/>1. Settings → System → Storage<br/>2. Enable \"Storage Sense\"<br/>3. Configure cleanup schedule<br/>4. Set temp file deletion to 1 day<br/>5. Enable Recycle Bin auto-cleanup",
+            "infoBox": {
+                "type": "warning",
+                "title": "Before Cleanup",
+                "content": "Review files before deleting. The \"Downloads\" folder cleanup can remove files you may need. Exclude it from automatic cleanup or move important files first."
+            }
+        },
+        {
+            "title": "Visual Effects Optimization",
+            "content": "Reduce Windows visual effects for better performance.<br/><br/>**Steps:**<br/>1. Right-click Start → System → Advanced system settings → Advanced → Performance Settings<br/>2. Select \"Custom\" and enable only these for best balance:<br/>✓ Show thumbnails instead of icons<br/>✓ Smooth edges of screen fonts<br/>✓ Use visual styles on windows and buttons<br/>Everything else → OFF<br/><br/>**Additional Visual Tweaks:**<br/>• Disable Transparency: Settings → Personalization → Colors → Transparency effects OFF<br/>• Disable Animations: Settings → Accessibility → Visual effects → Animation effects OFF<br/>• Reduce Motion: Settings → Accessibility → Motion → OFF"
+        },
+        {
+            "title": "Quick Optimization Checklist",
+            "content": "Use this checklist to ensure you've covered all optimizations:<br/><br/>☐ Create High Performance power plan<br/>☐ Disable unnecessary startup apps<br/>☐ Configure virtual memory<br/>☐ Run Disk Cleanup<br/>☐ Enable Storage Sense<br/>☐ Adjust visual effects<br/>☐ Disable background apps<br/>☐ Disable transparency effects",
+            "infoBox": {
+                "type": "success",
+                "title": "Expected Results",
+                "content": "After applying these optimizations, you should see faster boot times, improved gaming performance, and smoother overall system responsiveness."
+            }
         }
     ]
 }

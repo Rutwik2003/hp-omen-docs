@@ -37,6 +37,30 @@ const getDifficultyColor = (difficulty?: string) => {
   }
 };
 
+// Staggered animation variants - starts after page transition completes
+const containerVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.35,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
+
 const DocPage: React.FC<DocPageProps> = ({
   title,
   description,
@@ -47,23 +71,30 @@ const DocPage: React.FC<DocPageProps> = ({
   prevPage
 }) => {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <motion.div 
+      className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {/* Breadcrumbs */}
-      {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+      {breadcrumbs && (
+        <motion.div variants={itemVariants}>
+          <Breadcrumbs items={breadcrumbs} />
+        </motion.div>
+      )}
       
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-8"
+        variants={itemVariants}
+        className="mb-6 sm:mb-8"
       >
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent leading-tight">
           {title}
         </h1>
         
         {description && (
-          <p className="text-lg text-gray-300 leading-relaxed mb-6">
+          <p className="text-base sm:text-lg text-gray-300 leading-relaxed mb-4 sm:mb-6">
             {description}
           </p>
         )}
@@ -100,9 +131,7 @@ const DocPage: React.FC<DocPageProps> = ({
 
       {/* Content */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        variants={itemVariants}
         className="prose prose-invert prose-orange max-w-none"
       >
         <div className="documentation-content">
@@ -113,9 +142,7 @@ const DocPage: React.FC<DocPageProps> = ({
       {/* Navigation */}
       {(prevPage || nextPage) && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          variants={itemVariants}
           className="mt-12 pt-8 border-t border-gray-700"
         >
           <div className="flex justify-between items-center">
@@ -151,7 +178,7 @@ const DocPage: React.FC<DocPageProps> = ({
           </div>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

@@ -4,7 +4,7 @@ import { Lock, ChevronRight, AlertCircle } from 'lucide-react';
 import { checkAuth } from '../../utils/adminApi';
 
 interface LoginProps {
-  onLogin: (token: string) => void;
+  onLogin: (password: string) => void | Promise<void>;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
@@ -61,17 +61,20 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         <h2 className="text-2xl font-bold text-center text-white mb-2 tracking-tight">System Access</h2>
         <p className="text-center text-gray-500 mb-8 text-sm font-mono">AUTHORIZED PERSONNEL ONLY</p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" aria-label="Admin login form">
           <div className="space-y-2">
-            <label className="text-xs font-mono text-gray-400 ml-1">SECURITY KEY</label>
+            <label htmlFor="admin-password" className="text-xs font-mono text-gray-400 ml-1">SECURITY KEY</label>
             <div className="relative group">
-              <Lock className="absolute left-4 top-3.5 h-5 w-5 text-gray-500 group-focus-within:text-orange-500 transition-colors" />
+              <Lock className="absolute left-4 top-3.5 h-5 w-5 text-gray-500 group-focus-within:text-orange-500 transition-colors" aria-hidden="true" />
               <input
+                id="admin-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-black/50 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white placeholder-gray-600 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all font-mono"
                 placeholder="••••••••••••"
+                aria-describedby={error ? "login-error" : undefined}
+                autoComplete="current-password"
               />
             </div>
           </div>
@@ -81,8 +84,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex items-center text-red-400 text-sm bg-red-500/10 p-3 rounded-lg border border-red-500/20"
+              role="alert"
+              id="login-error"
             >
-              <AlertCircle className="w-4 h-4 mr-2" />
+              <AlertCircle className="w-4 h-4 mr-2" aria-hidden="true" />
               {error}
             </motion.div>
           )}
@@ -90,13 +95,14 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           <button
             type="submit"
             disabled={loading}
+            aria-busy={loading}
             className={`w-full bg-gradient-to-r from-orange-600 to-red-600 text-white font-bold py-3.5 rounded-xl hover:from-orange-500 hover:to-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-orange-500 transition-all transform hover:scale-[1.02] flex items-center justify-center ${loading ? 'opacity-70 cursor-wait' : ''}`}
           >
             {loading ? (
               <span className="animate-pulse">AUTHENTICATING...</span>
             ) : (
               <>
-                ENTER SYSTEM <ChevronRight className="ml-2 w-4 h-4" />
+                ENTER SYSTEM <ChevronRight className="ml-2 w-4 h-4" aria-hidden="true" />
               </>
             )}
           </button>

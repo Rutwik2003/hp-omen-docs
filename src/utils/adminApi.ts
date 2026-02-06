@@ -1,11 +1,22 @@
 import { getAllDocs } from './contentLoader';
+import { parseError, logError } from './errorHandling';
 
 const IS_DEV = import.meta.env.DEV;
 
+/**
+ * Verifies admin password against dev environment variable or production API.
+ * @param password - The password to verify
+ * @returns true if authenticated, false otherwise
+ */
 export const checkAuth = async (password: string): Promise<boolean> => {
-    // Local Development: Simple check
+    // Local Development: Check against environment variable
     if (IS_DEV) {
-        return password === 'admin123';
+        const devPassword = import.meta.env.VITE_DEV_ADMIN_PASSWORD;
+        if (!devPassword) {
+            console.warn('VITE_DEV_ADMIN_PASSWORD not set in .env file');
+            return false;
+        }
+        return password === devPassword;
     }
 
     // Production: Verify against backend env var
@@ -16,12 +27,18 @@ export const checkAuth = async (password: string): Promise<boolean> => {
             body: JSON.stringify({ password })
         });
         return res.ok;
-    } catch (e) {
-        console.error('Auth verification failed', e);
+    } catch (error) {
+        const appError = parseError(error, 'verifying your password');
+        logError(appError, 'checkAuth');
         return false;
     }
 };
 
+/**
+ * Fetches content for admin dashboard.
+ * In dev: fetches from local server.js on port 3001
+ * In prod: uses build-time content (for listing only)
+ */
 export const fetchAdminContent = async () => {
     if (IS_DEV) {
         // Local: Fetch from our custom server.js
@@ -35,6 +52,16 @@ export const fetchAdminContent = async () => {
     }
 };
 
+/**
+ * Saves guide content to the repository.
+ * In dev: saves via local server.js
+ * In prod: saves via Vercel serverless function (commits to GitHub)
+ * 
+ * @param id - Guide identifier (e.g., 'performance/thermal-management')
+ * @param content - The guide content object
+ * @param password - Admin password for production auth
+ * @throws Error with user-friendly message if save fails
+ */
 export const saveContent = async (id: string, content: Record<string, unknown>, password?: string) => {
     if (IS_DEV) {
         // Local: Save via server.js

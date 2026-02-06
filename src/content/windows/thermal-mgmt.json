@@ -1,12 +1,12 @@
 {
     "id": "thermal-mgmt",
     "title": "Thermal Management",
-    "description": "Managing heat and fan curves.",
+    "description": "Optimize your HP OMEN's cooling system for better performance and longevity. Learn to monitor temperatures, configure fan profiles, and improve thermals.",
     "category": "Windows",
     "metadata": {
         "difficulty": "Intermediate",
-        "readTime": "15 mins",
-        "lastUpdated": "Jan 2026"
+        "readTime": "15-25 mins",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -19,8 +19,39 @@
     ],
     "steps": [
         {
-            "title": "Coming Soon",
-            "content": "Content under development."
+            "title": "OMEN Thermal Profiles",
+            "content": "OMEN Command Center offers three thermal profiles for different use cases:<br/><br/>**❄️ Cool Mode**<br/>• Fan Behavior: Quiet operation, lower fan speeds<br/>• Performance: 70-80% of max<br/>• Temps: 60-75°C under load<br/>• Best For: Office work, web browsing, quiet environments<br/><br/>**⚖️ Default Mode**<br/>• Fan Behavior: Balanced fan curves<br/>• Performance: 85-90% of max<br/>• Temps: 70-85°C under load<br/>• Best For: General use, light gaming<br/><br/>**🔥 Performance Mode**<br/>• Fan Behavior: Aggressive cooling, higher fan speeds<br/>• Performance: 100% max<br/>• Temps: 80-95°C under load<br/>• Best For: Gaming, rendering, heavy workloads",
+            "infoBox": {
+                "type": "info",
+                "title": "Quick Switch",
+                "content": "Use the keyboard shortcut Fn + P to quickly cycle through thermal profiles without opening OMEN Command Center."
+            }
+        },
+        {
+            "title": "Temperature Guidelines",
+            "content": "Monitor your temperatures to ensure your system stays healthy:<br/><br/>**CPU Idle:** Safe: 35-50°C | Warning: 50-60°C | Danger: 60°C+<br/><br/>**CPU Gaming:** Safe: 70-85°C | Warning: 85-95°C | Danger: 95°C+<br/><br/>**GPU Idle:** Safe: 30-45°C | Warning: 45-55°C | Danger: 55°C+<br/><br/>**GPU Gaming:** Safe: 65-80°C | Warning: 80-90°C | Danger: 90°C+<br/><br/>**SSD:** Safe: 30-50°C | Warning: 50-70°C | Danger: 70°C+",
+            "infoBox": {
+                "type": "warning",
+                "title": "Throttling Warning",
+                "content": "If your CPU consistently hits 95°C+, it will thermal throttle, reducing performance. Consider improving cooling or undervolting."
+            }
+        },
+        {
+            "title": "Monitoring Tools",
+            "content": "Use these tools to monitor your system temperatures:<br/><br/>**OMEN Command Center** (Pre-installed)<br/>Built-in HP monitoring with thermal controls. Features: Real-time temps, Fan control, Performance profiles<br/><br/>**HWiNFO64** (https://www.hwinfo.com/)<br/>Comprehensive hardware monitoring. Features: Detailed sensors, Logging, Alerts<br/><br/>**MSI Afterburner** (https://www.msi.com/Landing/afterburner)<br/>GPU monitoring and overclocking. Features: GPU temps, Fan curves, OSD overlay"
+        },
+        {
+            "title": "Cooling Optimization Tips",
+            "content": "**Immediate Actions:**<br/>• Use laptop on hard, flat surface (desk, cooling pad)<br/>• Never use on bed, carpet, or soft surfaces<br/>• Ensure all vents are unobstructed<br/>• Keep ambient room temperature reasonable (below 30°C)<br/><br/>**Maintenance:**<br/>• Clean vents with compressed air every 3-6 months<br/>• Check for dust buildup in fan intakes<br/>• Replace thermal paste every 2-3 years<br/>• Consider professional cleaning annually<br/><br/>**Software Optimization:**<br/>• Close unnecessary background applications<br/>• Use Performance profile only when needed<br/>• Limit FPS to your refresh rate (reduces heat)<br/>• Undervolt CPU/GPU if comfortable (advanced)"
+        },
+        {
+            "title": "Undervolting (Advanced)",
+            "content": "Undervolting can improve thermals but may cause instability if done incorrectly.<br/><br/>**Benefits:**<br/>• Lower temperatures (5-15°C reduction)<br/>• Reduced power consumption<br/>• Less thermal throttling<br/>• Quieter fan operation<br/><br/>**Tools:**<br/>• Intel XTU - Official Intel undervolting tool (Intel CPUs)<br/>• ThrottleStop - Popular third-party tool (Intel CPUs)<br/>• Ryzen Controller - AMD CPU power management (AMD CPUs)<br/><br/>**Basic Steps:**<br/>1. Download appropriate tool for your CPU<br/>2. Start with small undervolt (-50mV)<br/>3. Run stress test (Prime95, AIDA64)<br/>4. If stable, increase undervolt by -10mV<br/>5. Repeat until system becomes unstable<br/>6. Back off to last stable voltage<br/>7. Run extended stress tests (1+ hour)",
+            "infoBox": {
+                "type": "warning",
+                "title": "Caution",
+                "content": "Undervolting can cause system instability and crashes if done incorrectly. Always start with conservative values and test thoroughly."
+            }
         }
     ]
 }

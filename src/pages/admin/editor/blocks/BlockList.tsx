@@ -97,8 +97,16 @@ const BlockList: React.FC<BlockListProps> = ({ stepId, parentId, initialBlocks }
   );
 };
 
+interface DroppableAreaProps {
+    id: string;
+    blocks: Block[];
+    stepId: string;
+    handleAddBlock: (type: BlockType) => void;
+    level?: number;
+}
+
 // Extracted Component
-const DroppableArea = ({ id, blocks, stepId, handleAddBlock, level = 0 }: any) => (
+const DroppableArea: React.FC<DroppableAreaProps> = ({ id, blocks, stepId, handleAddBlock, level = 0 }) => (
     <Droppable droppableId={id}>
     {(provided) => (
         <div 
@@ -126,24 +134,24 @@ const DroppableArea = ({ id, blocks, stepId, handleAddBlock, level = 0 }: any) =
             {provided.placeholder}
             
             {/* Quick Add Buttons */}
-            <div className="flex flex-wrap gap-2 pt-2 justify-center">
-                <button onClick={() => handleAddBlock('text')} className="text-xs flex items-center px-2 py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
-                    <Plus className="w-3 h-3 mr-1" /> Text
+            <div className="grid grid-cols-3 sm:flex sm:flex-wrap gap-1.5 sm:gap-2 pt-2 sm:justify-center">
+                <button onClick={() => handleAddBlock('text')} className="text-[10px] sm:text-xs flex items-center justify-center px-1.5 sm:px-2 py-1.5 sm:py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
+                    <Plus className="w-3 h-3 sm:mr-1" /><span className="hidden sm:inline">Text</span>
                 </button>
-                 <button onClick={() => handleAddBlock('grid')} className="text-xs flex items-center px-2 py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
-                    <Plus className="w-3 h-3 mr-1" /> Grid
+                 <button onClick={() => handleAddBlock('grid')} className="text-[10px] sm:text-xs flex items-center justify-center px-1.5 sm:px-2 py-1.5 sm:py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
+                    <Plus className="w-3 h-3 sm:mr-1" /><span className="hidden sm:inline">Grid</span>
                 </button>
-                 <button onClick={() => handleAddBlock('code')} className="text-xs flex items-center px-2 py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
-                    <Plus className="w-3 h-3 mr-1" /> Code
+                 <button onClick={() => handleAddBlock('code')} className="text-[10px] sm:text-xs flex items-center justify-center px-1.5 sm:px-2 py-1.5 sm:py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
+                    <Plus className="w-3 h-3 sm:mr-1" /><span className="hidden sm:inline">Code</span>
                 </button>
-                <button onClick={() => handleAddBlock('callout')} className="text-xs flex items-center px-2 py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
-                    <Plus className="w-3 h-3 mr-1" /> Callout
+                <button onClick={() => handleAddBlock('callout')} className="text-[10px] sm:text-xs flex items-center justify-center px-1.5 sm:px-2 py-1.5 sm:py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
+                    <Plus className="w-3 h-3 sm:mr-1" /><span className="hidden sm:inline">Callout</span>
                 </button>
-                <button onClick={() => handleAddBlock('table')} className="text-xs flex items-center px-2 py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
-                    <Plus className="w-3 h-3 mr-1" /> Table
+                <button onClick={() => handleAddBlock('table')} className="text-[10px] sm:text-xs flex items-center justify-center px-1.5 sm:px-2 py-1.5 sm:py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
+                    <Plus className="w-3 h-3 sm:mr-1" /><span className="hidden sm:inline">Table</span>
                 </button>
-                <button onClick={() => handleAddBlock('image')} className="text-xs flex items-center px-2 py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
-                    <Plus className="w-3 h-3 mr-1" /> Image
+                <button onClick={() => handleAddBlock('image')} className="text-[10px] sm:text-xs flex items-center justify-center px-1.5 sm:px-2 py-1.5 sm:py-1 bg-neutral-800 hover:bg-neutral-700 rounded text-gray-300">
+                    <Plus className="w-3 h-3 sm:mr-1" /><span className="hidden sm:inline">Image</span>
                 </button>
             </div>
         </div>

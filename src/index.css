@@ -38,6 +38,30 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Outfit', sans-serif;
 }
 
+/* Accessibility: Focus visible styles for keyboard navigation - WCAG 2.4.7 */
+:focus-visible {
+  outline: 2px solid var(--omen-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Enhanced focus for buttons and interactive elements */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--omen-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
+}
+
+/* Remove default outline when using mouse */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -107,7 +131,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .documentation-content h2::before {
   content: '';
-  @apply w-1.5 h-8 bg-orange-500 rounded-full mr-3 block;
+  @apply w-1.5 h-8 bg-gradient-to-b from-orange-500 to-red-500 rounded-full mr-3 block;
 }
 
 .documentation-content h3 {
@@ -123,20 +147,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .documentation-content li {
-  @apply flex items-start space-x-3;
+  @apply flex items-start space-x-3 py-1;
 }
 
 .documentation-content li::before {
-  content: "→";
-  @apply text-orange-500 font-bold mt-0.5;
+  content: "";
+  @apply w-2 h-2 rounded-full bg-gradient-to-br from-orange-500 to-red-500 mt-2 flex-shrink-0;
 }
 
 .documentation-content code {
-  @apply bg-gray-900 border border-gray-700 text-orange-300 px-1.5 py-0.5 rounded text-sm font-mono;
+  @apply bg-gradient-to-r from-orange-500/20 to-red-500/15 border border-orange-500/30 text-orange-300 px-2 py-0.5 rounded-md text-sm font-mono;
 }
 
 .documentation-content pre {
-  @apply bg-[#050505] border border-gray-800 rounded-xl p-5 mb-6 overflow-x-auto;
+  @apply bg-[#050505] border border-gray-800 rounded-xl p-5 mb-6 overflow-x-auto relative;
+}
+
+.documentation-content pre::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500 opacity-50 rounded-t-xl;
 }
 
 .documentation-content pre code {
@@ -145,6 +174,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .documentation-content a {
   @apply text-orange-400 hover:text-orange-300 border-b border-orange-500/30 hover:border-orange-500 transition-all no-underline;
+}
+
+/* Enhanced prose styling for doc pages */
+.prose-invert strong {
+  @apply text-white font-semibold;
+}
+
+.prose-invert em {
+  @apply text-gray-200;
+}
+
+/* Smooth content transitions */
+.prose > * {
+  @apply transition-opacity duration-200;
 }
 
 /* Layout Utilities */
