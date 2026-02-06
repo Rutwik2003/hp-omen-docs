@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link, useOutletContext } from 'react-router-dom';
 import { Plus, Search, FileText, Settings, ExternalLink, LogOut, Loader2, PanelLeft } from 'lucide-react';
 import { fetchAdminContent } from '../../utils/adminApi';
+import { devError } from '../../utils/logger';
 
 const Dashboard: React.FC = () => {
   const [guides, setGuides] = useState<any[]>([]);
@@ -20,7 +21,7 @@ const Dashboard: React.FC = () => {
       const data = await fetchAdminContent();
       setGuides(data);
     } catch (error) {
-      console.error("Failed to load content", error);
+      devError('Failed to load content', error);
     } finally {
       setLoading(false);
     }

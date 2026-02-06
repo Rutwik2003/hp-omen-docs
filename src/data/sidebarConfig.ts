@@ -190,7 +190,9 @@ export const getSidebarConfig = (): SidebarConfig => {
       };
     }
   } catch (error) {
-    console.error('Error loading sidebar config:', error);
+    if (import.meta.env.DEV) {
+      console.error('[DEV] Error loading sidebar config:', error);
+    }
   }
   return DEFAULT_SIDEBAR_CONFIG;
 };
@@ -204,7 +206,9 @@ export const saveSidebarConfig = (config: SidebarConfig): void => {
     // Dispatch event for other components to react
     window.dispatchEvent(new CustomEvent('sidebarConfigUpdated', { detail: config }));
   } catch (error) {
-    console.error('Error saving sidebar config:', error);
+    if (import.meta.env.DEV) {
+      console.error('[DEV] Error saving sidebar config:', error);
+    }
   }
 };
 

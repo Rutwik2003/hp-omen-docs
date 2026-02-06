@@ -99,7 +99,7 @@ describe('useDraftList', () => {
 
     await act(async () => {
       const success = await result.current.deleteDraft('draft-1');
-      expect(success).toBe(true);
+      expect(success).toEqual({ success: true });
     });
 
     expect(result.current.drafts.length).toBe(initialLength - 1);
@@ -115,7 +115,7 @@ describe('useDraftList', () => {
 
     await act(async () => {
       const success = await result.current.clearAllDrafts();
-      expect(success).toBe(true);
+      expect(success).toEqual({ success: true });
     });
 
     expect(result.current.drafts).toHaveLength(0);

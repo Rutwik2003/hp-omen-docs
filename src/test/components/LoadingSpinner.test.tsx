@@ -5,8 +5,8 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 describe('LoadingSpinner', () => {
   it('should render without crashing', () => {
     render(<LoadingSpinner />);
-    // The spinner should be in the document
-    expect(document.querySelector('.animate-spin')).toBeInTheDocument();
+    // The spinner should be in the document with role="status"
+    expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
   it('should be accessible with proper aria attributes', () => {

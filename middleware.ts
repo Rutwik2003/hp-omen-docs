@@ -41,8 +41,8 @@ function buildCSP(nonce: string): string {
     // Default fallback - restrict to same origin
     "default-src 'self'",
     
-    // Scripts: Allow self, the nonce for inline scripts, and strict-dynamic for module scripts
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    // Scripts: Allow self, nonce for inline scripts, strict-dynamic, and Vercel Live (preview deployments)
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://vercel.live`,
     
     // Styles: Allow self, inline styles (needed for Tailwind), and Google Fonts
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
@@ -53,8 +53,8 @@ function buildCSP(nonce: string): string {
     // Images: Allow self, data URIs (for inline SVGs), and HTTPS sources
     "img-src 'self' data: https:",
     
-    // Connect: Allow self and GitHub API (for contributor features)
-    "connect-src 'self' https://api.github.com",
+    // Connect: Allow self, GitHub API, and Vercel Live (preview deployments)
+    "connect-src 'self' https://api.github.com https://vercel.live wss://ws-us3.pusher.com",
     
     // Frame ancestors: Prevent clickjacking
     "frame-ancestors 'none'",
@@ -102,8 +102,14 @@ export default async function middleware(request: Request): Promise<Response> {
   // Get the HTML content
   let html = await originResponse.text();
   
-  // Inject nonce into ALL script tags that don't already have a nonce
-  // With 'strict-dynamic' CSP, both inline and external scripts need the nonce
+  // Replace any existing nonces and add nonce to scripts without one
+  // First, replace scripts that have an existing nonce (static from build)
+  html = html.replace(
+    /<script([^>]*)\snonce="[^"]*"([^>]*)>/gi,
+    `<script$1 nonce="${nonce}"$2>`
+  );
+  
+  // Then add nonce to scripts that don't have one
   html = html.replace(
     /<script(?![^>]*\bnonce=)([^>]*)>/gi,
     `<script nonce="${nonce}"$1>`

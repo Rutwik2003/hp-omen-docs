@@ -62,7 +62,9 @@ const saveDataSync = async (storageId: string, data: GuideDraftData) => {
             category: data.category || 'Uncategorized'
         });
     } catch (error) {
-        console.error('Emergency save failed', error);
+        if (import.meta.env.DEV) {
+            console.error('[DEV] Emergency save failed', error);
+        }
     }
 };
 
