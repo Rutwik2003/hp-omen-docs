@@ -102,10 +102,10 @@ export default async function middleware(request: Request): Promise<Response> {
   // Get the HTML content
   let html = await originResponse.text();
   
-  // Inject nonce into inline script tags (scripts without src attribute)
-  // This regex matches <script> tags that don't have a src or nonce attribute
+  // Inject nonce into ALL script tags that don't already have a nonce
+  // With 'strict-dynamic' CSP, both inline and external scripts need the nonce
   html = html.replace(
-    /<script(?![^>]*\b(?:src|nonce)=)([^>]*)>/gi,
+    /<script(?![^>]*\bnonce=)([^>]*)>/gi,
     `<script nonce="${nonce}"$1>`
   );
   
