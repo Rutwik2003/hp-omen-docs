@@ -48,18 +48,6 @@ const GuideLayout: React.FC<GuideLayoutProps> = ({
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
         </div>
 
-        {/* Illustration - positioned on the right, properly sized */}
-        {Illustration && (
-          <motion.div 
-            className="absolute right-8 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center pointer-events-none z-10"
-            initial={{ opacity: 0, scale: 0.9, x: 20 }}
-            animate={{ opacity: 0.9, scale: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <Illustration size="lg" className="drop-shadow-2xl" />
-          </motion.div>
-        )}
-
         {/* Content - Added top padding for mobile header */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pt-16 sm:pt-20 pb-8 sm:pb-10 md:pb-12">
           {/* Breadcrumbs - Improved mobile spacing */}
@@ -79,49 +67,65 @@ const GuideLayout: React.FC<GuideLayoutProps> = ({
             ))}
           </nav>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.4, 
-              delay: 0.1,
-              ease: [0.25, 0.46, 0.45, 0.94]
-            }}
-          >
-            {/* Title - Improved responsive sizing to prevent cutoff */}
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight break-words">
-              {title}
-            </h1>
-            {/* Description - Responsive text sizing */}
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl leading-relaxed">
-              {description}
-            </p>
+          {/* Main content row - text on left, illustration on right */}
+          <div className="flex items-center justify-between gap-8">
+            <motion.div
+              className="flex-1"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.4, 
+                delay: 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+            >
+              {/* Title - Improved responsive sizing to prevent cutoff */}
+              <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 sm:mb-4 leading-tight break-words">
+                {title}
+              </h1>
+              {/* Description - Responsive text sizing */}
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl leading-relaxed">
+                {description}
+              </p>
 
-            {/* Metadata Badges - Improved mobile layout */}
-            {metadata && (
-               <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-6">
-                {metadata.difficulty && (
-                  <span className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium border ${
-                    metadata.difficulty === 'Beginner' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
-                    metadata.difficulty === 'Intermediate' ? 'bg-orange-500/10 border-orange-500/30 text-orange-400' :
-                    'bg-red-500/10 border-red-500/30 text-red-400'
-                  }`}>
-                    {metadata.difficulty}
-                  </span>
-                )}
-                {metadata.readTime && (
-                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium border bg-blue-500/10 border-blue-500/30 text-blue-400">
-                    ⏱ {metadata.readTime}
-                  </span>
-                )}
-                {metadata.lastUpdated && (
-                   <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium border bg-gray-500/10 border-gray-500/30 text-gray-400">
-                    Updated: {metadata.lastUpdated}
-                  </span>
-                )}
-              </div>
+              {/* Metadata Badges - Improved mobile layout */}
+              {metadata && (
+                 <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-6">
+                  {metadata.difficulty && (
+                    <span className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium border ${
+                      metadata.difficulty === 'Beginner' ? 'bg-green-500/10 border-green-500/30 text-green-400' :
+                      metadata.difficulty === 'Intermediate' ? 'bg-orange-500/10 border-orange-500/30 text-orange-400' :
+                      'bg-red-500/10 border-red-500/30 text-red-400'
+                    }`}>
+                      {metadata.difficulty}
+                    </span>
+                  )}
+                  {metadata.readTime && (
+                    <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium border bg-blue-500/10 border-blue-500/30 text-blue-400">
+                      ⏱ {metadata.readTime}
+                    </span>
+                  )}
+                  {metadata.lastUpdated && (
+                     <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium border bg-gray-500/10 border-gray-500/30 text-gray-400">
+                      Updated: {metadata.lastUpdated}
+                    </span>
+                  )}
+                </div>
+              )}
+            </motion.div>
+
+            {/* Illustration - vertically centered with content */}
+            {Illustration && (
+              <motion.div 
+                className="hidden md:flex items-center justify-center flex-shrink-0 pointer-events-none"
+                initial={{ opacity: 0, scale: 0.9, x: 20 }}
+                animate={{ opacity: 0.9, scale: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <Illustration size="lg" className="drop-shadow-2xl" />
+              </motion.div>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
 

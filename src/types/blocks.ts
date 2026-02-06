@@ -12,7 +12,8 @@ export type BlockType =
     | 'grid'
     | 'column'
     | 'table'
-    | 'divider';
+    | 'divider'
+    | 'list';
 
 /**
  * Base properties shared by all block types.
@@ -103,11 +104,15 @@ export interface TableBlock extends BaseBlock {
     };
 }
 
-export interface ImageBlock extends BaseBlock {
-    type: 'image';
-    url: string;
-    caption?: string;
-    alt?: string;
+/** List block for ordered or unordered lists */
+export interface ListBlock extends BaseBlock {
+    type: 'list';
+    content: {
+        /** List style: ordered (numbered) or unordered (bullets) */
+        style: 'ordered' | 'unordered';
+        /** List items as strings (can contain HTML) */
+        items: string[];
+    };
 }
 
 /**
@@ -123,7 +128,8 @@ export type Block =
     | CalloutBlock
     | GridBlock
     | ColumnBlock
-    | TableBlock;
+    | TableBlock
+    | ListBlock;
 
 /**
  * A single step in a guide, containing a title and array of content blocks.

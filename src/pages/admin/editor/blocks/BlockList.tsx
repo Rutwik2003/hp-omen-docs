@@ -97,8 +97,16 @@ const BlockList: React.FC<BlockListProps> = ({ stepId, parentId, initialBlocks }
   );
 };
 
+interface DroppableAreaProps {
+    id: string;
+    blocks: Block[];
+    stepId: string;
+    handleAddBlock: (type: BlockType) => void;
+    level?: number;
+}
+
 // Extracted Component
-const DroppableArea = ({ id, blocks, stepId, handleAddBlock, level = 0 }: any) => (
+const DroppableArea: React.FC<DroppableAreaProps> = ({ id, blocks, stepId, handleAddBlock, level = 0 }) => (
     <Droppable droppableId={id}>
     {(provided) => (
         <div 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { getStepIllustration } from './PageIllustrations';
 
@@ -11,9 +11,42 @@ interface StepSectionProps {
 const StepSection: React.FC<StepSectionProps> = ({ number, title, children }) => {
   // Get relevant illustration for this step
   const Illustration = getStepIllustration(title);
+  const containerRef = useRef<HTMLElement>(null);
+  const [illustrationSize, setIllustrationSize] = useState<'sm' | 'md' | 'lg'>('lg');
+  
+  // Measure container height and adjust illustration size
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        const height = containerRef.current.offsetHeight;
+        // Small container (< 150px) -> small icon
+        // Medium container (150-250px) -> medium icon
+        // Large container (> 250px) -> large icon
+        if (height < 150) {
+          setIllustrationSize('sm');
+        } else if (height < 250) {
+          setIllustrationSize('md');
+        } else {
+          setIllustrationSize('lg');
+        }
+      }
+    };
+    
+    // Initial measurement
+    updateSize();
+    
+    // Re-measure on resize
+    const resizeObserver = new ResizeObserver(updateSize);
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    
+    return () => resizeObserver.disconnect();
+  }, [children]);
   
   return (
     <motion.section 
+      ref={containerRef}
       className="relative bg-gradient-to-br from-gray-900/60 to-gray-900/30 border border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm hover:border-orange-500/30 transition-all duration-300 overflow-hidden group"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -31,17 +64,28 @@ const StepSection: React.FC<StepSectionProps> = ({ number, title, children }) =>
       {/* Step indicator line */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange-500/50 via-red-500/30 to-transparent rounded-l-2xl" />
 
-      {/* Inline Illustration - appears in top right corner */}
+      {/* Inline Illustration - positioned in top right corner with gradient fade */}
       {Illustration && (
-        <motion.div 
-          className="absolute top-4 right-4 hidden lg:block pointer-events-none opacity-60 group-hover:opacity-80 transition-opacity"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 0.6, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <Illustration size="sm" />
-        </motion.div>
+        <div className="absolute top-0 right-0 w-1/3 h-full overflow-hidden pointer-events-none hidden lg:block">
+          {/* Gradient mask - fades from visible at top-right to invisible towards bottom */}
+          <div 
+            className="absolute top-4 right-4 flex items-start justify-end"
+            style={{
+              maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0) 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0) 100%)',
+            }}
+          >
+            <motion.div
+              className="opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+              initial={{ opacity: 0, scale: 0.8, x: 20 }}
+              whileInView={{ opacity: 0.4, scale: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <Illustration size={illustrationSize} />
+            </motion.div>
+          </div>
+        </div>
       )}
       
       <div className="flex items-start gap-4 mb-6 relative z-10">
@@ -54,7 +98,7 @@ const StepSection: React.FC<StepSectionProps> = ({ number, title, children }) =>
         >
           {number}
         </motion.div>
-        <div className="flex-1 pt-2 pr-20 lg:pr-28">
+        <div className="flex-1 pt-2">
           <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">{title}</h2>
         </div>
       </div>

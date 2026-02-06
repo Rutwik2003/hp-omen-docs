@@ -1,0 +1,295 @@
+{
+    "id": "known-issues",
+    "title": "Known Issues & Solutions",
+    "description": "Documented hardware and software issues affecting HP OMEN laptops with verified solutions and workarounds.",
+    "category": "Troubleshooting",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "12 min",
+        "lastUpdated": "Feb 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Troubleshooting"
+        },
+        {
+            "label": "Known Issues"
+        }
+    ],
+    "steps": [
+        {
+            "id": "hall-sensor",
+            "title": "Hall Sensor Issue (2023 Models)",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "hs-severity",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Critical Hardware Defect",
+                    "content": "<p>This is a known design flaw in 2023 OMEN models affecting the Hall Sensor ribbon cable placement. This issue can cause significant usability problems.</p>"
+                },
+                {
+                    "id": "hs-desc",
+                    "type": "text",
+                    "content": "<p><strong>Description:</strong> A design flaw in 2023 models affects the Hall Sensor ribbon cable placement, often causing black screen issues or sleep mode problems. The Hall Sensor is responsible for detecting when the laptop lid is opened or closed.</p>"
+                },
+                {
+                    "id": "hs-symptoms-title",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Symptoms"
+                },
+                {
+                    "id": "hs-symptoms",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Black screen upon opening lid",
+                            "Laptop failing to wake from sleep",
+                            "Intermittent display issues when adjusting lid angle",
+                            "Random sleep triggers while laptop is open"
+                        ]
+                    }
+                },
+                {
+                    "id": "hs-solutions-title",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Solutions"
+                },
+                {
+                    "id": "hs-solutions",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "<strong>Temporary Fix:</strong> Disconnect the Hall Sensor ribbon cable (Note: This disables the lid close sleep function)",
+                            "<strong>Warranty Repair:</strong> Contact HP Support for motherboard replacement if under warranty",
+                            "<strong>Professional Repair:</strong> Seek professional repair service to reroute or replace the ribbon cable"
+                        ]
+                    }
+                },
+                {
+                    "id": "hs-note",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Affected Models",
+                    "content": "<p>Primarily affects OMEN 16/17 laptops manufactured in 2023. Check your serial number with HP Support to confirm if your model is affected.</p>"
+                }
+            ]
+        },
+        {
+            "id": "battery-drain",
+            "title": "High Battery Drain",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "bd-severity",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "High Severity Issue",
+                    "content": "<p>This issue significantly impacts laptop portability and may indicate background processes or firmware problems.</p>"
+                },
+                {
+                    "id": "bd-desc",
+                    "type": "text",
+                    "content": "<p><strong>Description:</strong> Excessive battery consumption even during light usage or sleep mode. Users report battery depleting much faster than expected, even when not performing intensive tasks.</p>"
+                },
+                {
+                    "id": "bd-symptoms-title",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Symptoms"
+                },
+                {
+                    "id": "bd-symptoms",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Battery depleting rapidly in standby mode",
+                            "Low battery life during non-gaming tasks (web browsing, documents)",
+                            "Laptop warm to touch while in sleep mode",
+                            "Battery percentage dropping overnight even when 'sleeping'"
+                        ]
+                    }
+                },
+                {
+                    "id": "bd-solutions-title",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Solutions"
+                },
+                {
+                    "id": "bd-solutions",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "<strong>Update BIOS:</strong> Download and install the latest BIOS from HP Support website",
+                            "<strong>Disable Fast Startup:</strong> Go to Control Panel → Power Options → Choose what the power buttons do → Disable 'Turn on fast startup'",
+                            "<strong>Check Background Apps:</strong> Open Task Manager and identify apps with high power usage",
+                            "<strong>Battery Calibration:</strong> Use HP Support Assistant to run battery diagnostics and calibration"
+                        ]
+                    }
+                },
+                {
+                    "id": "bd-code",
+                    "type": "code",
+                    "language": "powershell",
+                    "filename": "Check Battery Health",
+                    "content": "# Run in PowerShell as Administrator\npowercfg /batteryreport /output \"C:\\battery-report.html\"\n\n# Open the report\nStart-Process \"C:\\battery-report.html\""
+                }
+            ]
+        },
+        {
+            "id": "driver-power-state",
+            "title": "Driver Power State Failure (BSOD)",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "dps-severity",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Medium Severity - System Stability",
+                    "content": "<p>Blue Screen crashes can cause data loss. Save work frequently until this issue is resolved.</p>"
+                },
+                {
+                    "id": "dps-desc",
+                    "type": "text",
+                    "content": "<p><strong>Description:</strong> Blue Screen of Death (BSOD) with error code <code>DRIVER_POWER_STATE_FAILURE</code>. This error is usually triggered during power management transitions, such as waking from sleep or switching between power states.</p>"
+                },
+                {
+                    "id": "dps-symptoms-title",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Symptoms"
+                },
+                {
+                    "id": "dps-symptoms",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Blue Screen of Death (BSOD) with stop code DRIVER_POWER_STATE_FAILURE",
+                            "System freeze during sleep/wake cycles",
+                            "Crash when switching between battery and AC power",
+                            "Random restarts when changing power plans"
+                        ]
+                    }
+                },
+                {
+                    "id": "dps-solutions-title",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Solutions"
+                },
+                {
+                    "id": "dps-grid",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "dps-col1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "dps-basic-title",
+                                    "type": "heading",
+                                    "level": 4,
+                                    "content": "Basic Fixes"
+                                },
+                                {
+                                    "id": "dps-basic",
+                                    "type": "list",
+                                    "content": {
+                                        "style": "ordered",
+                                        "items": [
+                                            "Update graphics drivers (NVIDIA/AMD)",
+                                            "Update chipset drivers from HP",
+                                            "Set Power Plan to High Performance",
+                                            "Run Windows Update"
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "dps-col2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "dps-advanced-title",
+                                    "type": "heading",
+                                    "level": 4,
+                                    "content": "Advanced Fixes"
+                                },
+                                {
+                                    "id": "dps-advanced",
+                                    "type": "list",
+                                    "content": {
+                                        "style": "ordered",
+                                        "items": [
+                                            "Disable Link State Power Management",
+                                            "Run Windows Driver Verifier",
+                                            "Check Event Viewer for faulting driver",
+                                            "Perform clean driver install"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "dps-disable-lspm",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Disable Link State Power Management",
+                    "content": "<p>Go to <strong>Control Panel → Power Options → Change plan settings → Change advanced power settings → PCI Express → Link State Power Management</strong> and set to <strong>Off</strong>.</p>"
+                }
+            ]
+        },
+        {
+            "id": "report-issues",
+            "title": "Reporting New Issues",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "ri-intro",
+                    "type": "text",
+                    "content": "<p>If you've encountered an issue not listed here, please help the community by reporting it. Your contribution helps other OMEN users solve similar problems.</p>"
+                },
+                {
+                    "id": "ri-how",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "How to Report"
+                },
+                {
+                    "id": "ri-steps",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Join the OMEN Discord community (link in sidebar)",
+                            "Describe your issue with as much detail as possible",
+                            "Include your laptop model, BIOS version, and Windows version",
+                            "Share any error codes or screenshots",
+                            "Mention any solutions you've already tried"
+                        ]
+                    }
+                },
+                {
+                    "id": "ri-template",
+                    "type": "code",
+                    "language": "markdown",
+                    "filename": "Issue Report Template",
+                    "content": "## Issue Report\n\n**Model:** OMEN 16 (2023)\n**BIOS Version:** F.12\n**Windows Version:** Windows 11 23H2\n\n**Problem:**\n[Describe the issue]\n\n**Steps to Reproduce:**\n1. [Step 1]\n2. [Step 2]\n\n**Expected Behavior:**\n[What should happen]\n\n**Actual Behavior:**\n[What actually happens]\n\n**Solutions Tried:**\n- [Solution 1]\n- [Solution 2]"
+                }
+            ]
+        }
+    ]
+}

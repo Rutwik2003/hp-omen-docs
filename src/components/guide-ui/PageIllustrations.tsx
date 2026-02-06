@@ -6,9 +6,9 @@ type IllustrationProps = { className?: string; size?: 'sm' | 'md' | 'lg' };
 
 // Consistent sizing for all illustrations
 const sizeMap = {
-  sm: { width: 64, height: 64, class: 'w-16 h-16' },
-  md: { width: 96, height: 96, class: 'w-24 h-24' },
-  lg: { width: 140, height: 140, class: 'w-36 h-36' }
+  sm: { width: 80, height: 80, class: 'w-20 h-20' },
+  md: { width: 120, height: 120, class: 'w-28 h-28' },
+  lg: { width: 180, height: 180, class: 'w-44 h-44' }
 };
 
 // Shared hook for dynamic values
@@ -960,6 +960,90 @@ export const FolderIllustration: React.FC<IllustrationProps> = ({ className = ''
   );
 };
 
+// Guide Book Illustration (for quickstart/guides) - Tech/Gaming themed digital guide
+export const GuideBookIllustration: React.FC<IllustrationProps> = ({ className = '', size = 'md' }) => {
+  const progress = useDynamicValue(1, 6, 2000);
+  const { class: sizeClass } = sizeMap[size];
+  
+  return (
+    <motion.svg 
+      viewBox="0 0 64 64" 
+      className={`${sizeClass} ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      {/* Tablet/Device frame */}
+      <rect x="8" y="4" width="48" height="56" rx="4" fill="#1a1a1a" stroke="#ff6b35" strokeWidth="1.5" strokeOpacity="0.6" />
+      
+      {/* Screen */}
+      <rect x="11" y="8" width="42" height="48" rx="2" fill="#0a0a0a" />
+      
+      {/* Screen glow effect */}
+      <motion.rect 
+        x="11" y="8" width="42" height="48" rx="2" 
+        fill="url(#guideScreenGlow)" 
+        animate={{ opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      />
+      
+      {/* Header bar with OMEN accent */}
+      <rect x="11" y="8" width="42" height="8" rx="2" fill="#ff6b35" opacity="0.15" />
+      <motion.rect x="13" y="10" width="8" height="4" rx="1" fill="#ff6b35" animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 1.5, repeat: Infinity }} />
+      <rect x="24" y="11" width="20" height="2" rx="1" fill="#ff6b35" opacity="0.5" />
+      
+      {/* Step indicators - shows progress */}
+      <g>
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <motion.circle 
+            key={i}
+            cx={16 + i * 6} 
+            cy="22" 
+            r="2" 
+            fill={i < progress ? '#ff6b35' : '#2a2a2a'}
+            animate={i < progress ? { scale: [1, 1.1, 1] } : {}}
+            transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
+          />
+        ))}
+      </g>
+      
+      {/* Content lines - animated typing effect */}
+      <motion.rect x="14" y="28" width="28" height="2" rx="1" fill="#3a3a3a" animate={{ width: [20, 28, 20] }} transition={{ duration: 3, repeat: Infinity }} />
+      <rect x="14" y="34" width="34" height="1.5" rx="1" fill="#2a2a2a" />
+      <rect x="14" y="39" width="30" height="1.5" rx="1" fill="#2a2a2a" />
+      <rect x="14" y="44" width="26" height="1.5" rx="1" fill="#2a2a2a" />
+      
+      {/* Action button */}
+      <motion.rect 
+        x="14" y="50" width="18" height="4" rx="2" 
+        fill="#ff6b35"
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      />
+      
+      {/* Decorative corner accents */}
+      <path d="M11 12 L11 8 L15 8" fill="none" stroke="#ff6b35" strokeWidth="1" opacity="0.5" />
+      <path d="M53 12 L53 8 L49 8" fill="none" stroke="#ff6b35" strokeWidth="1" opacity="0.5" />
+      <path d="M11 52 L11 56 L15 56" fill="none" stroke="#ff6b35" strokeWidth="1" opacity="0.5" />
+      <path d="M53 52 L53 56 L49 56" fill="none" stroke="#ff6b35" strokeWidth="1" opacity="0.5" />
+      
+      {/* Status indicator */}
+      <motion.circle 
+        cx="50" cy="12" r="2" 
+        fill="#22c55e"
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 1, repeat: Infinity }}
+      />
+      
+      <defs>
+        <radialGradient id="guideScreenGlow" cx="30%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#ff6b35" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#ff6b35" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+    </motion.svg>
+  );
+};
+
 // Tools/Wrench Illustration
 export const ToolsIllustration: React.FC<IllustrationProps> = ({ className = '', size = 'md' }) => {
   const { class: sizeClass } = sizeMap[size];
@@ -1382,7 +1466,8 @@ export const getPageIllustration = (pageId: string): React.FC<IllustrationProps>
     'gaming': GamingIllustration,
     
     // System/Laptop
-    'quickstart': LaptopIllustration,
+    'quickstart': GuideBookIllustration,
+    'guide': GuideBookIllustration,
     'unboxing-setup': LaptopIllustration,
     'system': LaptopIllustration,
     
@@ -1447,6 +1532,7 @@ export const getPageIllustration = (pageId: string): React.FC<IllustrationProps>
     'issues': ToolsIllustration,
     'fixes': ToolsIllustration,
     'common-issues': ToolsIllustration,
+    'known-issues': ToolsIllustration,
     
     // Files
     'files': FolderIllustration,
@@ -1973,6 +2059,7 @@ export default {
   FolderIllustration,
   ToolsIllustration,
   PowerIllustration,
+  GuideBookIllustration,
   // Context-aware step icons
   StepRGBKeyboardIcon,
   StepMonitorIcon,

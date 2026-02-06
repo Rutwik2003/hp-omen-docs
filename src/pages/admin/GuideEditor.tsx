@@ -8,6 +8,9 @@ import { useToast } from '../../context/ToastContext';
 import { useGuideDraft } from '../../hooks/useGuideDraft';
 import { useEditorStore } from '../../store/editorStore';
 import { migrateStepToBlocks } from '../../utils/blockMigration';
+import { DocWithContent } from '../../utils/contentLoader';
+import { Difficulty } from '../../types/docs';
+import { devLog, devError } from '../../utils/logger';
 import { DRAFT_IDS } from '../../constants';
 
 // Components
@@ -72,7 +75,7 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
     try {
       const { db } = await import('../../services/draftDatabase');
       const draft = await db.drafts.get(draftId);
-      console.log('Loading draft:', draftId, draft); // Debug log
+      devLog('Loading draft:', draftId, draft);
       if (draft && draft.content) {
         setGuide(draft.content);
         // Only show success toast if this is not a silent reload
@@ -85,7 +88,7 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
         navigate('/contribute', { replace: true });
       }
     } catch (error) {
-      console.error('Failed to load draft', error);
+      devError('Failed to load draft', error);
       addToast('error', 'Load Failed', 'Could not load draft from browser storage.');
       navigate('/contribute', { replace: true });
     } finally {
@@ -122,20 +125,27 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
   const loadGuide = async (guideId: string) => {
     setLoading(true);
     try {
-      const allDocs = await fetchAdminContent();
-      const doc = allDocs.find((d: any) => d.id === guideId);
+      const allDocs = await fetchAdminContent() as DocWithContent[];
+      const doc = allDocs.find((d) => d.id === guideId);
       if (doc) {
         // Hydrate steps with blocks if missing (Migration)
-        const hydratedSteps = (doc.steps || []).map((s: any) => ({
+        const hydratedSteps = (doc.steps || []).map((s) => ({
             ...s,
             id: s.id || generateId(),
             blocks: migrateStepToBlocks(s) // MIGRATE LEGACY DATA
         }));
-        setGuide({ ...doc, steps: hydratedSteps });
+        setGuide({ 
+          ...doc, 
+          steps: hydratedSteps,
+          metadata: {
+            ...doc.metadata,
+            difficulty: doc.metadata.difficulty as Difficulty
+          }
+        });
       }
     } catch (e) {
-      console.error(e);
-      addToast('error', 'Failed to load guide', 'Could not fetch guide content.');
+      devError('Failed to load guide:', e);
+      addToast('error', 'Failed to load guide', 'Could not fetch guide content');
     } finally {
       setLoading(false);
     }
@@ -151,14 +161,14 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
 
   const cleanData = () => {
      // Prepare for Save
-     const cleanSteps = (guide.steps || []).map((step: any) => {
+     const cleanSteps = (guide.steps || []).map((step) => {
          // Create a text representation of blocks for search/legacy if needed?
          // For now, we save everything.
          // We might want to remove 'content' string if we rely fully on blocks, 
          // but keeping it as a fallback description or concatenation of text blocks is nice for SEO/Search.
          const fallbackContent = step.blocks
-            ?.filter((b:any) => b.type === 'text')
-            .map((b:any) => b.content)
+            ?.filter((b) => b.type === 'text')
+            .map((b) => 'content' in b ? b.content : '')
             .join(' ') || '';
 
          return {
@@ -301,10 +311,10 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
                             ref={provided.innerRef}
                             className="flex flex-col space-y-6"
                         >
-                            {(guide.steps || []).map((step: any, idx) => (
+                            {(guide.steps || []).map((step, idx) => (
                                 <StepEditor 
-                                    key={step.id} 
-                                    step={{...step, id: step.id}} 
+                                    key={step.id || idx} 
+                                    step={{...step, id: step.id || `step-${idx}`}} 
                                     index={idx}
                                 />
                             ))}

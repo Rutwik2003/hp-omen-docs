@@ -1,4 +1,5 @@
 import Dexie, { Table } from 'dexie';
+import { GuideDraftData } from '../types/docs';
 
 /**
  * Represents a saved draft guide in IndexedDB.
@@ -10,7 +11,7 @@ export interface DraftGuide {
     /** Guide title for display in draft list */
     title: string;
     /** Full form data state (GuideDraftData) for restoration */
-    content: any;
+    content: GuideDraftData;
     /** Unix timestamp of last modification */
     lastModified: number;
     /** Unix timestamp of initial creation */

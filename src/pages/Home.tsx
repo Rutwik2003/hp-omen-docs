@@ -6,14 +6,16 @@ import { useGSAP } from '@gsap/react';
 import { BentoGrid, BentoGridItem } from '../components/BentoGrid';
 
 import { AnimatedMonitor, AnimatedSettings, AnimatedDownload, AnimatedWrench, AnimatedBook, AnimatedSearch } from '../components/animated-icons';
-import WindowsSkeleton from '../components/home/WindowsSkeleton';
-import LinuxSkeleton from '../components/home/LinuxSkeleton';
-import HardwareSkeleton from '../components/home/HardwareSkeleton';
-import DriversSkeleton from '../components/home/DriversSkeleton';
-import DocsSkeleton from '../components/home/DocsSkeleton';
+import { 
+  WindowsSkeleton, 
+  LinuxSkeleton, 
+  HardwareSkeleton, 
+  DriversSkeleton, 
+  DocsSkeleton 
+} from '../components/skeletons';
 
 // Lazy load SearchModal - only loaded when user opens search
-const SearchModal = lazy(() => import('../components/SearchModal'));
+const SearchModal = lazy(() => import('../components/docs/SearchModal'));
 
 const Home: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);

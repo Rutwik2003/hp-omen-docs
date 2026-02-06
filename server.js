@@ -10,6 +10,14 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3001;
+const IS_DEV = process.env.NODE_ENV !== 'production';
+
+// Development-only logging helper
+const devLog = (...args) => {
+  if (IS_DEV) {
+    console.log('[DEV]', ...args);
+  }
+};
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -59,7 +67,20 @@ app.post('/api/save', async (req, res) => {
   }
 
   try {
-    const filePath = path.join(CONTENT_DIR, id);
+    // Validate path to prevent directory traversal attacks
+    const normalizedId = path.normalize(id).replace(/^(\.\.[/\\])+/, '');
+    if (normalizedId.includes('..') || !normalizedId.endsWith('.json')) {
+      return res.status(400).json({ error: 'Invalid file path' });
+    }
+
+    const filePath = path.join(CONTENT_DIR, normalizedId);
+    
+    // Ensure path is within CONTENT_DIR (prevent path traversal)
+    const resolvedPath = path.resolve(filePath);
+    const resolvedContentDir = path.resolve(CONTENT_DIR);
+    if (!resolvedPath.startsWith(resolvedContentDir)) {
+      return res.status(400).json({ error: 'Path outside content directory' });
+    }
     
     // Ensure dir exists
     await fs.mkdir(path.dirname(filePath), { recursive: true });
@@ -67,7 +88,7 @@ app.post('/api/save', async (req, res) => {
     // Write file
     await fs.writeFile(filePath, JSON.stringify(content, null, 2));
     
-    console.log(`Saved: ${id}`);
+    devLog(`Saved: ${normalizedId}`);
     res.json({ success: true });
   } catch (error) {
     console.error('Error saving file:', error);
@@ -76,5 +97,5 @@ app.post('/api/save', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`⚡ Custom Admin API running on http://localhost:${PORT}`);
+  devLog(`⚡ Custom Admin API running on http://localhost:${PORT}`);
 });

@@ -1,9 +1,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { cspNoncePlugin } from './vite-plugin-csp-nonce';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // CSP nonce injection for development (production uses Vercel Edge Middleware)
+    cspNoncePlugin(),
+  ],
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
@@ -33,17 +38,10 @@ export default defineConfig({
           if (id.includes('node_modules/lucide-react')) {
             return 'icons';
           }
-          // Markdown and syntax highlighting
-          if (id.includes('node_modules/react-markdown') ||
-            id.includes('node_modules/react-syntax-highlighter') ||
-            id.includes('node_modules/remark') ||
-            id.includes('node_modules/rehype') ||
-            id.includes('node_modules/hast') ||
-            id.includes('node_modules/mdast') ||
-            id.includes('node_modules/unist') ||
-            id.includes('node_modules/micromark') ||
+          // Syntax highlighting
+          if (id.includes('node_modules/react-syntax-highlighter') ||
             id.includes('node_modules/highlight.js')) {
-            return 'markdown';
+            return 'syntax-highlighter';
           }
           // Helmet for SEO
           if (id.includes('react-helmet')) {

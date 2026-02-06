@@ -1,7 +1,9 @@
 import React from 'react';
 import { GripVertical, X } from 'lucide-react';
-import { Block } from '../../../../types/blocks';
+import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
+import { Block, CodeBlock, CalloutBlock, GridBlock, TableBlock, ImageBlock } from '../../../../types/blocks';
 import { useEditorStore } from '../../../../store/editorStore';
+import { devLog } from '../../../../utils/logger';
 import RichTextBlock from './RichTextBlock';
 import CodeBlockEditor from './CodeBlockEditor';
 import CalloutBlockEditor from './CalloutBlockEditor';
@@ -12,7 +14,7 @@ import ImageBlockEditor from './ImageBlockEditor';
 interface BlockRendererProps {
   stepId: string;
   block: Block;
-  dragHandleProps?: any;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
   level?: number;
 }
 
@@ -26,15 +28,15 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ stepId, block, dragHandle
       case 'heading':
         return <RichTextBlock stepId={stepId} block={block} />;
       case 'code':
-        return <CodeBlockEditor stepId={stepId} block={block as any} />;
+        return <CodeBlockEditor stepId={stepId} block={block as CodeBlock} />;
       case 'callout':
-        return <CalloutBlockEditor stepId={stepId} block={block as any} />;
+        return <CalloutBlockEditor stepId={stepId} block={block as CalloutBlock} />;
       case 'grid':
-        return <GridBlockEditor stepId={stepId} block={block as any} />;
+        return <GridBlockEditor stepId={stepId} block={block as GridBlock} />;
       case 'table':
-          return <TableBlockEditor stepId={stepId} block={block as any} />;
+          return <TableBlockEditor stepId={stepId} block={block as TableBlock} />;
       case 'image':
-          return <ImageBlockEditor stepId={stepId} block={block as any} />;
+          return <ImageBlockEditor stepId={stepId} block={block as ImageBlock} />;
       default:
         return <div className="text-red-500">Unknown block type: {block.type}</div>;
     }
@@ -49,20 +51,22 @@ const BlockRenderer: React.FC<BlockRendererProps> = ({ stepId, block, dragHandle
                 {...dragHandleProps}
                 className="p-1 sm:p-1.5 text-neutral-400 hover:text-white cursor-grab hover:bg-neutral-800"
                 title="Drag to move"
+                aria-label="Drag to reorder block"
              >
-                <GripVertical className="w-3 h-3 sm:w-4 sm:h-4" />
+                <GripVertical className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
              </button>
              <button 
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('Removing block', stepId, block.id);
+                    devLog('Removing block', stepId, block.id);
                     removeBlock(stepId, block.id); 
                 }}
                 className="p-1 sm:p-1.5 text-neutral-400 hover:text-red-400 hover:bg-neutral-800"
                 title="Delete block"
+                aria-label="Delete this block"
              >
-                <X className="w-3 h-3 sm:w-4 sm:h-4" />
+                <X className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
              </button>
           </div>
        </div>

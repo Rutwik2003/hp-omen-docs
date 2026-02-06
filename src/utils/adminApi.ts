@@ -4,14 +4,19 @@ import { parseError, logError } from './errorHandling';
 const IS_DEV = import.meta.env.DEV;
 
 /**
- * Verifies admin password against dev constant or production API.
+ * Verifies admin password against dev environment variable or production API.
  * @param password - The password to verify
  * @returns true if authenticated, false otherwise
  */
 export const checkAuth = async (password: string): Promise<boolean> => {
-    // Local Development: Simple check
+    // Local Development: Check against environment variable
     if (IS_DEV) {
-        return password === 'admin123';
+        const devPassword = import.meta.env.VITE_DEV_ADMIN_PASSWORD;
+        if (!devPassword) {
+            console.warn('VITE_DEV_ADMIN_PASSWORD not set in .env file');
+            return false;
+        }
+        return password === devPassword;
     }
 
     // Production: Verify against backend env var

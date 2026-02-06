@@ -112,7 +112,12 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   // Full screen loading overlay
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50">
+      <div 
+        className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50"
+        role="status"
+        aria-label="Loading content"
+        aria-live="polite"
+      >
         {/* OMEN Gaming Hub logo area */}
         <div className="absolute top-6 left-6 flex items-center gap-3">
           <div className="w-6 h-6">
@@ -194,7 +199,12 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   // Inline spinner with optional message
   if (showMessage) {
     return (
-      <div className="flex flex-col items-center gap-4">
+      <div 
+        className="flex flex-col items-center gap-4"
+        role="status"
+        aria-label="Loading"
+        aria-live="polite"
+      >
         <Diamond />
         <motion.p
           key={messageIndex}
@@ -209,7 +219,11 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   }
 
   // Simple inline diamond spinner
-  return <Diamond />;
+  return (
+    <div role="status" aria-label="Loading">
+      <Diamond />
+    </div>
+  );
 };
 
 export default LoadingSpinner;

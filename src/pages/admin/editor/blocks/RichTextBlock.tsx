@@ -3,14 +3,24 @@ import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import { useEffect } from 'react';
 import { useEditorStore } from '../../../../store/editorStore';
-import { Block } from '../../../../types/blocks';
+import { Block, BlockType, TextBlock, HeadingBlock } from '../../../../types/blocks';
 
 import SlashCommandMenu from '../SlashCommandMenu';
 import { useState } from 'react';
 
+type TextLikeBlock = TextBlock | HeadingBlock;
+
 const RichTextBlock = ({ stepId, block }: { stepId: string; block: Block }) => {
   const { updateBlock } = useEditorStore();
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number } | null>(null);
+  
+  // Type guard to check if block has content property
+  const getBlockContent = (b: Block): string => {
+    if (b.type === 'text' || b.type === 'heading') {
+      return (b as TextLikeBlock).content || '';
+    }
+    return '';
+  };
   
   const editor = useEditor({
     extensions: [
@@ -22,7 +32,7 @@ const RichTextBlock = ({ stepId, block }: { stepId: string; block: Block }) => {
       }),
       Image,
     ],
-    content: (block as any).content || '',
+    content: getBlockContent(block),
     editorProps: {
         attributes: {
             class: 'prose prose-invert max-w-none w-full break-words focus:outline-none min-h-[1.5em]',
@@ -53,17 +63,16 @@ const RichTextBlock = ({ stepId, block }: { stepId: string; block: Block }) => {
 
   // Sync content... (existing useEffect)
   useEffect(() => {
-    // Cast block to access content safely as not all blocks have 'content' string
-    const content = (block as any).content;
+    const content = getBlockContent(block);
     
     if (editor && content !== editor.getHTML()) {
         if (editor.getText() !== new DOMParser().parseFromString(content || '', 'text/html').body.textContent) {
              editor.commands.setContent(content);
         }
     }
-  }, [(block as any).content, editor]);
+  }, [block, editor]);
 
-  const handleSlashSelect = (type: any) => {
+  const handleSlashSelect = (type: BlockType) => {
       setMenuPosition(null);
       
       // If we are converting the current block
@@ -75,7 +84,7 @@ const RichTextBlock = ({ stepId, block }: { stepId: string; block: Block }) => {
           // But we don't have index here easily.
           // Alternative: updateBlock with new type and defaults.
           
-          let newBlockData: any = { type };
+          let newBlockData: Partial<Block> & { type: BlockType } = { type };
           if (type === 'code') newBlockData = { type: 'code', language: 'javascript', code: '' };
           if (type === 'grid') newBlockData = { type: 'grid', columns: 2, children: [] /* needing init? */ };
           // Grid actually needs children init structure likely handled by a factory or store.
@@ -107,7 +116,7 @@ const RichTextBlock = ({ stepId, block }: { stepId: string; block: Block }) => {
           }
           if (type === 'image') newBlockData = { type: 'image', url: '' };
 
-          updateBlock(stepId, block.id, newBlockData as any);
+          updateBlock(stepId, block.id, newBlockData as Partial<Block>);
       } else {
           // If inserting *after* text?
           // For now, only support "replace if emptyish"

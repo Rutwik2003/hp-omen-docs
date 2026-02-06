@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { ToastProvider } from './context/ToastContext';
-import RootLayout from './components/RootLayout';
-import DocsLayout from './components/DocsLayout';
+import { RootLayout, DocsLayout } from './components/layout';
 import ScrollToTop from './components/ScrollToTop';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -19,6 +18,7 @@ const DocsLoader = lazy(() => import('./pages/docs/DocsLoader'));
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'));
 const GuideEditor = lazy(() => import('./pages/admin/GuideEditor'));
+const SidebarConfigurator = lazy(() => import('./pages/admin/SidebarConfigurator'));
 
 function App() {
   return (
@@ -37,6 +37,7 @@ function App() {
                   <Route path="new" element={<GuideEditor />} />
                   <Route path="playground" element={<GuideEditor playground />} />
                   <Route path="edit/:id" element={<GuideEditor />} />
+                  <Route path="sidebar" element={<SidebarConfigurator />} />
                 </Route>
 
                 {/* Home Route (No Sidebar) */}
