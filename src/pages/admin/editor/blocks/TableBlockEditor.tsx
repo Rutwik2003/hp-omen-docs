@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Plus, Trash, X } from 'lucide-react';
+import { Plus, Table, Trash, X } from 'lucide-react';
 import { TableBlock } from '../../../../types/blocks';
 import { useEditorStore } from '../../../../store/editorStore';
 

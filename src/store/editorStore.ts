@@ -3,7 +3,7 @@ import { temporal } from 'zundo';
 import { produce } from 'immer';
 import { v4 as uuidv4 } from 'uuid';
 import { DocPage, GuideStep } from '../types/docs';
-import { Block, BlockType, GridBlock, ColumnBlock, TextBlock, HeadingBlock, CodeBlock, CalloutBlock, ImageBlock, VideoBlock, TableBlock } from '../types/blocks';
+import { Block, BlockType, CalloutBlock, CodeBlock, ColumnBlock, GridBlock, HeadingBlock, ImageBlock, TableBlock, TextBlock, VideoBlock } from '../types/blocks';
 
 /**
  * Factory function to create a new block with proper default values.

@@ -43,32 +43,17 @@
             }
         },
         {
-            "title": "2. OMEN Gaming Hub",
-            "content": "Performance monitoring and system optimization. <br/> **Duration**: 3 minutes <br/> **Priority**: Critical",
-            "prerequisites": [
-                "Open Microsoft Store and search for 'OMEN Gaming Hub'",
-                "Click 'Install' and wait for download completion",
-                "Launch and complete initial setup wizard",
-                "Configure performance profiles for your usage"
-            ],
-            "codeBlock": {
-                "language": "url",
-                "code": "ms-windows-store://pdp/?productid=9NRDR7P8S58S",
-                "copyable": true
-            }
-        },
-        {
-            "title": "3. Graphics Drivers (NVIDIA/AMD)",
+            "title": "2. Graphics Drivers (NVIDIA/AMD)",
             "content": "Graphics driver updates and game optimization. <br/> **Duration**: 10 minutes <br/> **Priority**: Important",
             "prerequisites": [
-                "Download NVIDIA GeForce Experience or AMD Radeon Software",
+                "Download NVIDIA App or AMD Radeon Software",
                 "Run installer with administrator privileges",
                 "Choose 'Express Installation' for automatic setup",
                 "Restart computer when prompted"
             ],
             "codeBlock": {
                 "language": "url",
-                "code": "https://www.nvidia.com/en-us/geforce/geforce-experience/",
+                "code": "https://www.nvidia.com/en-us/software/nvidia-app/",
                 "copyable": true
             }
         },

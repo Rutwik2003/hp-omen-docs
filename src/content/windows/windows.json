@@ -25,7 +25,7 @@
                 {
                     "id": "b1",
                     "type": "text",
-                    "content": "<p>Configure Windows for optimal gaming performance.</p>"
+                    "content": "<p>Configure Windows for optimal gaming performance. These settings reduce latency, improve frame rates, and ensure consistent performance.</p>"
                 },
                 {
                     "id": "b2",
@@ -33,12 +33,26 @@
                     "content": {
                         "style": "unordered",
                         "items": [
-                            "Game Mode configuration: Turn ON in Windows Settings > Gaming",
-                            "Graphics settings: Set High Performance for games",
-                            "Install Visual C++ Redistributables (All years)",
-                            "Disable Fullscreen Optimizations for older titles"
+                            "<strong>Game Mode:</strong> Turn ON in Windows Settings > Gaming",
+                            "<strong>Graphics settings:</strong> Set High Performance for games in Settings > Display > Graphics",
+                            "<strong>Visual C++ Redistributables:</strong> Install all years (2015-2022) for game compatibility",
+                            "<strong>Fullscreen Optimizations:</strong> Disable for older titles via game exe Properties > Compatibility"
                         ]
                     }
+                },
+                {
+                    "id": "gaming-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "GPU Preference Per-App",
+                    "content": "<p>In Settings > Display > Graphics, add your games and set them to 'High Performance' to ensure they use the dedicated GPU instead of integrated graphics.</p>"
+                },
+                {
+                    "id": "gaming-warning",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Disable Xbox Game Bar Recording",
+                    "content": "<p>Background recording can impact performance. Disable in Settings > Gaming > Captures > 'Record in the background' OFF.</p>"
                 }
             ]
         },
@@ -87,7 +101,7 @@
                                 {
                                     "id": "p2",
                                     "type": "text",
-                                    "content": "<p>Use NVIDIA GeForce Experience or AMD Adrenalin for graphics drivers.</p>"
+                                    "content": "<p>Use NVIDIA App or AMD Adrenalin for graphics drivers.</p>"
                                 }
                             ]
                         }
@@ -101,11 +115,60 @@
             "content": "",
             "blocks": [
                 {
+                    "id": "thermal-intro",
+                    "type": "text",
+                    "content": "<p>Proper thermal management prevents throttling and extends component lifespan. Monitor temperatures and adjust fan settings as needed.</p>"
+                },
+                {
                     "id": "b5",
                     "type": "callout",
                     "variant": "info",
                     "title": "OMEN Gaming Hub",
                     "content": "<p>Use the <strong>Performance Control</strong> tab to manage fan curves. 'Max' fans are recommended for heavy gaming sessions.</p>"
+                },
+                {
+                    "id": "thermal-temps-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Safe Temperature Ranges"
+                },
+                {
+                    "id": "thermal-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Component", "Idle", "Gaming", "Concern"],
+                        "rows": [
+                            ["CPU", "35-50°C", "70-85°C", ">95°C"],
+                            ["GPU", "30-45°C", "65-80°C", ">90°C"]
+                        ]
+                    }
+                },
+                {
+                    "id": "thermal-tips-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Cooling Tips"
+                },
+                {
+                    "id": "thermal-tips",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "<strong>Elevate the laptop</strong> - Use a stand or prop up the back for better airflow",
+                            "<strong>Clean vents regularly</strong> - Dust buildup blocks airflow; use compressed air every few months",
+                            "<strong>Use a cooling pad</strong> - Helps on hot days or during extended sessions",
+                            "<strong>Replace thermal paste</strong> - After 2-3 years, repasting can drop temps 5-15°C",
+                            "<strong>Room temperature matters</strong> - AC or lower ambient temp helps significantly"
+                        ]
+                    }
+                },
+                {
+                    "id": "thermal-monitor",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "Monitoring Tools",
+                    "content": "<p>Use <strong>HWiNFO64</strong> for detailed sensor data, <strong>MSI Afterburner</strong> for in-game overlay, or <strong>OMEN Gaming Hub</strong> for quick checks.</p>"
                 }
             ]
         },
@@ -115,10 +178,15 @@
             "content": "",
             "blocks": [
                 {
+                    "id": "common-intro",
+                    "type": "text",
+                    "content": "<p>Quick reference for common Windows optimization tasks you'll perform regularly.</p>"
+                },
+                {
                     "id": "b6",
                     "type": "heading",
                     "level": 3,
-                    "content": "Configure Game Mode"
+                    "content": "Enable Game Mode"
                 },
                 {
                     "id": "b7",
@@ -126,11 +194,18 @@
                     "content": {
                         "style": "ordered",
                         "items": [
-                            "Open Windows Settings (Win + I)",
-                            "Go to Gaming > Game Mode",
-                            "Toggle 'On'"
+                            "Open Windows Settings (<code>Win + I</code>)",
+                            "Navigate to Gaming → Game Mode",
+                            "Toggle Game Mode <strong>On</strong>"
                         ]
                     }
+                },
+                {
+                    "id": "gamemode-info",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "What Game Mode Does",
+                    "content": "<p>Game Mode prioritizes CPU and GPU resources for your game, prevents Windows Update from restarting, and disables driver notifications during gameplay.</p>"
                 },
                 {
                     "id": "b8",
@@ -144,10 +219,19 @@
                     "content": {
                         "style": "ordered",
                         "items": [
-                            "Open Control Panel > Power Options",
-                            "Select 'High Performance' (or OMEN Power Plan if available)"
+                            "Open Control Panel → Power Options",
+                            "Select <strong>High Performance</strong> (or OMEN Power Plan if available)",
+                            "Click 'Change plan settings' → 'Change advanced power settings'",
+                            "Set 'USB selective suspend' to <strong>Disabled</strong>"
                         ]
                     }
+                },
+                {
+                    "id": "power-tip",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "Quick Power Plan Switch",
+                    "content": "<p>Use OMEN Gaming Hub to quickly switch between power modes. The OMEN Key above your keyboard opens it instantly.</p>"
                 }
             ]
         }

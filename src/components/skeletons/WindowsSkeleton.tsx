@@ -1,11 +1,27 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+
+type GameMode = 'boot' | 'game' | 'interactive';
+
+// AI difficulty profiles
+const AI_PROFILES = [
+  { name: 'Sleepy', reactAt: 80, speed: 0.25, errorRange: 70, deadZone: 8, hitbox: 10 },
+  { name: 'Casual', reactAt: 70, speed: 0.4, errorRange: 50, deadZone: 5, hitbox: 12 },
+  { name: 'Normal', reactAt: 60, speed: 0.55, errorRange: 35, deadZone: 4, hitbox: 14 },
+  { name: 'Focused', reactAt: 50, speed: 0.7, errorRange: 20, deadZone: 3, hitbox: 15 },
+  { name: 'Pro', reactAt: 40, speed: 0.85, errorRange: 10, deadZone: 2, hitbox: 16 },
+];
 
 const WindowsSkeleton = () => {
-  const [mode, setMode] = useState<'boot' | 'game' | 'interactive'>('boot');
+  const [mode, setMode] = useState<GameMode>('boot');
   const [score, setScore] = useState({ p1: 0, p2: 0 });
   const [bootPhase, setBootPhase] = useState(0);
+  const [idleWarning, setIdleWarning] = useState(false);
+  const [exitMessage, setExitMessage] = useState(false);
+  const [aiProfile, setAiProfile] = useState(AI_PROFILES[1]); // Default to Casual
+  const aiProfileRef = useRef(AI_PROFILES[1]); // Ref for game loop to read current profile
   const containerRef = useRef<HTMLDivElement>(null);
+  const preserveStateOnExit = useRef(false);
 
   // Game State Refs (for performance)
   const gameState = useRef({
@@ -47,10 +63,18 @@ const WindowsSkeleton = () => {
     let animationFrameId: number;
     const state = gameState.current;
     
-    // Initialize auto-play
-    state.ball = { x: 50, y: 50, dx: 0.4, dy: 0.3, speed: 0.4 };
-    state.p1.y = 50;
-    state.p2.y = 50;
+    // Only reset if not preserving state from interactive mode
+    if (!preserveStateOnExit.current) {
+      state.ball = { x: 50, y: 50, dx: 0.4, dy: 0.3, speed: 0.4 };
+      state.p1.y = 50;
+      state.p2.y = 50;
+    } else {
+      // Coming from interactive - ensure ball has valid velocity for auto-play
+      if (Math.abs(state.ball.dx) < 0.3) {
+        state.ball.dx = state.ball.dx >= 0 ? 0.4 : -0.4;
+      }
+      preserveStateOnExit.current = false;
+    }
 
     const updateAutoPlay = () => {
       // Ball Movement
@@ -140,13 +164,36 @@ const WindowsSkeleton = () => {
     state.resetTimer = 60;
     state.ball = { x: 50, y: 50, dx: 0, dy: 0, speed: 0.6 };
     setScore({ p1: 0, p2: 0 });
+    setIdleWarning(false);
+    setExitMessage(false);
+    
+    // Randomly select AI difficulty profile
+    const randomProfile = AI_PROFILES[Math.floor(Math.random() * AI_PROFILES.length)];
+    setAiProfile(randomProfile);
+    aiProfileRef.current = randomProfile;
 
     const updateGame = () => {
       if (!state.isPlaying) return;
 
-      // Idle Detection (5 seconds)
-      if (Date.now() - state.lastInteraction > 5000) {
-          setMode('game');
+      const idleTime = Date.now() - state.lastInteraction;
+      
+      // Show warning at 3 seconds
+      if (idleTime > 3000 && idleTime <= 5000) {
+        setIdleWarning(true);
+      } else {
+        setIdleWarning(false);
+      }
+
+      // Smooth exit at 5 seconds - preserve state and transition
+      if (idleTime > 5000) {
+          preserveStateOnExit.current = true;
+          setExitMessage(true);
+          // Brief delay to show message, then switch
+          setTimeout(() => {
+            setMode('game');
+            setExitMessage(false);
+            setIdleWarning(false);
+          }, 800);
           return;
       }
 
@@ -158,9 +205,9 @@ const WindowsSkeleton = () => {
              state.ball = { 
                  x: 50, 
                  y: 50, 
-                 dx: dir * 0.6,
-                 dy: (Math.random() - 0.5) * 1.5, 
-                 speed: 0.6 
+                 dx: dir * 0.5,
+                 dy: (Math.random() - 0.5) * 0.4, 
+                 speed: 0.5 
              };
              state.trail = [];
           }
@@ -182,43 +229,50 @@ const WindowsSkeleton = () => {
       state.ball.y += state.ball.dy;
 
       // Wall Collisions (Top/Bottom)
-      if (state.ball.y <= 0 || state.ball.y >= 100) {
+      if (state.ball.y <= 5 || state.ball.y >= 95) {
         state.ball.dy *= -1;
+        state.ball.y = Math.max(5, Math.min(95, state.ball.y));
       }
+      
+      // Clamp dy to prevent crazy angles
+      state.ball.dy = Math.max(-0.4, Math.min(0.4, state.ball.dy));
 
-      // AI Logic (Right Paddle)
-      if (state.ball.dx > 0 && state.ball.x > 30) {
+      // AI Logic (Right Paddle) - Uses random difficulty profile
+      const profile = aiProfileRef.current;
+      if (state.ball.dx > 0 && state.ball.x > profile.reactAt) {
           state.aiUpdateTimer++;
-          if (state.aiUpdateTimer > 20) {
-              state.aiOffset = (Math.random() - 0.5) * 25;
+          if (state.aiUpdateTimer > 12) {
+              state.aiOffset = (Math.random() - 0.5) * profile.errorRange;
               state.aiUpdateTimer = 0;
           }
           
           const aiTarget = state.ball.y + state.aiOffset;
-          const aiSpeed = 0.8; 
           
-          if (state.p2.y < aiTarget - 2) state.p2.y += aiSpeed;
-          if (state.p2.y > aiTarget + 2) state.p2.y -= aiSpeed;
+          if (state.p2.y < aiTarget - profile.deadZone) state.p2.y += profile.speed;
+          if (state.p2.y > aiTarget + profile.deadZone) state.p2.y -= profile.speed;
       }
-      state.p2.y = Math.max(10, Math.min(90, state.p2.y));
+      state.p2.y = Math.max(15, Math.min(85, state.p2.y));
 
       // Paddle Collisions
       const paddleHit = (isPlayer: boolean) => {
           const currentSpeed = Math.abs(state.ball.dx);
-          const newSpeed = Math.min(currentSpeed * 1.05, 1.5);
+          const newSpeed = Math.min(currentSpeed * 1.02, 1.0);
           
           state.ball.dx = (isPlayer ? 1 : -1) * newSpeed;
           state.ball.x = isPlayer ? 5 : 95;
-          state.ball.dy += (state.ball.y - (isPlayer ? state.p1.y : state.p2.y)) * 0.1;
+          // Reduced angle modifier to prevent crazy bounces
+          state.ball.dy += (state.ball.y - (isPlayer ? state.p1.y : state.p2.y)) * 0.03;
+          // Clamp dy immediately after paddle hit
+          state.ball.dy = Math.max(-0.4, Math.min(0.4, state.ball.dy));
       };
 
-      // Player (Left)
-      if (state.ball.dx < 0 && state.ball.x <= 5 && Math.abs(state.ball.y - state.p1.y) < 15) {
+      // Player (Left) - Larger hitbox for player
+      if (state.ball.dx < 0 && state.ball.x <= 8 && Math.abs(state.ball.y - state.p1.y) < 18) {
         paddleHit(true);
       }
       
-      // AI (Right)
-      if (state.ball.dx > 0 && state.ball.x >= 95 && Math.abs(state.ball.y - state.p2.y) < 15) {
+      // AI (Right) - Hitbox based on AI profile
+      if (state.ball.dx > 0 && state.ball.x >= 95 && Math.abs(state.ball.y - state.p2.y) < profile.hitbox) {
         paddleHit(false);
       } 
       
@@ -245,11 +299,51 @@ const WindowsSkeleton = () => {
     };
   }, [mode]);
 
-  // Mouse Handler for Player Paddle
+  // Document-level mouse tracking for interactive mode
+  // This ensures paddle follows even when cursor goes outside the container
+  useEffect(() => {
+    if (mode !== 'interactive') return;
+    
+    const handleDocumentMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      
+      gameState.current.lastInteraction = Date.now();
+      setIdleWarning(false);
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const relativeY = ((e.clientY - rect.top) / rect.height) * 100;
+      
+      gameState.current.p1.y = Math.max(10, Math.min(90, relativeY));
+    };
+    
+    const handleDocumentTouchMove = (e: TouchEvent) => {
+      if (!containerRef.current) return;
+      
+      gameState.current.lastInteraction = Date.now();
+      setIdleWarning(false);
+      
+      const touch = e.touches[0];
+      const rect = containerRef.current.getBoundingClientRect();
+      const relativeY = ((touch.clientY - rect.top) / rect.height) * 100;
+      
+      gameState.current.p1.y = Math.max(10, Math.min(90, relativeY));
+    };
+    
+    document.addEventListener('mousemove', handleDocumentMouseMove);
+    document.addEventListener('touchmove', handleDocumentTouchMove);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleDocumentMouseMove);
+      document.removeEventListener('touchmove', handleDocumentTouchMove);
+    };
+  }, [mode]);
+
+  // Mouse Handler for Player Paddle (fallback for container events)
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (mode !== 'interactive' || !containerRef.current) return;
     
     gameState.current.lastInteraction = Date.now();
+    setIdleWarning(false);
     
     const rect = containerRef.current.getBoundingClientRect();
     const relativeY = ((e.clientY - rect.top) / rect.height) * 100;
@@ -257,7 +351,21 @@ const WindowsSkeleton = () => {
     gameState.current.p1.y = Math.max(10, Math.min(90, relativeY));
   }, [mode]);
 
-  const startInteractive = (e: React.MouseEvent) => {
+  // Touch Handler for Mobile (fallback for container events)
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (mode !== 'interactive' || !containerRef.current) return;
+    
+    gameState.current.lastInteraction = Date.now();
+    setIdleWarning(false);
+    
+    const touch = e.touches[0];
+    const rect = containerRef.current.getBoundingClientRect();
+    const relativeY = ((touch.clientY - rect.top) / rect.height) * 100;
+    
+    gameState.current.p1.y = Math.max(10, Math.min(90, relativeY));
+  }, [mode]);
+
+  const startInteractive = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setMode('interactive');
@@ -273,8 +381,9 @@ const WindowsSkeleton = () => {
   return (
     <div 
       ref={containerRef}
-      className={`flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-950 border border-white/10 overflow-hidden relative font-mono ${mode === 'interactive' ? 'cursor-none' : ''}`}
+      className={`flex flex-1 w-full h-full min-h-[10rem] sm:min-h-[8rem] rounded-xl bg-neutral-950 border border-white/10 overflow-hidden relative font-mono ${mode === 'interactive' ? 'cursor-none' : ''}`}
       onMouseMove={handleMouseMove}
+      onTouchMove={handleTouchMove}
       onClick={(e) => mode === 'interactive' && e.preventDefault()}
     >
 
@@ -287,17 +396,17 @@ const WindowsSkeleton = () => {
              animate={{ opacity: 1 }}
              exit={{ opacity: 0, filter: "blur(10px)" }}
              transition={{ duration: 0.3 }}
-             className="absolute inset-0 flex flex-col p-3"
+             className="absolute inset-0 flex flex-col p-3 sm:p-4"
            >
               {/* Boot header */}
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
                 <div className="flex items-center gap-2">
                   <motion.div 
                     className="w-2 h-2 bg-cyan-500 rounded-sm"
                     animate={{ opacity: [1, 0.3, 1] }}
                     transition={{ duration: 0.5, repeat: Infinity }}
                   />
-                  <span className="text-[10px] text-cyan-400/80 uppercase tracking-widest">System Boot</span>
+                  <span className="text-[9px] sm:text-[10px] text-cyan-400/80 uppercase tracking-widest">System Boot</span>
                 </div>
                 <div className="flex gap-1">
                   <div className="w-2 h-2 rounded-full bg-red-500/40" />
@@ -308,7 +417,7 @@ const WindowsSkeleton = () => {
 
               {/* Boot terminal */}
               <div className="flex-1 flex flex-col justify-center">
-                <div className="space-y-1.5">
+                <div className="space-y-1 sm:space-y-1.5">
                   {bootMessages.map((msg, i) => (
                     <motion.div
                       key={i}
@@ -327,14 +436,14 @@ const WindowsSkeleton = () => {
                         animate={bootPhase > i && i < 3 ? { opacity: [1, 0.5, 1] } : {}}
                         transition={{ duration: 0.3, repeat: bootPhase === i + 1 ? Infinity : 0 }}
                       />
-                      <span className={`text-[10px] ${
+                      <span className={`text-[9px] sm:text-[10px] ${
                         bootPhase > i ? (i === 3 ? 'text-green-400' : 'text-cyan-400/80') : 'text-gray-600'
                       }`}>
                         {msg}
                       </span>
                       {bootPhase === i + 1 && i < 3 && (
                         <motion.span
-                          className="text-[10px] text-cyan-400/50"
+                          className="text-[9px] sm:text-[10px] text-cyan-400/50"
                           animate={{ opacity: [0, 1, 0] }}
                           transition={{ duration: 0.8, repeat: Infinity }}
                         >
@@ -346,7 +455,7 @@ const WindowsSkeleton = () => {
                 </div>
 
                 {/* Progress bar */}
-                <div className="mt-4 h-1 bg-neutral-800 rounded-full overflow-hidden">
+                <div className="mt-3 sm:mt-4 h-1 bg-neutral-800 rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
                     initial={{ width: '0%' }}
@@ -366,9 +475,9 @@ const WindowsSkeleton = () => {
               {/* Game Header */}
               <div className="h-7 bg-neutral-900/80 border-b border-white/5 flex items-center justify-between px-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                  <div className={`w-1.5 h-1.5 rounded-full ${mode === 'interactive' ? 'bg-cyan-500' : 'bg-green-500'}`} />
                   <span className="text-[9px] text-gray-500 uppercase tracking-wider">
-                    {mode === 'interactive' ? 'Manual Control' : 'Auto Demo'}
+                    {mode === 'interactive' ? `vs ${aiProfile.name}` : 'Auto Mode'}
                   </span>
                 </div>
                 
@@ -401,61 +510,51 @@ const WindowsSkeleton = () => {
                   {/* Center Line - simple dashed */}
                   <div className="absolute top-2 bottom-2 left-1/2 -translate-x-1/2 w-px border-l border-dashed border-white/10" />
                   
-                  {mode === 'interactive' ? (
-                    <>
-                        {/* Player Paddle */}
-                        <div 
-                            className="absolute left-2 w-1 h-8 bg-cyan-600 rounded-sm"
-                            style={{ 
-                                top: `${gameState.current.p1.y}%`,
-                                transform: 'translateY(-50%)'
-                            }}
-                        />
-                        {/* AI Paddle */}
-                        <div 
-                            className="absolute right-2 w-1 h-8 bg-orange-600 rounded-sm"
-                            style={{ 
-                                top: `${gameState.current.p2.y}%`,
-                                transform: 'translateY(-50%)'
-                            }}
-                        />
-                        {/* Ball */}
-                        <div 
-                            className="absolute w-1.5 h-1.5 bg-gray-400 rounded-full"
-                            style={{ 
-                                left: `${gameState.current.ball.x}%`,
-                                top: `${gameState.current.ball.y}%`,
-                                transform: 'translate(-50%, -50%)'
-                            }}
-                        />
-                    </>
-                  ) : (
-                    <>
-                      {/* Physics-based auto-play */}
-                      <div 
-                        className="absolute left-2 w-1 h-8 bg-cyan-600 rounded-sm"
-                        style={{ 
+                  {/* Idle Warning Overlay */}
+                  <AnimatePresence>
+                    {idleWarning && mode === 'interactive' && !exitMessage && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+                      >
+                        <motion.div 
+                          className="bg-neutral-900/80 backdrop-blur-sm px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-yellow-500/30"
+                          animate={{ scale: [1, 1.02, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        >
+                          <p className="text-[10px] sm:text-xs text-yellow-400">Move to continue playing...</p>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  
+                  {/* Player Paddle */}
+                  <div 
+                      className="absolute left-2 w-1 h-8 bg-cyan-600 rounded-sm"
+                      style={{ 
                           top: `${gameState.current.p1.y}%`,
                           transform: 'translateY(-50%)'
-                        }}
-                      />
-                      <div 
-                        className="absolute right-2 w-1 h-8 bg-orange-600 rounded-sm"
-                        style={{ 
+                      }}
+                  />
+                  {/* AI Paddle */}
+                  <div 
+                      className="absolute right-2 w-1 h-8 bg-orange-600 rounded-sm"
+                      style={{ 
                           top: `${gameState.current.p2.y}%`,
                           transform: 'translateY(-50%)'
-                        }}
-                      />
-                      <div 
-                        className="absolute w-1.5 h-1.5 bg-gray-400 rounded-full"
-                        style={{ 
+                      }}
+                  />
+                  {/* Ball */}
+                  <div 
+                      className="absolute w-1.5 h-1.5 bg-white rounded-full"
+                      style={{ 
                           left: `${gameState.current.ball.x}%`,
                           top: `${gameState.current.ball.y}%`,
                           transform: 'translate(-50%, -50%)'
-                        }}
-                      />
-                    </>
-                  )}
+                      }}
+                  />
               </div>
 
               {/* Footer */}
@@ -467,13 +566,27 @@ const WindowsSkeleton = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={startInteractive}
-                        className="px-2 py-0.5 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 rounded text-[8px] text-cyan-400 transition-colors uppercase tracking-wider cursor-pointer"
+                        onTouchEnd={startInteractive}
+                        className="px-2 py-0.5 bg-cyan-500/10 hover:bg-cyan-500/20 active:bg-cyan-500/30 border border-cyan-500/30 rounded text-[8px] text-cyan-400 transition-colors uppercase tracking-wider cursor-pointer"
                     >
                         Play
                     </motion.button>
                 )}
-                {mode === 'interactive' && (
-                  <span className="text-[8px] text-yellow-400/60">Move mouse to control • Idle 5s to exit</span>
+                {mode === 'interactive' && !exitMessage && (
+                  <span className="text-[8px] text-gray-400">
+                    <span className="hidden sm:inline">Move mouse to control</span>
+                    <span className="sm:hidden">Touch & drag</span>
+                    <span className="text-yellow-400/60"> • 5s idle to exit</span>
+                  </span>
+                )}
+                {exitMessage && (
+                  <motion.span 
+                    className="text-[8px] text-yellow-400"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    Returning to Auto Mode...
+                  </motion.span>
                 )}
                 <span className="text-[8px] text-gray-600 ml-auto">60 FPS</span>
               </div>

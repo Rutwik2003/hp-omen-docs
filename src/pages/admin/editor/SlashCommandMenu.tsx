@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Type, Code, Info, LayoutGrid, Table, Image as ImageIcon } from 'lucide-react';
+import { Code, Image as ImageIcon, Info, LayoutGrid, Table, Type } from 'lucide-react';
 import { BlockType } from '../../../types/blocks';
 
 interface SlashCommandMenuProps {

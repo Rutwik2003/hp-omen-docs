@@ -23,6 +23,11 @@
             "content": "",
             "blocks": [
                 {
+                    "id": "distros-intro",
+                    "type": "text",
+                    "content": "<p>Choosing the right Linux distribution is crucial for OMEN laptop compatibility. These distros have been tested and work well with NVIDIA Optimus/hybrid graphics.</p>"
+                },
+                {
                     "id": "b1",
                     "type": "grid",
                     "columns": 2,
@@ -40,7 +45,7 @@
                                 {
                                     "id": "p1",
                                     "type": "text",
-                                    "content": "<p>Gaming-focused, pre-installed NVIDIA drivers, excellent hardware support.</p>"
+                                    "content": "<p>Gaming-focused with pre-installed NVIDIA drivers. Best out-of-box experience for OMEN laptops. Download the <strong>NVIDIA ISO</strong>.</p>"
                                 }
                             ]
                         },
@@ -57,7 +62,7 @@
                                 {
                                     "id": "p2",
                                     "type": "text",
-                                    "content": "<p>Most popular, stable, easy driver installation, huge community support.</p>"
+                                    "content": "<p>Most popular and stable. Huge community support means solutions for most issues are just a search away.</p>"
                                 }
                             ]
                         },
@@ -74,7 +79,7 @@
                                 {
                                     "id": "p3",
                                     "type": "text",
-                                    "content": "<p>For advanced users. Latest kernels/drivers, AUR access, performance focus.</p>"
+                                    "content": "<p>For advanced users. Rolling release means latest kernels and drivers. AUR has everything you need.</p>"
                                 }
                             ]
                         },
@@ -91,11 +96,18 @@
                                 {
                                     "id": "p4",
                                     "type": "text",
-                                    "content": "<p>Cutting-edge features, Wayland support, pure GNOME experience.</p>"
+                                    "content": "<p>Cutting-edge features with excellent Wayland support. Pure GNOME experience, backed by Red Hat.</p>"
                                 }
                             ]
                         }
                     ]
+                },
+                {
+                    "id": "distros-tip",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "First Timer?",
+                    "content": "<p>Start with <strong>Pop!_OS</strong> or <strong>Ubuntu</strong>. They have the easiest setup and best driver support. You can always switch later once you're comfortable with Linux.</p>"
                 }
             ]
         },
@@ -105,18 +117,55 @@
             "content": "",
             "blocks": [
                 {
+                    "id": "setup-intro",
+                    "type": "text",
+                    "content": "<p>Follow these steps to install Linux on your OMEN laptop. We recommend dual-booting to keep Windows available for games with anti-cheat.</p>"
+                },
+                {
+                    "id": "setup-warning",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Backup First",
+                    "content": "<p>Always backup important data before installing a new OS. Partitioning mistakes can result in data loss.</p>"
+                },
+                {
+                    "id": "setup-steps-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Installation Steps"
+                },
+                {
                     "id": "b2",
                     "type": "list",
                     "content": {
                         "style": "ordered",
                         "items": [
-                            "Disable Secure Boot in BIOS (F10)",
-                            "Create bootable USB using Rufus (Windows) or Etcher",
-                            "Boot from USB (F9)",
-                            "Install OS (Select 'Install third-party software' for drivers)",
-                            "Update system: `sudo apt update && sudo apt upgrade`"
+                            "<strong>Disable Secure Boot:</strong> Enter BIOS (F10 at boot) → Security → Disable Secure Boot",
+                            "<strong>Create bootable USB:</strong> Use Rufus (Windows) or balenaEtcher to flash the ISO",
+                            "<strong>Boot from USB:</strong> Press F9 at boot to select boot device",
+                            "<strong>Install OS:</strong> Select 'Install third-party software' for NVIDIA drivers",
+                            "<strong>Dual-boot tip:</strong> Shrink Windows partition first using Disk Management"
                         ]
                     }
+                },
+                {
+                    "id": "setup-post",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Post-Installation"
+                },
+                {
+                    "id": "setup-update",
+                    "type": "code",
+                    "language": "bash",
+                    "code": "# Update your system immediately after install\nsudo apt update && sudo apt upgrade -y\n\n# Install essential tools\nsudo apt install git curl wget htop neofetch"
+                },
+                {
+                    "id": "setup-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Kernel Updates",
+                    "content": "<p>Newer kernels often have better hardware support for OMEN laptops. On Ubuntu, consider using the HWE (Hardware Enablement) kernel or mainline kernel for latest features.</p>"
                 }
             ]
         },
@@ -152,17 +201,60 @@
             "content": "",
             "blocks": [
                 {
+                    "id": "gaming-intro",
+                    "type": "text",
+                    "content": "<p>Linux gaming has come a long way. With Proton and native ports, most games work great on your OMEN laptop.</p>"
+                },
+                {
+                    "id": "gaming-steam-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Steam & Proton"
+                },
+                {
+                    "id": "gaming-steam-code",
+                    "type": "code",
+                    "language": "bash",
+                    "code": "# Install Steam (Ubuntu/Pop!_OS)\nsudo apt install steam\n\n# Install Steam (Arch/Manjaro)\nsudo pacman -S steam"
+                },
+                {
+                    "id": "gaming-proton",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "Enable Proton",
+                    "content": "<p>In Steam: Settings → Compatibility → Enable Steam Play for all titles → Select Proton Experimental or latest stable version.</p>"
+                },
+                {
+                    "id": "gaming-tools-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Essential Gaming Tools"
+                },
+                {
+                    "id": "gaming-tools-code",
+                    "type": "code",
+                    "language": "bash",
+                    "code": "# GameMode - Optimizes system for gaming\nsudo apt install gamemode\n\n# MangoHud - In-game performance overlay\nsudo apt install mangohud\n\n# Lutris - For non-Steam games (Epic, GOG, etc.)\nsudo apt install lutris"
+                },
+                {
                     "id": "b6",
                     "type": "list",
                     "content": {
                         "style": "unordered",
                         "items": [
-                            "Install Steam Native",
-                            "Enable Steam Play (Proton) for all titles in Settings",
-                            "Install Lutris for non-Steam games (Epic, GOG)",
-                            "Install GameMode: `sudo apt install gamemode`"
+                            "<strong>ProtonDB:</strong> Check game compatibility at <a href='https://www.protondb.com/' target='_blank'>protondb.com</a>",
+                            "<strong>Heroic Launcher:</strong> Alternative for Epic Games Store with better Linux support",
+                            "<strong>Wine/Bottles:</strong> Run Windows apps that don't work with Proton",
+                            "<strong>MangoHud:</strong> Add <code>mangohud %command%</code> to Steam launch options for FPS overlay"
                         ]
                     }
+                },
+                {
+                    "id": "gaming-anticheat",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Anti-Cheat Games",
+                    "content": "<p>Some games with anti-cheat (Valorant, FACEIT, some EA titles) don't work on Linux. Check ProtonDB for compatibility. This is why dual-booting Windows is recommended.</p>"
                 }
             ]
         },
@@ -171,6 +263,17 @@
             "title": "Essential Commands",
             "content": "",
             "blocks": [
+                {
+                    "id": "commands-intro",
+                    "type": "text",
+                    "content": "<p>These terminal commands help you monitor system health, troubleshoot issues, and manage your Linux installation on OMEN hardware.</p>"
+                },
+                {
+                    "id": "commands-monitor-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "System Monitoring"
+                },
                 {
                     "id": "b7",
                     "type": "table",
@@ -182,22 +285,75 @@
                         "rows": [
                             [
                                 "nvidia-smi",
-                                "Check GPU status and usage"
+                                "Check GPU status, usage, temperature, and power draw"
                             ],
                             [
                                 "htop",
-                                "Monitor system resources"
+                                "Interactive process monitor (better than top)"
                             ],
                             [
                                 "sensors",
-                                "Check temperatures"
+                                "Display CPU, GPU, and chassis temperatures"
                             ],
                             [
                                 "lscpu",
-                                "CPU information"
+                                "Detailed CPU information"
+                            ],
+                            [
+                                "free -h",
+                                "Check RAM usage in human-readable format"
+                            ],
+                            [
+                                "df -h",
+                                "Check disk space usage"
+                            ],
+                            [
+                                "lspci | grep -i nvidia",
+                                "Verify NVIDIA GPU is detected"
                             ]
                         ]
                     }
+                },
+                {
+                    "id": "commands-driver-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Driver & System Management"
+                },
+                {
+                    "id": "commands-driver-table",
+                    "type": "table",
+                    "content": {
+                        "headers": [
+                            "Command",
+                            "Description"
+                        ],
+                        "rows": [
+                            [
+                                "sudo ubuntu-drivers autoinstall",
+                                "Auto-install recommended drivers (Ubuntu)"
+                            ],
+                            [
+                                "prime-select query",
+                                "Check current GPU mode (NVIDIA/Intel)"
+                            ],
+                            [
+                                "prime-select nvidia",
+                                "Switch to NVIDIA GPU"
+                            ],
+                            [
+                                "sudo systemctl restart gdm",
+                                "Restart display manager"
+                            ]
+                        ]
+                    }
+                },
+                {
+                    "id": "commands-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Install sensors",
+                    "content": "<p>If <code>sensors</code> command not found: <code>sudo apt install lm-sensors</code> then run <code>sudo sensors-detect</code> to configure.</p>"
                 }
             ]
         }

@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  createSession,
-  validateSession,
-  getSessionHash,
   clearSession,
+  createSession,
   extendSession,
+  getSessionHash,
+  validateSession,
 } from '../../utils/sessionManager';
 
 describe('sessionManager', () => {

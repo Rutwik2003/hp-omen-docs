@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, ChevronRight, AlertCircle } from 'lucide-react';
+import { AlertCircle, ChevronRight, Lock } from 'lucide-react';
 import { checkAuth } from '../../utils/adminApi';
 
 interface LoginProps {

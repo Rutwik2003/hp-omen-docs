@@ -1,9 +1,9 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
 import { motion } from 'framer-motion';
-import { StepSection, InfoBox, PrerequisitesList } from './index';
+import { InfoBox, PrerequisitesList, StepSection } from './index';
 import { DocPage } from '../../types/docs';
-import { Terminal, Copy, Check, ChevronRight, Sparkles } from 'lucide-react';
+import { Check, ChevronRight, Copy, Sparkles, Terminal } from 'lucide-react';
 import PublicBlockRenderer from './PublicBlockRenderer';
 
 interface DocRendererProps {

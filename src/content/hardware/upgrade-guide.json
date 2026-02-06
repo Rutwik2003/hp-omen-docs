@@ -1,0 +1,444 @@
+{
+    "id": "upgrade-guide",
+    "title": "Complete Upgrade Guide",
+    "description": "Detailed guide for upgrading RAM and SSD in your HP OMEN laptop, with specific recommendations for AMD and Intel systems.",
+    "category": "Hardware",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "25 min",
+        "lastUpdated": "Feb 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Hardware",
+            "path": "/hardware"
+        },
+        {
+            "label": "Upgrade Guide"
+        }
+    ],
+    "steps": [
+        {
+            "id": "disclaimer",
+            "title": "Disclaimer",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "disclaimer-warn",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Proceed at Your Own Risk",
+                    "content": "<p><strong>DISCLAIMER:</strong> Opening your laptop and upgrading hardware may <strong>void your warranty</strong> if not done carefully. By following this guide, you acknowledge that you do so <strong>at your own risk</strong>. The author(s) are <strong>not responsible</strong> for any damage to your laptop, components, or data loss. If you are uncomfortable with hardware modifications, consider having a professional perform the upgrade.</p>"
+                }
+            ]
+        },
+        {
+            "id": "safety",
+            "title": "Before You Start",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "safety-warn",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Important Safety Steps",
+                    "content": "<p>Always <strong>power off</strong> your laptop, disconnect the charger, and remove the battery (if removable). Use an <strong>anti-static wrist strap</strong> or touch a grounded metal object before handling components.</p>"
+                },
+                {
+                    "id": "safety-video",
+                    "type": "text",
+                    "content": "<p>Official HP teardown guide for OMEN laptops:</p>"
+                },
+                {
+                    "id": "safety-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://www.youtube.com/watch?v=x8eM4iDdRF8"
+                }
+            ]
+        },
+        {
+            "id": "ssd-upgrade",
+            "title": "SSD Upgrade",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "ssd-text",
+                    "type": "text",
+                    "content": "<p>Most 2020+ OMEN laptops support both M.2 SATA and M.2 NVMe SSDs. NVMe drives offer significantly faster speeds.</p>"
+                },
+                {
+                    "id": "ssd-grid",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "ssd-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "ssd-h1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "M.2 NVMe (Recommended)"
+                                },
+                                {
+                                    "id": "ssd-img1",
+                                    "type": "image",
+                                    "url": "/images/m.2_nvme.png",
+                                    "alt": "M.2 NVMe SSD"
+                                },
+                                {
+                                    "id": "ssd-t1",
+                                    "type": "text",
+                                    "content": "<p>Fastest option with speeds up to 7000 MB/s on PCIe 4.0 models.</p>"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ssd-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "ssd-h2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "M.2 SATA"
+                                },
+                                {
+                                    "id": "ssd-img2",
+                                    "type": "image",
+                                    "url": "/images/m.2_sata.png",
+                                    "alt": "M.2 SATA SSD"
+                                },
+                                {
+                                    "id": "ssd-t2",
+                                    "type": "text",
+                                    "content": "<p>Older standard, limited to ~550 MB/s. Only use if NVMe is not supported.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "ssd-warn",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Important",
+                    "content": "<p>Drive speeds won't significantly impact gaming FPS or load times. The difference between 2000 MB/s and 5000 MB/s is milliseconds in boot time. <strong>Never buy DRAM-less SSDs</strong> - they have poor sustained performance.</p>"
+                },
+                {
+                    "id": "ssd-recs-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Recommended SSDs"
+                },
+                {
+                    "id": "ssd-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Tier", "Model", "Notes"],
+                        "rows": [
+                            ["Premium", "Samsung 970 EVO Plus / 980 Pro", "Best performance, 5-year warranty"],
+                            ["Premium", "WD Black SN850X", "Excellent for gaming"],
+                            ["Mid-Range", "Sabrent Rocket", "Great value, fast speeds"],
+                            ["Mid-Range", "Crucial P5 Plus", "Reliable, good thermals"],
+                            ["Budget", "Crucial P3 / P3 Plus", "Good for bulk storage"],
+                            ["Budget", "WD Blue SN580", "Solid budget option"]
+                        ]
+                    }
+                },
+                {
+                    "id": "ssd-init-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Initialize New SSD in Windows"
+                },
+                {
+                    "id": "ssd-init-text",
+                    "type": "text",
+                    "content": "<p>After installing a new SSD, you need to initialize it in Windows to make it visible:</p>"
+                },
+                {
+                    "id": "ssd-init-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://www.youtube.com/watch?v=R-qTVkbgMwI"
+                }
+            ]
+        },
+        {
+            "id": "ram-overview",
+            "title": "RAM Upgrade Overview",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "ram-text",
+                    "type": "text",
+                    "content": "<p>RAM upgrades can significantly improve multitasking and gaming performance. Always install <strong>two sticks</strong> for dual-channel performance boost.</p>"
+                },
+                {
+                    "id": "ram-compat",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Check Compatibility",
+                    "content": "<p>Use Crucial's compatibility checker to find RAM that works with your specific OMEN model:</p>"
+                },
+                {
+                    "id": "ram-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://uk.crucial.com/upgrades/hp---compaq/hp-omen-15-ek"
+                }
+            ]
+        },
+        {
+            "id": "ram-amd",
+            "title": "RAM for AMD OMEN Laptops",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "amd-warn",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Critical for AMD Systems",
+                    "content": "<p>Correct RAM is <strong>extremely important</strong> for AMD laptops! AMD Ryzen processors are highly dependent on RAM speed and timings for optimal performance.</p>"
+                },
+                {
+                    "id": "amd-text",
+                    "type": "text",
+                    "content": "<p>Buy <strong>CL22 3200MHz</strong> RAM for AMD OMEN laptops. Do NOT buy faster RAM or tighter timings - OMEN laptops don't support XMP, so faster RAM will downclock itself and you'll waste money.</p>"
+                },
+                {
+                    "id": "amd-rec",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Perfect RAM for AMD OMENs"
+                },
+                {
+                    "id": "amd-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://www.amazon.com/dp/B08C4X9VR5/"
+                },
+                {
+                    "id": "amd-list-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Compatible DDR4 RAM List"
+                },
+                {
+                    "id": "amd-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Brand", "Model", "Speed", "Size", "Rank"],
+                        "rows": [
+                            ["Crucial", "CT2K16G4SFD832A", "CL22 3200MHz", "32GB (2x16GB)", "2Rx8"],
+                            ["G.Skill Ripjaws", "F4-3200C22D-32GRS", "CL22 3200MHz", "32GB (2x16GB)", "1Rx8/2Rx8"],
+                            ["G.Skill Ripjaws", "F4-3200C18D-32GRS", "CL18 3200MHz", "32GB (2x16GB)", "2Rx8"],
+                            ["Kingston FURY", "KF432S20IB1K2/32", "CL20 3200MHz", "32GB (2x16GB)", "2Rx8"],
+                            ["Kingston", "KCP432SD8/16", "CL22 3200MHz", "16GB", "2Rx8"],
+                            ["Kingston ValueRAM", "KVR32S22D8/16", "CL22 3200MHz", "16GB", "2Rx8"],
+                            ["Samsung", "M471A2K43DB1-CWE", "CL22 3200MHz", "16GB", "2Rx8"],
+                            ["Hynix", "HMA82GS6DJR8N-XN", "CL22 3200MHz", "16GB", "2Rx8"]
+                        ]
+                    }
+                },
+                {
+                    "id": "amd-note",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Note on Rank",
+                    "content": "<p><strong>2Rx8</strong> (dual-rank) RAM often provides better performance than 1Rx8 (single-rank). When possible, choose 2Rx8 modules.</p>"
+                }
+            ]
+        },
+        {
+            "id": "ram-intel",
+            "title": "RAM for Intel OMEN Laptops",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "intel-text",
+                    "type": "text",
+                    "content": "<p>Intel systems are less dependent on RAM speed than AMD. Buy <strong>2933MHz RAM</strong> as that's the fastest speed Intel OMEN laptops support - anything faster will downclock.</p>"
+                },
+                {
+                    "id": "intel-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Tip",
+                    "content": "<p>3200MHz RAM will work but will automatically downclock to 2933MHz. If prices are similar, 3200MHz is fine for future-proofing if you upgrade laptops later.</p>"
+                },
+                {
+                    "id": "intel-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Buy 2x sticks for dual-channel (e.g., 2x16GB rather than 1x32GB)",
+                            "CL timing doesn't matter as much for Intel",
+                            "Avoid mixing different RAM brands/speeds"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "ram-desktop",
+            "title": "OMEN Desktop RAM (30L Series)",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "desktop-info",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "Good News for Desktop Users",
+                    "content": "<p>Despite what you may read online, aftermarket RAM is <strong>NOT locked</strong> to base frequencies on OMEN desktops!</p>"
+                },
+                {
+                    "id": "desktop-text",
+                    "type": "text",
+                    "content": "<p>While the HP BIOS is locked, you can still enable XMP/JEDEC profiles:</p>"
+                },
+                {
+                    "id": "desktop-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "<strong>AMD Systems:</strong> Download Ryzen Master software to enable XMP or JEDEC RAM profiles",
+                            "<strong>Intel Systems:</strong> Use Intel XTU (Extreme Tuning Utility) for the same functionality"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "installation",
+            "title": "Installation Steps",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "install-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Power off laptop and disconnect all cables",
+                            "Remove bottom panel screws (usually 8-12 Phillips #0 screws)",
+                            "Gently pry open the case starting from the rear hinge area",
+                            "Locate RAM slots - may be under a metal shield on some models",
+                            "Push metal retention clips outward to release old RAM sticks",
+                            "Insert new RAM at 45° angle into the slot",
+                            "Push down firmly until clips snap into place",
+                            "Reassemble and boot - check System Information to verify RAM is detected"
+                        ]
+                    }
+                },
+                {
+                    "id": "install-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Verify Installation",
+                    "content": "<p>After installing, press <kbd>Win + R</kbd>, type <code>msinfo32</code>, and check 'Installed Physical Memory' to confirm your new RAM is detected.</p>"
+                }
+            ]
+        },
+        {
+            "id": "disassembly-guides",
+            "title": "HP Disassembly Video Guides",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "disassembly-intro",
+                    "type": "text",
+                    "content": "<p>HP provides official disassembly videos for nearly every laptop model. These show step-by-step instructions for removing components safely.</p>"
+                },
+                {
+                    "id": "disassembly-grid",
+                    "type": "grid",
+                    "columns": 3,
+                    "children": [
+                        {
+                            "id": "dis-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "dis-h1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "General HP Laptops"
+                                },
+                                {
+                                    "id": "dis-t1",
+                                    "type": "text",
+                                    "content": "<p>Search for any HP laptop teardown on HP Support channel:</p>"
+                                },
+                                {
+                                    "id": "dis-code1",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.youtube.com/c/HPSupport/search?query=removing%20and%20replacing%20parts"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "dis-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "dis-h2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "OMEN Laptops"
+                                },
+                                {
+                                    "id": "dis-t2",
+                                    "type": "text",
+                                    "content": "<p>Specific teardown videos for OMEN gaming laptops:</p>"
+                                },
+                                {
+                                    "id": "dis-code2",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.youtube.com/c/HPSupport/search?query=removing%20and%20replacing%20parts%20omen"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "dis-c3",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "dis-h3",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Pavilion Laptops"
+                                },
+                                {
+                                    "id": "dis-t3",
+                                    "type": "text",
+                                    "content": "<p>Teardown guides for HP Pavilion Gaming series:</p>"
+                                },
+                                {
+                                    "id": "dis-code3",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.youtube.com/c/HPSupport/search?query=removing%20and%20replacing%20parts%20pavilion"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "dis-tip",
+                    "type": "callout",
+                    "variant": "tip",
+                    "title": "Find Your Model",
+                    "content": "<p>Search for your exact model number (e.g., 'OMEN 15-en0xxx') on HP Support YouTube channel for the most relevant disassembly video.</p>"
+                }
+            ]
+        }
+    ]
+}

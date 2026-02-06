@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import { ToastProvider } from './context/ToastContext';
-import { RootLayout, DocsLayout } from './components/layout';
+import { DocsLayout, RootLayout } from './components/layout';
 import ScrollToTop from './components/ScrollToTop';
 import ErrorBoundary from './components/ErrorBoundary';
 

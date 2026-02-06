@@ -1,0 +1,320 @@
+{
+    "id": "undervolting",
+    "title": "Undervolting Guide",
+    "description": "Complete guide to undervolting Intel CPUs and NVIDIA GPUs on OMEN laptops for better thermals and performance.",
+    "category": "Performance",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "25 min",
+        "lastUpdated": "Feb 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Performance",
+            "path": "/performance"
+        },
+        {
+            "label": "Undervolting Guide"
+        }
+    ],
+    "steps": [
+        {
+            "id": "disclaimer",
+            "title": "Disclaimer",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "disclaimer-warn",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Proceed at Your Own Risk",
+                    "content": "<p><strong>DISCLAIMER:</strong> The information provided in this guide is for educational purposes only. Undervolting can cause system instability, crashes, and data loss. By following this guide, you acknowledge that you do so <strong>at your own risk</strong>. The author(s) of this documentation are <strong>not responsible</strong> for any damage, data loss, or other issues that may occur as a result of following these instructions. Always backup important data before making system modifications.</p>"
+                }
+            ]
+        },
+        {
+            "id": "what-is-undervolting",
+            "title": "What is Undervolting?",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "intro-text",
+                    "type": "text",
+                    "content": "<p>Undervolting is the process of reducing the voltage your GPU/CPU has access to. This aims to maintain performance close to stock settings while improving efficiency. Power draw and heat are the main targets for improvement, as chips come slightly overvolted from the factory.</p>"
+                },
+                {
+                    "id": "benefits",
+                    "type": "callout",
+                    "variant": "tip",
+                    "title": "Benefits of Undervolting",
+                    "content": "<p><strong>Lower Temperatures:</strong> 5-15°C reduction<br/><strong>Reduced Power:</strong> Less battery drain<br/><strong>Better Sustained Performance:</strong> Less thermal throttling<br/><strong>Quieter Fans:</strong> Less heat = less cooling needed</p>"
+                },
+                {
+                    "id": "amd-warning",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "AMD Ryzen Warning",
+                    "content": "<p>CPU undervolting can <strong>only be done on Intel CPUs</strong>. Undervolting AMD Ryzen processors actually <strong>harms performance</strong> and is not recommended. For AMD systems, use Ryzen Controller for power/thermal tuning instead.</p>"
+                }
+            ]
+        },
+        {
+            "id": "ogh-undervolting",
+            "title": "Undervolting via OMEN Gaming Hub",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "ogh-intro",
+                    "type": "text",
+                    "content": "<p>OMEN Gaming Hub includes a built-in CPU undervolting feature. This is the easiest method for beginners.</p>"
+                },
+                {
+                    "id": "ogh-warning",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Avoid 'Intelligent' Mode",
+                    "content": "<p>Using the 'Intelligent' setting is not recommended as it always undervolts lower than what your chip can handle, potentially leaving performance on the table.</p>"
+                },
+                {
+                    "id": "ogh-steps-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Step-by-Step Guide"
+                },
+                {
+                    "id": "ogh-steps",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Open OMEN Gaming Hub and navigate to Performance Control",
+                            "Click <strong>Custom</strong> to enable manual undervolting",
+                            "Start with an undervolt of around <strong>-80mV</strong>",
+                            "Run the built-in stress test or use tools from Stress Testing guide",
+                            "If stable, increase undervolt (e.g., -80mV → -100mV) and test again",
+                            "Keep increasing until you experience instability or BSOD",
+                            "Once you BSOD, just reopen OGH and return to the last stable undervolt",
+                            "Test while gaming - if any instability occurs, reduce undervolt slightly"
+                        ]
+                    }
+                },
+                {
+                    "id": "ogh-typical",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Typical Stable Values",
+                    "content": "<p><strong>Intel i7-10750H:</strong> -130mV average<br/><strong>Intel i5-10300H:</strong> -100mV average<br/><br/>Your results may vary - every chip is different!</p>"
+                }
+            ]
+        },
+        {
+            "id": "throttlestop",
+            "title": "Undervolting with ThrottleStop",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "ts-intro",
+                    "type": "text",
+                    "content": "<p>ThrottleStop is a powerful third-party tool that offers more control than OGH. It's the preferred choice for experienced users.</p>"
+                },
+                {
+                    "id": "ts-download-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Download ThrottleStop"
+                },
+                {
+                    "id": "ts-download",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://www.techpowerup.com/download/techpowerup-throttlestop/"
+                },
+                {
+                    "id": "ts-guide-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Text Guide"
+                },
+                {
+                    "id": "ts-guide",
+                    "type": "code",
+                    "language": "url",
+                    "code": "http://forum.notebookreview.com/threads/the-throttlestop-guide.531329/"
+                },
+                {
+                    "id": "ts-video-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Video Tutorial"
+                },
+                {
+                    "id": "ts-video",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://www.youtube.com/watch?v=QCDIK-nnois"
+                },
+                {
+                    "id": "ts-startup-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Start on Startup"
+                },
+                {
+                    "id": "ts-startup-text",
+                    "type": "text",
+                    "content": "<p>To have ThrottleStop apply your undervolt automatically at startup:</p>"
+                },
+                {
+                    "id": "ts-startup",
+                    "type": "code",
+                    "language": "url",
+                    "code": "http://forum.notebookreview.com/threads/the-throttlestop-guide.531329/#post-6865107"
+                },
+                {
+                    "id": "ts-detailed-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Detailed Blog Guide"
+                },
+                {
+                    "id": "ts-detailed",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://genexisx.blogspot.com/2019/09/laptop-undervolting-guide-intelnvidia.html"
+                }
+            ]
+        },
+        {
+            "id": "xtu-section",
+            "title": "Intel XTU",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "xtu-text",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Not Recommended",
+                    "content": "<p>Intel XTU is <strong>not recommended</strong> for OMEN laptops. It often conflicts with OMEN Gaming Hub and can cause stability issues. Use ThrottleStop or OGH instead.</p>"
+                }
+            ]
+        },
+        {
+            "id": "gpu-undervolt",
+            "title": "GPU Undervolting",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "gpu-intro",
+                    "type": "text",
+                    "content": "<p>GPU undervolting is done via MSI Afterburner and works on both NVIDIA and AMD discrete graphics cards.</p>"
+                },
+                {
+                    "id": "gpu-download-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "MSI Afterburner"
+                },
+                {
+                    "id": "gpu-download",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://www.msi.com/Landing/afterburner"
+                },
+                {
+                    "id": "gpu-grid",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "gpu-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "gpu-v1-h",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Video Guide #1"
+                                },
+                                {
+                                    "id": "gpu-v1",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.youtube.com/watch?v=gG9Uuy2PjZo"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "gpu-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "gpu-v2-h",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Video Guide #2"
+                                },
+                                {
+                                    "id": "gpu-v2",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.youtube.com/watch?v=D4fQvuRgOdM"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "gpu-explanations-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Understanding Undervolting"
+                },
+                {
+                    "id": "gpu-explanations",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Topic", "Video Link"],
+                        "rows": [
+                            ["CPU Undervolting Explained", "https://www.youtube.com/watch?v=AxaIZgzTbMA"],
+                            ["GPU Undervolting Explained #1", "https://www.youtube.com/watch?v=9zKhf_ddUJg"],
+                            ["GPU Undervolting Explained #2", "https://www.youtube.com/watch?v=zUkPAVcb9Xc"]
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "troubleshooting",
+            "title": "Troubleshooting",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "trouble-text",
+                    "type": "text",
+                    "content": "<p>Common issues when undervolting and how to fix them:</p>"
+                },
+                {
+                    "id": "trouble-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Issue", "Solution"],
+                        "rows": [
+                            ["System crashes/BSOD", "Reduce undervolt by 10-20mV"],
+                            ["Crashes only under load", "Your final undervolt is too aggressive - reduce by 5-10mV"],
+                            ["Settings don't persist after restart", "Use ThrottleStop's startup guide or Task Scheduler"],
+                            ["XTU returns VBS error (Windows 11)", "Disable Core Isolation in Windows Security settings"],
+                            ["ThrottleStop values not applying (Windows 11)", "Disable Virtualization Based Security (see Known Issues)"]
+                        ]
+                    }
+                },
+                {
+                    "id": "vbs-note",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Windows 11 VBS Issue",
+                    "content": "<p>Windows 11 has Virtualization Based Security enabled by default. Search for <strong>Core Isolation</strong> in Start menu and turn it off. If you've used WSL2 or Hyper-V, remove those from Windows Features first.</p>"
+                }
+            ]
+        }
+    ]
+}

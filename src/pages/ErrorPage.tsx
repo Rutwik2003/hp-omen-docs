@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, ArrowLeft, RefreshCw, AlertTriangle, WifiOff, ServerCrash, FileQuestion } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, FileQuestion, Home, RefreshCw, ServerCrash, WifiOff } from 'lucide-react';
 
 interface ErrorPageProps {
   code?: number;

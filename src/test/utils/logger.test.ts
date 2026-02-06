@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { devLog, devWarn, devError, createScopedLogger } from '../../utils/logger';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { createScopedLogger, devError, devLog, devWarn } from '../../utils/logger';
 
 describe('logger utility', () => {
   beforeEach(() => {

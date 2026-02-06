@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Save, RotateCcw, Undo, Redo, Wifi, WifiOff, Eye, Edit2 } from 'lucide-react';
+import { ArrowLeft, Edit2, Eye, Redo, RotateCcw, Save, Undo, Wifi, WifiOff } from 'lucide-react';
 
 interface EditorToolbarProps {
   // Navigation

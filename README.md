@@ -197,7 +197,7 @@ This project is licensed under the Creative Commons Attribution-ShareAlike 4.0 I
 
 ## 🤝 Community
 
-- **Discord**: [Join our community server](https://discord.gg/hp-omen)
+- **Discord**: [Join our community server](https://discord.gg/xGnTHm7GJK)
 - **GitHub**: [Contribute to the project](https://github.com/hp-omen-community)
 - **Reddit**: [r/HPOmen community](https://reddit.com/r/HPOmen)
 

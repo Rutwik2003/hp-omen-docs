@@ -7,7 +7,7 @@
 
 import type { DocPage } from '../../types/docs';
 import type { BlockType } from '../../types/blocks';
-import type { ValidationResult, ValidationError } from './types';
+import type { ValidationError, ValidationResult } from './types';
 
 // Valid block types
 const VALID_BLOCK_TYPES: BlockType[] = [

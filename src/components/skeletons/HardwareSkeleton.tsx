@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 type ComponentData = {
   id: string;
@@ -99,15 +99,14 @@ const HardwareSkeleton = () => {
 
       {/* Main content */}
       <div className="absolute top-7 bottom-0 left-0 right-0 p-3 flex gap-2">
-        <AnimatePresence mode="wait">
-          {components.map((component, index) => (
-            <motion.div
-              key={component.id}
-              className="flex-1 bg-neutral-950/50 rounded-lg border border-white/5 p-2 flex flex-col relative overflow-hidden"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.3 }}
-            >
+        {components.map((component, index) => (
+          <motion.div
+            key={component.id}
+            className="flex-1 bg-neutral-950/50 rounded-lg border border-white/5 p-2 flex flex-col relative overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.3 }}
+          >
               {/* Component header */}
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-orange-400">{component.label}</span>
@@ -224,7 +223,6 @@ const HardwareSkeleton = () => {
               )}
             </motion.div>
           ))}
-        </AnimatePresence>
       </div>
 
       {/* Scan line effect during scan phase */}

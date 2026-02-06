@@ -1,12 +1,12 @@
 {
     "id": "common-issues",
     "title": "Troubleshooting Guide",
-    "description": "Solutions to common HP OMEN laptop issues, including performance drops, overheating, and hardware glitches.",
+    "description": "Solutions to common HP OMEN laptop issues, including performance drops, overheating, keyboard/touchpad problems, and hardware glitches.",
     "category": "Troubleshooting",
     "metadata": {
         "difficulty": "Intermediate",
-        "readTime": "10 min",
-        "lastUpdated": "Oct 2024"
+        "readTime": "15 min",
+        "lastUpdated": "Feb 2026"
     },
     "breadcrumbs": [
         {
@@ -19,99 +19,339 @@
     "steps": [
         {
             "id": "perf-issues",
-            "title": "Performance Issues",
+            "title": "Bad Performance / Stuttering",
             "content": "",
             "blocks": [
                 {
-                    "id": "b1",
-                    "type": "heading",
-                    "level": 3,
-                    "content": "Low FPS / Stuttering"
-                },
-                {
-                    "id": "b2",
+                    "id": "perf-text",
                     "type": "text",
-                    "content": "<p><strong>Symptoms:</strong> Low frame rates, lag, slowdowns.</p>"
+                    "content": "<p>If you're experiencing low FPS, stuttering, or the laptop feels slow, try these fixes in order:</p>"
                 },
                 {
-                    "id": "b3",
+                    "id": "perf-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "<strong>Check power brick AC cord</strong> - Push it in HARD. OMEN cables tend to become loose, causing stuttering due to unstable power",
+                            "<strong>Verify you're plugged in</strong> - Running on battery significantly limits performance",
+                            "<strong>Check temperatures</strong> - Max is 100°C for CPU and 87°C for GPU (2019-2024 OMENs). Higher temps cause throttling. Clean and repaste if needed",
+                            "<strong>Reinstall graphics drivers</strong> - Use DDU (Display Driver Uninstaller) to clean install both integrated AND discrete GPU drivers from HP Support website",
+                            "<strong>Update drivers after verification</strong> - HP drivers may be outdated but stable. Update to latest only after confirming basic functionality"
+                        ]
+                    }
+                },
+                {
+                    "id": "perf-img",
+                    "type": "image",
+                    "url": "/images/Brick_Cord.png",
+                    "alt": "Power brick AC cord connection"
+                },
+                {
+                    "id": "perf-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "DDU Clean Install",
+                    "content": "<p>Download DDU from <code>https://www.guru3d.com/download/display-driver-uninstaller-download/</code>. Boot into Safe Mode, run DDU to remove all GPU drivers, then install fresh drivers.</p>"
+                }
+            ]
+        },
+        {
+            "id": "amd-stutter",
+            "title": "Stuttering (AMD Specific)",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "amd-text",
+                    "type": "text",
+                    "content": "<p>AMD OMEN laptops may experience random stuttering. Try these platform-specific fixes:</p>"
+                },
+                {
+                    "id": "amd-grid",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "amd-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "amd-h1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Windows 10"
+                                },
+                                {
+                                    "id": "amd-t1",
+                                    "type": "list",
+                                    "content": {
+                                        "style": "unordered",
+                                        "items": [
+                                            "<strong>Turn off TPM</strong> - Having TPM enabled causes random stuttering on certain models",
+                                            "<strong>Update BIOS</strong> - Download latest from HP Support website"
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "amd-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "amd-h2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Windows 11"
+                                },
+                                {
+                                    "id": "amd-t2",
+                                    "type": "list",
+                                    "content": {
+                                        "style": "unordered",
+                                        "items": [
+                                            "<strong>Update BIOS</strong> - Essential for Windows 11 compatibility",
+                                            "Consider downgrading to Windows 10 if issues persist"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "loud-fans",
+            "title": "Very Loud Fans",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "fans-warn",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "This is Normal",
+                    "content": "<p>Loud fans during gaming are completely normal for gaming laptops. They will sound like a vacuum cleaner or jet engine - this is expected behavior!</p>"
+                },
+                {
+                    "id": "fans-text",
+                    "type": "text",
+                    "content": "<p>If you want quieter operation:</p>"
+                },
+                {
+                    "id": "fans-list",
                     "type": "list",
                     "content": {
                         "style": "unordered",
                         "items": [
-                            "Check if running on Integrated Graphics (orange power light = dGPU active)",
-                            "Plug in power adapter (battery limits performance)",
-                            "Check temperatures for throttling (>95°C CPU or >86°C GPU)",
-                            "Update GPU drivers via GeForce Experience"
+                            "Use manual fan control in OMEN Gaming Hub (supported models)",
+                            "Modify the fan curve in OGH for a quieter profile",
+                            "Use headphones while gaming",
+                            "Find ways to lower your temps (elevate laptop, cooling pad, repaste)"
+                        ]
+                    }
+                },
+                {
+                    "id": "fans-abnormal",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Abnormal Sounds",
+                    "content": "<p>If fans make whiny, grinding, or clicking sounds (not just loud whooshing), this indicates a hardware problem. Take your laptop to a service center.</p>"
+                }
+            ]
+        },
+        {
+            "id": "battery-drain",
+            "title": "Fast Battery Drain",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "battery-text",
+                    "type": "text",
+                    "content": "<p>Expected battery life is 4-14 hours depending on model and workload. If you're getting less than 4 hours:</p>"
+                },
+                {
+                    "id": "battery-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "<strong>Intel models:</strong> Switch to Hybrid Mode in OGH graphics settings or BIOS",
+                            "<strong>AMD & Intel:</strong> DDU and reinstall BOTH iGPU and dGPU drivers from HP Support",
+                            "<strong>Check GPU activity:</strong> NVIDIA Control Panel → Desktop → Show GPU Activity in notification area",
+                            "<strong>Disable hardware acceleration</strong> in apps running on dGPU (it's on by default)",
+                            "<strong>Disable NVIDIA App overlay:</strong> Settings → Scroll down → Uncheck 'In-Game Overlay'",
+                            "<strong>Uninstall Radeon Settings Lite</strong> if installed (keeps GPU awake)",
+                            "<strong>Use HWiNFO:</strong> Enable 'Disable wake GPU' in settings, verify idle draw is -6 to -9 watts"
+                        ]
+                    }
+                },
+                {
+                    "id": "battery-win11",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Windows 11 Battery Issues",
+                    "content": "<p>Windows 11 can cause worse battery life because HP drivers aren't 100% compatible. If nothing else works, consider downgrading to Windows 10.</p>"
+                },
+                {
+                    "id": "battery-video",
+                    "type": "text",
+                    "content": "<p>Video guide for more battery optimizations:</p>"
+                },
+                {
+                    "id": "battery-video-url",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://youtu.be/aB5K8nCw3Xs"
+                }
+            ]
+        },
+        {
+            "id": "keyboard-issues",
+            "title": "Keys Don't Work When Holding",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "keys-text",
+                    "type": "text",
+                    "content": "<p>If keys stop working when held down but work when re-pressed:</p>"
+                },
+                {
+                    "id": "keys-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Go to Windows Update → Check for updates",
+                            "Click 'Optional updates' → Drivers → Keyboard",
+                            "Download and install the keyboard update",
+                            "Make sure you're on the latest BIOS version"
+                        ]
+                    }
+                },
+                {
+                    "id": "keys-note",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Note",
+                    "content": "<p>After updating, the keyboard driver may still appear in optional updates - this is normal. Check Update History to confirm it was installed.</p>"
+                }
+            ]
+        },
+        {
+            "id": "touchpad-winkey",
+            "title": "Touchpad / Windows Key Stops Working",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "touch-text",
+                    "type": "text",
+                    "content": "<p>This usually means you accidentally pressed the lock keys:</p>"
+                },
+                {
+                    "id": "touch-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "<strong>F11:</strong> Locks/Unlocks the Windows key",
+                            "<strong>F12:</strong> Locks/Unlocks the Touchpad",
+                            "Press the key again (or Fn+F11/F12) to re-enable"
                         ]
                     }
                 }
             ]
         },
         {
-            "id": "thermal",
-            "title": "Overheating",
+            "id": "ogh-button",
+            "title": "OMEN Command Center Button Not Working",
             "content": "",
             "blocks": [
                 {
-                    "id": "b4",
-                    "type": "callout",
-                    "variant": "warning",
-                    "title": "High Temperatures",
-                    "content": "<p>If your laptop is shutting down or throttling heavily, ensure vents are clear. Elevate the back of the laptop for better airflow.</p>"
+                    "id": "ogh-text",
+                    "type": "text",
+                    "content": "<p>To fix the OMEN button on your keyboard:</p>"
                 },
                 {
-                    "id": "b5",
-                    "type": "text",
-                    "content": "<p><strong>Fans Running Loudly:</strong> This is normal during gaming. If they run loud at idle, check Task Manager for background processes or update BIOS.</p>"
+                    "id": "ogh-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Search for 'Apps & Features' in Windows and open it",
+                            "Scroll down to find 'OMEN Gaming Hub'",
+                            "Click on it, then click 'Advanced options'",
+                            "Scroll down and click the 'Repair' button",
+                            "The OMEN button should now work"
+                        ]
+                    }
+                },
+                {
+                    "id": "ogh-note",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Note",
+                    "content": "<p>If you've disabled OGH from startup apps, the button won't work until you manually open OGH at least once after booting.</p>"
                 }
             ]
         },
         {
-            "id": "hardware",
-            "title": "Hardware Glitches",
+            "id": "power-limit",
+            "title": "Power Limited to 25-35W (OMEN 15 EK Series)",
             "content": "",
             "blocks": [
                 {
-                    "id": "b6",
-                    "type": "grid",
-                    "columns": 2,
-                    "children": [
-                        {
-                            "id": "hc1",
-                            "type": "column",
-                            "children": [
-                                {
-                                    "id": "ht1",
-                                    "type": "heading",
-                                    "level": 3,
-                                    "content": "Trackpad"
-                                },
-                                {
-                                    "id": "hp1",
-                                    "type": "text",
-                                    "content": "<p>If trackpad stops working, check if disabled (Fn+F11 or similar). Check device manager for driver errors.</p>"
-                                }
-                            ]
-                        },
-                        {
-                            "id": "hc2",
-                            "type": "column",
-                            "children": [
-                                {
-                                    "id": "ht2",
-                                    "type": "heading",
-                                    "level": 3,
-                                    "content": "WiFi"
-                                },
-                                {
-                                    "id": "hp2",
-                                    "type": "text",
-                                    "content": "<p>If WiFi disappears, hold power button for 30s to reset EC (Embedded Controller). Update Intel/Realtek drivers.</p>"
-                                }
-                            ]
-                        }
-                    ]
+                    "id": "power-text",
+                    "type": "text",
+                    "content": "<p>If your OMEN 15 EK series drops below base clock after sustained use, impacting FPS:</p>"
+                },
+                {
+                    "id": "power-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Download and open ThrottleStop",
+                            "Go to TPL window and UNCHECK 'Disable Power Limit Control' if checked",
+                            "Set Long PL1 value to 55-60W",
+                            "Click Apply and go to FIVR",
+                            "Enable 'Disable and Lock Turbo Ratio Limits'",
+                            "Check 'Save and Apply Voltages after pressing OK'",
+                            "Click OK"
+                        ]
+                    }
+                },
+                {
+                    "id": "power-note",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Note",
+                    "content": "<p>You can also set EPP to 0 for constant full turbo. Open ThrottleStop whenever you encounter this issue. This may increase battery drain.</p>"
+                }
+            ]
+        },
+        {
+            "id": "vbs-error",
+            "title": "VBS Error in OGH / XTU / ThrottleStop",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "vbs-text",
+                    "type": "text",
+                    "content": "<p>Windows 11 enables Virtualization Based Security by default, which can cause errors in OMEN Gaming Hub, Intel XTU, and ThrottleStop.</p>"
+                },
+                {
+                    "id": "vbs-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Search for 'Core Isolation' in Start menu",
+                            "Turn off 'Memory Integrity'",
+                            "If you've used WSL2 or Hyper-V, remove them from 'Additional Features'",
+                            "If still not working, disable Virtualization in BIOS"
+                        ]
+                    }
                 }
             ]
         }

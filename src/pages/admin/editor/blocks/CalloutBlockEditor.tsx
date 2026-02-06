@@ -3,7 +3,7 @@ import { AlertCircle, AlertTriangle, CheckCircle, Flame, Info, X } from 'lucide-
 import { useEditorStore } from '../../../../store/editorStore';
 import { CalloutBlock } from '../../../../types/blocks';
 
-import { useEditor, EditorContent } from '@tiptap/react';
+import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 // StarterKit v3 includes Link by default - configure it in the options

@@ -5,7 +5,7 @@
  * Uses framer-motion for smooth, performant animations.
  */
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 // ============================================================================
 // TYPES

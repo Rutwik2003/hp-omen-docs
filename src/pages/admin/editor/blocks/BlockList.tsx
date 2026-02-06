@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
+import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 import { Plus } from 'lucide-react';
 import { Block, BlockType } from '../../../../types/blocks';
 import BlockRenderer from './BlockRenderer';

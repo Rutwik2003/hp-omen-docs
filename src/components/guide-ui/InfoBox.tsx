@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AnimatedShield, AnimatedZap, AnimatedCheck } from '../animated-icons';
-import { AlertTriangle, Info, Lightbulb, AlertCircle } from 'lucide-react';
+import { AnimatedCheck, AnimatedShield, AnimatedZap } from '../animated-icons';
+import { AlertCircle, AlertTriangle, Info, Lightbulb } from 'lucide-react';
 
 interface InfoBoxProps {
   type: 'info' | 'warning' | 'success' | 'tip' | 'danger';

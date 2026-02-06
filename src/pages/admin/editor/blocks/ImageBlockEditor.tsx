@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, ExternalLink } from 'lucide-react';
+import { ExternalLink, Image } from 'lucide-react';
 import { useEditorStore } from '../../../../store/editorStore';
 import { ImageBlock } from '../../../../types/blocks';
 

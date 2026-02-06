@@ -1,5 +1,5 @@
 import { getAllDocs } from './contentLoader';
-import { parseError, logError } from './errorHandling';
+import { logError, parseError } from './errorHandling';
 
 const IS_DEV = import.meta.env.DEV;
 

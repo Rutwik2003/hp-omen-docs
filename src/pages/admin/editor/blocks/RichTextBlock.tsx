@@ -1,9 +1,9 @@
-import { useEditor, EditorContent } from '@tiptap/react';
+import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import { useEffect } from 'react';
 import { useEditorStore } from '../../../../store/editorStore';
-import { Block, BlockType, TextBlock, HeadingBlock } from '../../../../types/blocks';
+import { Block, BlockType, HeadingBlock, TextBlock } from '../../../../types/blocks';
 
 import SlashCommandMenu from '../SlashCommandMenu';
 import { useState } from 'react';

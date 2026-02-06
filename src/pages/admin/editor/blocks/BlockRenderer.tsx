@@ -1,7 +1,7 @@
 import React from 'react';
 import { GripVertical, X } from 'lucide-react';
 import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
-import { Block, CodeBlock, CalloutBlock, GridBlock, TableBlock, ImageBlock } from '../../../../types/blocks';
+import { Block, CalloutBlock, CodeBlock, GridBlock, ImageBlock, TableBlock } from '../../../../types/blocks';
 import { useEditorStore } from '../../../../store/editorStore';
 import { devLog } from '../../../../utils/logger';
 import RichTextBlock from './RichTextBlock';

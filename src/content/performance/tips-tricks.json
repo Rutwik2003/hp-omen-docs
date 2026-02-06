@@ -1,0 +1,322 @@
+{
+    "id": "tips-tricks",
+    "title": "Tips & Tricks",
+    "description": "Advanced tips and tricks for getting the most out of your HP OMEN laptop, including AMD Ryzen tuning, GPU power management, and audio optimization.",
+    "category": "Performance",
+    "metadata": {
+        "difficulty": "Advanced",
+        "readTime": "20 min",
+        "lastUpdated": "Feb 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Performance",
+            "path": "/performance"
+        },
+        {
+            "label": "Tips & Tricks"
+        }
+    ],
+    "steps": [
+        {
+            "id": "disclaimer",
+            "title": "Disclaimer",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "disclaimer-warn",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "At Your Own Risk",
+                    "content": "<p><strong>DISCLAIMER:</strong> The tips and tricks in this guide involve modifying system settings, power configurations, and third-party tools. By following this guide, you acknowledge that you do so <strong>at your own risk</strong>. The author(s) are <strong>not responsible</strong> for any instability, data loss, hardware damage, or other issues that may occur. Always backup important data before making changes.</p>"
+                }
+            ]
+        },
+        {
+            "id": "ryzen-controller",
+            "title": "Ryzen Controller for AMD OMENs",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "ryzen-text",
+                    "type": "text",
+                    "content": "<p>Ryzen Controller allows fine-grained control over AMD CPU power limits and thermals, enabling better performance or battery life depending on your needs.</p>"
+                },
+                {
+                    "id": "ryzen-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://www.ryzencontroller.com/"
+                },
+                {
+                    "id": "ryzen-warn",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Note",
+                    "content": "<p>These presets are community-tested suggestions. Results may vary based on your specific model and ambient temperatures. Monitor temps with HWiNFO while testing.</p>"
+                }
+            ]
+        },
+        {
+            "id": "ryzen-4800h",
+            "title": "Ryzen 7 4800H / 4900HS Preset",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "4800h-text",
+                    "type": "text",
+                    "content": "<p>Optimized preset for Ryzen 4800H and 4900HS processors commonly found in OMEN 15 (2020) models.</p>"
+                },
+                {
+                    "id": "4800h-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Setting", "Value", "Tab"],
+                        "rows": [
+                            ["Temp Limit", "95-105°C", "CPU"],
+                            ["STAPM / TDP", "58-60W", "CPU"],
+                            ["Long Boost TDP", "60-62W", "CPU"],
+                            ["Long Boost Duration", "75-120 seconds", "CPU"],
+                            ["Short TDP", "68W", "CPU"],
+                            ["Short Duration", "10 seconds", "CPU"],
+                            ["VRM", "90-100", "Power"],
+                            ["GPU/Memory", "Unchecked", "GPU/Memory"]
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "ryzen-4600h",
+            "title": "Ryzen 5 4600H Preset",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "4600h-text",
+                    "type": "text",
+                    "content": "<p>Optimized preset for the Ryzen 5 4600H processor with lower power limits to match its specifications.</p>"
+                },
+                {
+                    "id": "4600h-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Setting", "Value", "Tab"],
+                        "rows": [
+                            ["Temp Limit", "95-105°C", "CPU"],
+                            ["STAPM / TDP", "52-55W", "CPU"],
+                            ["Long Boost TDP", "58-60W", "CPU"],
+                            ["Long Boost Duration", "75-120 seconds", "CPU"],
+                            ["Short TDP", "66W", "CPU"],
+                            ["Short Duration", "10 seconds", "CPU"],
+                            ["VRM", "85-95", "Power"],
+                            ["GPU/Memory", "Unchecked", "GPU/Memory"]
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "gpu-restarter",
+            "title": "GPU Restarter Tool",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "gpu-text",
+                    "type": "text",
+                    "content": "<p>If your discrete GPU is running at idle when it shouldn't (draining battery), use this community-made tool to restart it and force it back to sleep.</p>"
+                },
+                {
+                    "id": "gpu-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://github.com/aredden/RestartGPU/releases/"
+                },
+                {
+                    "id": "gpu-auto-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Auto-Run on Sleep/Wake"
+                },
+                {
+                    "id": "gpu-auto-text",
+                    "type": "text",
+                    "content": "<p>To automatically reset the dGPU when waking from sleep/hibernate:</p>"
+                },
+                {
+                    "id": "gpu-steps",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Press <kbd>Win + R</kbd>, type <code>taskschd.msc</code> and press Enter",
+                            "Click 'Create Task...' in the right panel",
+                            "Check 'Run with highest privileges' and set 'Configure for Windows 10'",
+                            "Go to Triggers tab → New → Select 'On an Event'",
+                            "Select Custom → New Event Filter → By Source → Check 'Power-Troubleshooter'",
+                            "Where it says 'All Event IDs', type <code>1</code> and click OK",
+                            "Go to Actions tab → New → Browse and select GPUReset.exe",
+                            "In Conditions tab, uncheck everything",
+                            "In Settings tab, set 'Stop task if runs longer than' to 1 hour",
+                            "Click OK - test by putting laptop to sleep and waking it"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "sound-profile",
+            "title": "Improved Sound Profile",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "sound-text",
+                    "type": "text",
+                    "content": "<p>Optimize the Bang & Olufsen audio on your OMEN using the OMEN Audio Control settings:</p>"
+                },
+                {
+                    "id": "sound-img",
+                    "type": "image",
+                    "url": "/images/improved_sound_profile.png",
+                    "alt": "Improved Sound Profile Settings"
+                },
+                {
+                    "id": "sound-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Open OMEN Gaming Hub and navigate to Audio Control",
+                            "Enable 'Voice' mode for podcasts/videos, 'Music' for general listening",
+                            "Use 'Gaming' mode during gameplay for enhanced directional audio",
+                            "Adjust equalizer bands to your preference - try boosting 100Hz for bass",
+                            "Enable 'Smart Volume' to prevent sudden loud sounds"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "remap-calc",
+            "title": "Remap Calculator Button",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "calc-text",
+                    "type": "text",
+                    "content": "<p>Many OMEN keyboards have a calculator button that you might want to remap to something more useful. Follow HP's official guide:</p>"
+                },
+                {
+                    "id": "calc-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://h30434.www3.hp.com/t5/Gaming-Notebooks/Remap-Calculator-Button/td-p/7954499"
+                }
+            ]
+        },
+        {
+            "id": "turbo-boost",
+            "title": "Disable Turbo Boost (Reduce Heat)",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "turbo-info",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Trade-off",
+                    "content": "<p>Disabling turbo boost reduces performance by 10-20% but lowers temperatures by 10-20°C (50-68°F). This is a reversible process with no risk.</p>"
+                },
+                {
+                    "id": "turbo-text",
+                    "type": "text",
+                    "content": "<p>To access the hidden turbo boost setting in Windows:</p>"
+                },
+                {
+                    "id": "turbo-code",
+                    "type": "code",
+                    "language": "powershell",
+                    "filename": "Enable Turbo Boost Option in Power Settings",
+                    "code": "# Run in PowerShell as Administrator\n# This adds the 'Processor performance boost mode' option to Power Options\n\npowercfg -attributes SUB_PROCESSOR PERFBOOSTMODE -ATTRIB_HIDE"
+                },
+                {
+                    "id": "turbo-steps",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Run the command above in an elevated PowerShell",
+                            "Right-click battery icon → Power Options → Change plan settings",
+                            "Click 'Change advanced power settings'",
+                            "Navigate to: Processor power management → Processor performance boost mode",
+                            "Set to 'Disabled' to turn off turbo boost (limits to base clock)",
+                            "Set to 'Aggressive' to re-enable turbo boost"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "cooling-pad",
+            "title": "Cooling Pad Recommendations",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "cool-text",
+                    "type": "text",
+                    "content": "<p>A cooling pad is a cheap investment that can lower temperatures by 3-7°C, improving performance and longevity.</p>"
+                },
+                {
+                    "id": "cool-warn",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "Budget Option",
+                    "content": "<p>You don't necessarily need an expensive cooling pad! Simply elevating the rear of your laptop (with a book, wallet, or even a 2x4 piece of wood) can drop temps by 3-5°C by improving airflow to the bottom vents.</p>"
+                },
+                {
+                    "id": "cool-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "<strong>Elevation only:</strong> 3-5°C reduction - use any angled stand or prop",
+                            "<strong>Elevation + fans:</strong> 5-7°C reduction - get a pad with adjustable angle and fans",
+                            "Look for cooling pads with mesh surface for maximum airflow",
+                            "Get creative - 3D print a custom stand or use household items!"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "antivirus",
+            "title": "Do You Need an Antivirus?",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "av-text",
+                    "type": "text",
+                    "content": "<p><strong>TL;DR: No.</strong></p><p>For most users, Windows Defender (built into Windows) is better than even paid antivirus programs. Third-party antivirus software can be resource-intensive and some are borderline malware themselves.</p>"
+                },
+                {
+                    "id": "av-warn",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Warning About Antivirus Software",
+                    "content": "<p>Some popular antivirus programs have been caught: mining cryptocurrency on users' devices (causing high temps and poor performance), selling user data, and providing minimal additional protection over Windows Defender.</p>"
+                },
+                {
+                    "id": "av-rec",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "Keep Windows Defender enabled and updated",
+                            "Don't download software from untrusted sources",
+                            "If you need to visit risky sites, use a Virtual Machine (VM) instead",
+                            "Uninstall any pre-installed third-party antivirus (like McAfee) for better performance"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,20 +1,20 @@
 import { 
-  Home, 
-  Zap, 
-  Monitor, 
-  Settings, 
-  HelpCircle, 
+  Book, 
+  Cpu, 
   Download, 
-  Wrench,
+  ExternalLink, 
+  Gamepad2, 
+  HardDrive, 
+  HelpCircle,
+  Home,
+  type LucideIcon,
   MessageCircle,
-  ExternalLink,
-  Book,
-  Cpu,
-  Gamepad2,
+  Monitor,
+  Settings,
   Shield,
   Thermometer,
-  HardDrive,
-  type LucideIcon
+  Wrench,
+  Zap
 } from 'lucide-react';
 
 // Available icons for sidebar items
@@ -104,13 +104,22 @@ export const DEFAULT_SIDEBAR_CONFIG: SidebarConfig = {
       category: 'windows',
     },
     {
-      id: 'linux',
-      name: 'Linux Guides',
-      href: '/linux',
-      icon: 'Settings',
+      id: 'performance',
+      name: 'Performance',
+      href: '/performance',
+      icon: 'Zap',
       visible: true,
       order: 3,
-      category: 'linux',
+      category: 'performance',
+    },
+    {
+      id: 'hardware',
+      name: 'Hardware Guides',
+      href: '/hardware',
+      icon: 'Wrench',
+      visible: true,
+      order: 4,
+      category: 'hardware',
     },
     {
       id: 'troubleshooting',
@@ -118,17 +127,8 @@ export const DEFAULT_SIDEBAR_CONFIG: SidebarConfig = {
       href: '/troubleshooting',
       icon: 'HelpCircle',
       visible: true,
-      order: 4,
-      category: 'troubleshooting',
-    },
-    {
-      id: 'performance',
-      name: 'Performance',
-      href: '/performance',
-      icon: 'Zap',
-      visible: true,
       order: 5,
-      category: 'performance',
+      category: 'troubleshooting',
     },
     {
       id: 'drivers',
@@ -139,12 +139,13 @@ export const DEFAULT_SIDEBAR_CONFIG: SidebarConfig = {
       order: 6,
     },
     {
-      id: 'hardware',
-      name: 'Hardware Guides',
-      href: '/hardware',
-      icon: 'Wrench',
+      id: 'linux',
+      name: 'Linux Guides',
+      href: '/linux',
+      icon: 'Settings',
       visible: true,
       order: 7,
+      category: 'linux',
     },
     {
       id: 'contribute',
@@ -158,7 +159,7 @@ export const DEFAULT_SIDEBAR_CONFIG: SidebarConfig = {
   footerLinks: {
     discord: {
       visible: true,
-      url: 'https://discord.com/invite/omen-by-hp-750760232954888363',
+      url: 'https://discord.gg/xGnTHm7GJK',
       label: 'Discord',
     },
     branding: {

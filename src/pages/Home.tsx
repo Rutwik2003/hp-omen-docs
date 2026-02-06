@@ -1,17 +1,17 @@
-import React, { useState, useRef, lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useRef, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { BentoGrid, BentoGridItem } from '../components/BentoGrid';
 
-import { AnimatedMonitor, AnimatedSettings, AnimatedDownload, AnimatedWrench, AnimatedBook, AnimatedSearch } from '../components/animated-icons';
+import { AnimatedBook, AnimatedDownload, AnimatedMonitor, AnimatedSearch, AnimatedSettings, AnimatedWrench } from '../components/animated-icons';
 import { 
-  WindowsSkeleton, 
-  LinuxSkeleton, 
-  HardwareSkeleton, 
+  DocsSkeleton, 
   DriversSkeleton, 
-  DocsSkeleton 
+  HardwareSkeleton, 
+  LinuxSkeleton, 
+  WindowsSkeleton 
 } from '../components/skeletons';
 
 // Lazy load SearchModal - only loaded when user opens search

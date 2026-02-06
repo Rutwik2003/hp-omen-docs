@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 // Shared types
@@ -1425,6 +1425,319 @@ export const StepPackageIcon: React.FC<IllustrationProps> = ({ className = '', s
   );
 };
 
+// =====================================================
+// NEW UNIQUE PAGE ILLUSTRATIONS
+// =====================================================
+
+// Unboxing/Setup Illustration - Laptop lid opening with welcome glow
+export const UnboxingIllustration: React.FC<IllustrationProps> = ({ className = '', size = 'md' }) => {
+  const { class: sizeClass } = sizeMap[size];
+  
+  return (
+    <motion.svg 
+      viewBox="0 0 64 64" 
+      className={`${sizeClass} ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      {/* Base/keyboard */}
+      <path d="M6 48 L10 48 Q10 46 12 46 L52 46 Q54 46 54 48 L58 48 L56 56 Q55 58 52 58 L12 58 Q9 58 8 56 Z" fill="#1a1a1a" stroke="#3a3a3a" strokeWidth="0.5" />
+      
+      {/* Keyboard keys hint */}
+      <g opacity="0.4">
+        {[0,1,2,3,4,5].map(i => <rect key={`k${i}`} x={16 + i*5} y="50" width="3" height="2" rx="0.3" fill="#2a2a2a" />)}
+      </g>
+      
+      {/* Trackpad */}
+      <rect x="26" y="53" width="12" height="3" rx="0.5" fill="#2a2a2a" />
+      
+      {/* Screen - angled open */}
+      <motion.g
+        initial={{ rotateX: 90 }}
+        animate={{ rotateX: 0 }}
+        transition={{ duration: 1.2, type: "spring", stiffness: 50 }}
+        style={{ transformOrigin: '32px 46px' }}
+      >
+        {/* Screen frame */}
+        <path d="M10 10 L54 10 Q56 10 56 12 L56 44 Q56 46 54 46 L10 46 Q8 46 8 44 L8 12 Q8 10 10 10 Z" fill="#1a1a1a" stroke="#ff6b35" strokeWidth="0.8" strokeOpacity="0.5" />
+        
+        {/* Screen */}
+        <rect x="11" y="13" width="42" height="30" rx="1" fill="#0a0a0a" />
+        
+        {/* Welcome glow */}
+        <motion.rect 
+          x="11" y="13" width="42" height="30" rx="1" 
+          fill="url(#welcomeGlow)" 
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+        
+        {/* Welcome text simulation */}
+        <motion.g
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          <rect x="20" y="22" width="24" height="3" rx="1" fill="#ff6b35" opacity="0.9" />
+          <rect x="18" y="28" width="28" height="2" rx="1" fill="#3a3a3a" />
+          <rect x="22" y="33" width="20" height="2" rx="1" fill="#2a2a2a" />
+        </motion.g>
+        
+        {/* Webcam */}
+        <circle cx="32" cy="11.5" r="1" fill="#2a2a2a" />
+      </motion.g>
+      
+      {/* RGB light strip */}
+      <motion.rect 
+        x="12" y="46" width="40" height="1" rx="0.5" 
+        fill="url(#rgbUnbox)" 
+        animate={{ opacity: [0.4, 0.8, 0.4] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      />
+      
+      <defs>
+        <radialGradient id="welcomeGlow" cx="50%" cy="50%" r="60%">
+          <stop offset="0%" stopColor="#ff6b35" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#0a0a0a" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="rgbUnbox" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#ff0000" /><stop offset="33%" stopColor="#00ff00" />
+          <stop offset="66%" stopColor="#0066ff" /><stop offset="100%" stopColor="#ff00ff" />
+        </linearGradient>
+      </defs>
+    </motion.svg>
+  );
+};
+
+// Driver/Software Illustration - Software download and install
+export const DriverChipIllustration: React.FC<IllustrationProps> = ({ className = '', size = 'md' }) => {
+  const progress = useDynamicValue(20, 100, 3000);
+  const { class: sizeClass } = sizeMap[size];
+  
+  return (
+    <motion.svg 
+      viewBox="0 0 64 64" 
+      className={`${sizeClass} ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      {/* Monitor/Window */}
+      <rect x="8" y="8" width="48" height="36" rx="2" fill="#1a1a1a" stroke="#3a3a3a" strokeWidth="0.8" />
+      <rect x="10" y="10" width="44" height="32" rx="1" fill="#0a0a0a" />
+      
+      {/* Title bar */}
+      <rect x="10" y="10" width="44" height="5" fill="#2a2a2a" />
+      <circle cx="14" cy="12.5" r="1.2" fill="#ff5f57" />
+      <circle cx="18" cy="12.5" r="1.2" fill="#febc2e" />
+      <circle cx="22" cy="12.5" r="1.2" fill="#28c840" />
+      
+      {/* Download icon in window */}
+      <motion.g
+        animate={{ y: [0, 2, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        <path d="M32 20 L32 30" stroke="#ff6b35" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M27 27 L32 32 L37 27" stroke="#ff6b35" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </motion.g>
+      
+      {/* Progress bar background */}
+      <rect x="16" y="36" width="32" height="3" rx="1.5" fill="#2a2a2a" />
+      
+      {/* Progress bar fill */}
+      <motion.rect 
+        x="16" y="36" 
+        width={(progress / 100) * 32} 
+        height="3" 
+        rx="1.5" 
+        fill="url(#progressGradient)" 
+      />
+      
+      {/* Monitor stand */}
+      <path d="M26 44 L38 44 L36 50 L28 50 Z" fill="#2a2a2a" />
+      <rect x="22" y="50" width="20" height="2" rx="1" fill="#3a3a3a" />
+      
+      {/* Floating software icons */}
+      <motion.g
+        animate={{ opacity: [0.4, 0.8, 0.4] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <rect x="4" y="52" width="8" height="8" rx="1.5" fill="#22c55e" opacity="0.7" />
+        <rect x="52" y="52" width="8" height="8" rx="1.5" fill="#3b82f6" opacity="0.7" />
+      </motion.g>
+      
+      <defs>
+        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#ff6b35" />
+          <stop offset="100%" stopColor="#22c55e" />
+        </linearGradient>
+      </defs>
+    </motion.svg>
+  );
+};
+
+// Tuning/Configuration Illustration - Stylized power/performance visualization
+export const TuningIllustration: React.FC<IllustrationProps> = ({ className = '', size = 'md' }) => {
+  const powerLevel = useDynamicValue(65, 95, 2500);
+  const { class: sizeClass } = sizeMap[size];
+  
+  return (
+    <motion.svg 
+      viewBox="0 0 64 64" 
+      className={`${sizeClass} ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      {/* Background glow */}
+      <defs>
+        <radialGradient id="perfGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#ff6b35" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#0a0a0a" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      
+      <circle cx="32" cy="32" r="30" fill="url(#perfGlow)" />
+      
+      {/* Hexagonal frame */}
+      <motion.path
+        d="M32 6 L54 18 L54 46 L32 58 L10 46 L10 18 Z"
+        fill="none"
+        stroke="#ff6b35"
+        strokeWidth="1.5"
+        strokeOpacity="0.6"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.5, delay: 0.2 }}
+      />
+      
+      {/* Inner hexagon */}
+      <path
+        d="M32 14 L48 23 L48 41 L32 50 L16 41 L16 23 Z"
+        fill="#0a0a0a"
+        stroke="#2a2a2a"
+        strokeWidth="0.5"
+      />
+      
+      {/* Lightning bolt - power symbol */}
+      <motion.path
+        d="M36 18 L30 30 L35 30 L28 44 L38 32 L33 32 Z"
+        fill="#ff6b35"
+        stroke="#ff8c5a"
+        strokeWidth="0.5"
+        animate={{ 
+          filter: ['drop-shadow(0 0 2px #ff6b35)', 'drop-shadow(0 0 6px #ff6b35)', 'drop-shadow(0 0 2px #ff6b35)']
+        }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      />
+      
+      {/* Orbiting performance indicators */}
+      <motion.g
+        animate={{ rotate: 360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: '32px 32px' }}
+      >
+        <circle cx="32" cy="8" r="2" fill="#22c55e" opacity="0.8" />
+        <circle cx="56" cy="32" r="1.5" fill="#eab308" opacity="0.6" />
+        <circle cx="32" cy="56" r="1.5" fill="#ff6b35" opacity="0.7" />
+        <circle cx="8" cy="32" r="1" fill="#3b82f6" opacity="0.5" />
+      </motion.g>
+      
+      {/* Speed lines radiating out */}
+      {[45, 90, 135, 225, 270, 315].map((angle, i) => {
+        const rad = (angle * Math.PI) / 180;
+        const x1 = 32 + Math.cos(rad) * 24;
+        const y1 = 32 + Math.sin(rad) * 24;
+        const x2 = 32 + Math.cos(rad) * 28;
+        const y2 = 32 + Math.sin(rad) * 28;
+        return (
+          <motion.line
+            key={i}
+            x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke="#ff6b35"
+            strokeWidth="1"
+            strokeLinecap="round"
+            animate={{ opacity: [0.2, 0.8, 0.2] }}
+            transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
+          />
+        );
+      })}
+      
+      {/* Performance percentage */}
+      <text x="32" y="54" textAnchor="middle" fill="#888" fontSize="4">{Math.round(powerLevel)}%</text>
+    </motion.svg>
+  );
+};
+
+// Diagnostics/Troubleshooting Illustration - Magnifying glass with checklist
+export const DiagnosticsIllustration: React.FC<IllustrationProps> = ({ className = '', size = 'md' }) => {
+  const [checkIndex, setCheckIndex] = useState(0);
+  
+  useEffect(() => {
+    const timer = setInterval(() => setCheckIndex(i => (i + 1) % 4), 1500);
+    return () => clearInterval(timer);
+  }, []);
+  
+  const { class: sizeClass } = sizeMap[size];
+  
+  return (
+    <motion.svg 
+      viewBox="0 0 64 64" 
+      className={`${sizeClass} ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      {/* Clipboard background */}
+      <rect x="8" y="10" width="32" height="48" rx="2" fill="#1a1a1a" stroke="#3a3a3a" strokeWidth="1" />
+      <rect x="16" y="6" width="16" height="8" rx="2" fill="#2a2a2a" stroke="#3a3a3a" strokeWidth="1" />
+      <circle cx="24" cy="10" r="2" fill="#3a3a3a" />
+      
+      {/* Checklist items - 4 items with spacing of 9 */}
+      {[0, 1, 2, 3].map(i => (
+        <g key={i}>
+          <rect x="12" y={18 + i * 9} width="7" height="7" rx="1" fill={checkIndex > i ? '#22c55e' : '#2a2a2a'} stroke="#3a3a3a" strokeWidth="0.5" />
+          {checkIndex > i && (
+            <motion.path
+              d={`M14 ${21.5 + i * 9} L15.5 ${23 + i * 9} L19 ${20 + i * 9}`}
+              stroke="white"
+              strokeWidth="1.5"
+              fill="none"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+          )}
+          <rect x="22" y={19 + i * 9} width="14" height="2" rx="1" fill="#3a3a3a" opacity={checkIndex > i ? 0.5 : 1} />
+          <rect x="22" y={22 + i * 9} width="10" height="1.5" rx="1" fill="#2a2a2a" opacity={checkIndex > i ? 0.3 : 0.6} />
+        </g>
+      ))}
+      
+      {/* Magnifying glass */}
+      <motion.g
+        animate={{ 
+          x: [0, 3, 0, -3, 0],
+          y: [0, -2, 0, 2, 0]
+        }}
+        transition={{ duration: 3, repeat: Infinity }}
+      >
+        <circle cx="48" cy="28" r="12" fill="none" stroke="#ff6b35" strokeWidth="2.5" />
+        <circle cx="48" cy="28" r="10" fill="#0a0a0a" opacity="0.5" />
+        <line x1="56" y1="38" x2="60" y2="50" stroke="#ff6b35" strokeWidth="3" strokeLinecap="round" />
+        
+        {/* Magnifying glass shine */}
+        <motion.path
+          d="M42 22 Q48 18 52 24"
+          fill="none"
+          stroke="white"
+          strokeWidth="1"
+          opacity="0.3"
+          animate={{ opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      </motion.g>
+    </motion.svg>
+  );
+};
+
 // Map page IDs to illustrations
 export const getPageIllustration = (pageId: string): React.FC<IllustrationProps> | null => {
   const illustrationMap: Record<string, React.FC<IllustrationProps>> = {
@@ -1465,21 +1778,21 @@ export const getPageIllustration = (pageId: string): React.FC<IllustrationProps>
     'gaming-setup': GamingIllustration,
     'gaming': GamingIllustration,
     
-    // System/Laptop
+    // System/Laptop - use new unboxing illustration
     'quickstart': GuideBookIllustration,
     'guide': GuideBookIllustration,
-    'unboxing-setup': LaptopIllustration,
-    'system': LaptopIllustration,
+    'unboxing-setup': UnboxingIllustration,
+    'system': SettingsIllustration,
     
-    // Drivers
-    'driver-management': DriverIllustration,
-    'drivers': DriverIllustration,
-    'software-installation': DriverIllustration,
+    // Drivers - use new chip illustration
+    'driver-management': DriverChipIllustration,
+    'drivers': DriverChipIllustration,
+    'software-installation': DriverChipIllustration,
     
-    // Performance
-    'performance': PerformanceIllustration,
-    'performance-opt': PerformanceIllustration,
-    'performance-config': PerformanceIllustration,
+    // Performance - use new tuning illustration
+    'performance': TuningIllustration,
+    'performance-opt': TuningIllustration,
+    'performance-config': TuningIllustration,
     
     // Backup (cloud - different from security!)
     'backup': BackupIllustration,
@@ -1527,19 +1840,19 @@ export const getPageIllustration = (pageId: string): React.FC<IllustrationProps>
     'configuration': SettingsIllustration,
     'preferences': SettingsIllustration,
     
-    // Troubleshooting
-    'troubleshooting': ToolsIllustration,
-    'issues': ToolsIllustration,
-    'fixes': ToolsIllustration,
-    'common-issues': ToolsIllustration,
-    'known-issues': ToolsIllustration,
+    // Troubleshooting - use new diagnostics illustration
+    'troubleshooting': DiagnosticsIllustration,
+    'issues': DiagnosticsIllustration,
+    'fixes': DiagnosticsIllustration,
+    'common-issues': DiagnosticsIllustration,
+    'known-issues': DiagnosticsIllustration,
     
     // Files
     'files': FolderIllustration,
     'folder': FolderIllustration,
     'organize': FolderIllustration,
   };
-  return illustrationMap[pageId] || LaptopIllustration;
+  return illustrationMap[pageId] || GuideBookIllustration;
 };
 
 // =====================================================

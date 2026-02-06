@@ -23,11 +23,44 @@
             "content": "",
             "blocks": [
                 {
+                    "id": "safety-intro",
+                    "type": "text",
+                    "content": "<p>Hardware upgrades can void your warranty and damage components if done incorrectly. Follow these safety guidelines to minimize risk.</p>"
+                },
+                {
                     "id": "b0",
                     "type": "callout",
                     "variant": "danger",
                     "title": "Before You Start",
                     "content": "<p>Always <strong>power off</strong> your laptop and disconnect the charger. Use an <strong>anti-static wrist strap</strong> or touch a grounded metal object before touching components.</p>"
+                },
+                {
+                    "id": "safety-steps-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Safety Checklist"
+                },
+                {
+                    "id": "safety-list",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "<strong>Power off completely</strong> - Don't just close the lid; shut down fully",
+                            "<strong>Unplug the charger</strong> - Remove all cables including USB devices",
+                            "<strong>Discharge static</strong> - Touch grounded metal or use anti-static wrist strap",
+                            "<strong>Work on clean surface</strong> - Avoid carpet; use a table or anti-static mat",
+                            "<strong>Keep screws organized</strong> - Different screws go in different places; use a magnetic tray",
+                            "<strong>Don't force anything</strong> - If it doesn't fit or open easily, you're doing it wrong"
+                        ]
+                    }
+                },
+                {
+                    "id": "safety-tools",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Tools You'll Need",
+                    "content": "<p><strong>Phillips #0 screwdriver</strong> (small), <strong>plastic pry tool</strong> or guitar pick for clips, <strong>anti-static wrist strap</strong> (optional but recommended), and good lighting.</p>"
                 }
             ]
         },

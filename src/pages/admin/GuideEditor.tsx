@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { Plus } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd';
 import { fetchAdminContent, saveContent } from '../../utils/adminApi';
 import { useToast } from '../../context/ToastContext';
@@ -10,7 +10,7 @@ import { useEditorStore } from '../../store/editorStore';
 import { migrateStepToBlocks } from '../../utils/blockMigration';
 import { DocWithContent } from '../../utils/contentLoader';
 import { Difficulty } from '../../types/docs';
-import { devLog, devError } from '../../utils/logger';
+import { devError, devLog } from '../../utils/logger';
 import { DRAFT_IDS } from '../../constants';
 
 // Components

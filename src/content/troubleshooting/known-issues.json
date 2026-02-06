@@ -253,6 +253,161 @@
             ]
         },
         {
+            "id": "vbios-flashing",
+            "title": "vBIOS Flashing (Advanced)",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "vbios-warn",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Warning - Experienced Users Only",
+                    "content": "<p>vBIOS flashing <strong>WILL void your warranty</strong>, can cause serious GPU/VRM overheating, can break IO ports, and potentially brick your laptop. Proceed only if you understand the risks.</p>"
+                },
+                {
+                    "id": "vbios-disclaimer",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "DISCLAIMER - Proceed at Your Own Risk",
+                    "content": "<p><strong>By proceeding with vBIOS flashing, you acknowledge that you do so ENTIRELY AT YOUR OWN RISK.</strong> The author(s) of this documentation are <strong>NOT RESPONSIBLE</strong> for any damage, bricked devices, voided warranties, overheating, fires, or any other consequences. This is an advanced modification intended for experienced users only. If you are unsure, <strong>DO NOT proceed</strong>.</p>"
+                },
+                {
+                    "id": "vbios-text",
+                    "type": "text",
+                    "content": "<p>Some OMEN laptops can have their GPU vBIOS flashed for higher power limits:</p>"
+                },
+                {
+                    "id": "vbios-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["GPU Model", "Can Flash?", "Max Power", "Notes"],
+                        "rows": [
+                            ["RTX 2060", "Yes", "Up to 115W", "Use 115W vBIOS from community"],
+                            ["RTX 3060", "Yes", "Up to 130W", "Requires 230W power brick"],
+                            ["RTX 3070", "No", "N/A", "Board IDs differ between 100W and 140W models"]
+                        ]
+                    }
+                },
+                {
+                    "id": "vbios-rtx2060-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "RTX 2060 Flash Guide (115W)"
+                },
+                {
+                    "id": "vbios-rtx2060-steps",
+                    "type": "list",
+                    "content": {
+                        "style": "ordered",
+                        "items": [
+                            "Download the 115W vBIOS file and nvflash tool from the OMEN Discord #advanced-mods channel",
+                            "Extract contents to C:\\ drive",
+                            "Open CMD as Administrator",
+                            "Run the backup and flash commands below",
+                            "Answer YES to both prompts when asked",
+                            "Restart when complete"
+                        ]
+                    }
+                },
+                {
+                    "id": "vbios-rtx2060-code",
+                    "type": "code",
+                    "language": "batch",
+                    "filename": "RTX 2060 Flash Commands",
+                    "code": "cd C:\\\n\n:: Disable GPU protection\nnvflash --protectoff\n\n:: IMPORTANT: Backup your original vBIOS first!\nnvflash --save original-vbios.rom\n\n:: Flash the 115W vBIOS (replace with your filename)\nnvflash -6 225910.rom"
+                },
+                {
+                    "id": "vbios-rtx3060-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "RTX 3060 Flash Guide (130W)"
+                },
+                {
+                    "id": "vbios-rtx3060-warn",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Additional Requirements",
+                    "content": "<p><strong>Before flashing RTX 3060 to 130W:</strong><br/>• Repaste your laptop - this WILL increase heat significantly<br/>• Buy a 230W power brick (OMEN 16 brick or Elitebook HSTNN-LA12 with 5.5mm→7.4mm adapter)<br/>• Stock 200W brick will cause throttling when battery drops below 50%<br/>• Short 1-2 hour sessions work on stock brick</p>"
+                },
+                {
+                    "id": "vbios-rtx3060-code",
+                    "type": "code",
+                    "language": "batch",
+                    "filename": "RTX 3060 Flash Commands",
+                    "code": "cd C:\\\n\n:: Backup your original vBIOS first!\nnvflash64 --protectoff\nnvflash64 --save original-vbios.rom\n\n:: Flash the 130W vBIOS\nnvflash64 -6 130w.rom"
+                },
+                {
+                    "id": "vbios-restore-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "Restoring Original vBIOS"
+                },
+                {
+                    "id": "vbios-restore",
+                    "type": "code",
+                    "language": "batch",
+                    "filename": "Restore Original vBIOS",
+                    "code": "cd C:\\\nnvflash64 -6 original-vbios.rom"
+                },
+                {
+                    "id": "vbios-note",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Get vBIOS Files",
+                    "content": "<p>The vBIOS files and nvflash tool are available in the OMEN Discord community's #advanced-mods channel. Join via the Discord link in the sidebar.</p>"
+                }
+            ]
+        },
+        {
+            "id": "windows11-issues",
+            "title": "Windows 11 Compatibility",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "w11-text",
+                    "type": "text",
+                    "content": "<p>Windows 11 can cause various issues on OMEN laptops due to driver compatibility:</p>"
+                },
+                {
+                    "id": "w11-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "<strong>Battery life:</strong> Significantly worse than Windows 10 due to driver issues",
+                            "<strong>VBS (Virtualization Based Security):</strong> Causes errors in OGH, XTU, and ThrottleStop",
+                            "<strong>AMD stuttering:</strong> More common on Windows 11",
+                            "<strong>Sleep/Wake issues:</strong> May be more frequent"
+                        ]
+                    }
+                },
+                {
+                    "id": "w11-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Should You Upgrade?",
+                    "content": "<p>If your OMEN is running well on Windows 10, consider staying on Win10 unless you specifically need Windows 11 features. HP drivers have better compatibility with Windows 10.</p>"
+                },
+                {
+                    "id": "w11-videos",
+                    "type": "text",
+                    "content": "<p>Videos to help you decide on Windows 11:</p>"
+                },
+                {
+                    "id": "w11-video1",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://youtu.be/hJ0dLimSiNM"
+                },
+                {
+                    "id": "w11-video2",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://youtu.be/zt3zvY7KzYs"
+                }
+            ]
+        },
+        {
             "id": "report-issues",
             "title": "Reporting New Issues",
             "content": "",
@@ -287,7 +442,82 @@
                     "type": "code",
                     "language": "markdown",
                     "filename": "Issue Report Template",
-                    "content": "## Issue Report\n\n**Model:** OMEN 16 (2023)\n**BIOS Version:** F.12\n**Windows Version:** Windows 11 23H2\n\n**Problem:**\n[Describe the issue]\n\n**Steps to Reproduce:**\n1. [Step 1]\n2. [Step 2]\n\n**Expected Behavior:**\n[What should happen]\n\n**Actual Behavior:**\n[What actually happens]\n\n**Solutions Tried:**\n- [Solution 1]\n- [Solution 2]"
+                    "code": "## Issue Report\n\n**Model:** OMEN 16 (2023)\n**BIOS Version:** F.12\n**Windows Version:** Windows 11 23H2\n\n**Problem:**\n[Describe the issue]\n\n**Steps to Reproduce:**\n1. [Step 1]\n2. [Step 2]\n\n**Expected Behavior:**\n[What should happen]\n\n**Actual Behavior:**\n[What actually happens]\n\n**Solutions Tried:**\n- [Solution 1]\n- [Solution 2]"
+                }
+            ]
+        },
+        {
+            "id": "official-resources",
+            "title": "Official HP Resources",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "resources-intro",
+                    "type": "text",
+                    "content": "<p>Looking for more info or official support for OMEN by HP products? Here are recommended resources:</p>"
+                },
+                {
+                    "id": "resources-grid",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "res-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "res-h1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Official Support"
+                                },
+                                {
+                                    "id": "res-support-table",
+                                    "type": "table",
+                                    "content": {
+                                        "headers": ["Resource", "Link"],
+                                        "rows": [
+                                            ["HP Support", "https://support.hp.com/us-en"],
+                                            ["HP Community Forums", "https://h30434.www3.hp.com/t5/Gaming/ct-p/Gaming"],
+                                            ["Ultimate Gaming Coverage Plan", "https://www.hp.com/us-en/services/computer-protection-plans/gaming.html"]
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "res-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "res-h2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "OMEN Social Media"
+                                },
+                                {
+                                    "id": "res-social-table",
+                                    "type": "table",
+                                    "content": {
+                                        "headers": ["Platform", "Link"],
+                                        "rows": [
+                                            ["Twitter/X", "https://twitter.com/omenbyhp"],
+                                            ["Reddit", "https://www.reddit.com/r/HPOmen/"],
+                                            ["Instagram", "https://www.instagram.com/omenbyhp/"],
+                                            ["TikTok", "https://www.tiktok.com/@omenbyhp"]
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "resources-tip",
+                    "type": "callout",
+                    "variant": "tip",
+                    "title": "Stay Connected",
+                    "content": "<p>Follow OMEN on social media to stay up to date with the latest news, updates, and community events!</p>"
                 }
             ]
         }

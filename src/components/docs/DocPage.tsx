@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Clock, User, Calendar } from 'lucide-react';
+import { Calendar, Clock, User } from 'lucide-react';
 import Breadcrumbs from './Breadcrumbs';
 
 interface DocPageProps {

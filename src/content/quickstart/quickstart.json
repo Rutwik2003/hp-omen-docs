@@ -40,6 +40,13 @@
                             "Update Windows to latest version"
                         ]
                     }
+                },
+                {
+                    "id": "step1-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "First Boot Tip",
+                    "content": "<p>Keep the laptop plugged in during initial setup. Windows updates and driver installations are resource-intensive and work best on AC power.</p>"
                 }
             ]
         },
@@ -59,13 +66,20 @@
                     "content": {
                         "style": "unordered",
                         "items": [
-                            "Download and install HP Support Assistant",
-                            "Install OMEN Gaming Hub from Microsoft Store",
+                            "<strong>HP Support Assistant</strong> - For BIOS and driver updates",
+                            "<strong>OMEN Gaming Hub</strong> - From Microsoft Store for performance control",
                             "Update all drivers through HP Support Assistant",
-                            "Install latest NVIDIA/AMD graphics drivers",
+                            "<strong>NVIDIA App</strong> or AMD Radeon Software for GPU drivers",
                             "Configure Windows Update settings"
                         ]
                     }
+                },
+                {
+                    "id": "step2-warning",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Driver Order Matters",
+                    "content": "<p>Install chipset drivers first, then GPU drivers. Always restart when prompted. This ensures proper hardware initialization.</p>"
                 }
             ]
         },
@@ -85,13 +99,20 @@
                     "content": {
                         "style": "unordered",
                         "items": [
-                            "Configure power plans in OMEN Gaming Hub",
+                            "<strong>OGH Performance Mode</strong> - Use for gaming; Comfort for battery life",
                             "Set up thermal profiles for different use cases",
                             "Configure RGB lighting preferences",
-                            "Adjust display settings (refresh rate, color profile)",
-                            "Enable XMP/DOCP in BIOS if supported"
+                            "<strong>Display settings</strong> - Enable highest refresh rate (144Hz/165Hz)",
+                            "Enable XMP/DOCP in BIOS for full RAM speed (if supported)"
                         ]
                     }
+                },
+                {
+                    "id": "step3-tip",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "Quick Access",
+                    "content": "<p>Press the <strong>OMEN Key</strong> (above keyboard) to instantly open OMEN Gaming Hub and switch performance modes.</p>"
                 }
             ]
         },
@@ -111,13 +132,20 @@
                     "content": {
                         "style": "unordered",
                         "items": [
-                            "Install Steam, Epic Games, or preferred game launchers",
-                            "Configure NVIDIA Control Panel/AMD Radeon Software",
-                            "Set up Game Mode in Windows",
+                            "Install <strong>Steam</strong>, Epic Games, or preferred game launchers",
+                            "Configure <strong>NVIDIA Control Panel</strong> for optimal performance",
+                            "Enable <strong>Game Mode</strong> in Windows Settings → Gaming",
                             "Configure audio settings and spatial sound",
-                            "Test performance with benchmark tools"
+                            "Test performance with benchmark tools (3DMark, UserBenchmark)"
                         ]
                     }
+                },
+                {
+                    "id": "step4-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "First Game Test",
+                    "content": "<p>Run a demanding game for 15-20 minutes while monitoring temperatures with HWiNFO64 or MSI Afterburner. This helps identify any thermal issues early.</p>"
                 }
             ]
         },
@@ -146,8 +174,8 @@
                                     "id": "b11",
                                     "type": "callout",
                                     "variant": "success",
-                                    "title": "NVIDIA GeForce Experience",
-                                    "content": "<p>Graphics driver updates and game optimization.</p><a href='https://www.nvidia.com/en-us/geforce/geforce-experience/'>Download</a>"
+                                    "title": "NVIDIA App",
+                                    "content": "<p>Graphics driver updates and game optimization.</p><a href='https://www.nvidia.com/en-us/software/nvidia-app/'>Download</a>"
                                 }
                             ]
                         },

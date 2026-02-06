@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, FileText, ChevronRight } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronRight, FileText, Search, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 interface SearchResult {

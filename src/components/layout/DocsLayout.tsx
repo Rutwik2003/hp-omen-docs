@@ -1,20 +1,15 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { 
-  Home, 
-  Zap, 
-  Monitor, 
-  Settings, 
-  HelpCircle, 
-  Download, 
-  Wrench,
+  ExternalLink, 
+  Home,
   Menu,
-  X,
   MessageCircle,
-  ExternalLink
+  X
 } from 'lucide-react';
 import AnimatedLayout from './AnimatedLayout';
-import { getSidebarConfig, AVAILABLE_ICONS, SidebarConfig } from '../../data/sidebarConfig';
+import { AVAILABLE_ICONS, getSidebarConfig, SidebarConfig } from '../../data/sidebarConfig';
+import { guides } from '../../data/guides';
 
 interface DocsLayoutProps {
   children?: React.ReactNode;
@@ -43,8 +38,27 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({ children }) => {
     setSidebarOpen(false);
   }, [location.pathname]);
 
-  // Helper to get items for a category
+  // Helper to get items for a category - use guides.ts for ordering
   const getCategoryItems = useCallback((cat: string) => {
+    // Find the guide category to get proper ordering
+    const categoryMap: Record<string, string> = {
+      'quickstart': 'Quick Start',
+      'windows': 'Windows',
+      'performance': 'Performance',
+      'troubleshooting': 'Troubleshooting',
+      'hardware': 'Hardware',
+      'linux': 'Linux'
+    };
+    const guideCategory = guides.find(g => g.category === categoryMap[cat]);
+    
+    if (guideCategory) {
+      // Filter out the overview items (paths without /docs/) and return ordered items
+      return guideCategory.items
+        .filter(item => item.path.includes('/docs/'))
+        .map(item => ({ name: item.title, href: item.path }));
+    }
+    
+    // Fallback to unordered docs if no guide category found
     return allDocs
       .filter(doc => doc.category === cat)
       .map(doc => ({ name: doc.title, href: doc.path }));

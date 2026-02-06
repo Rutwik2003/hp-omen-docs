@@ -1,0 +1,349 @@
+{
+    "id": "stress-testing",
+    "title": "Stress Testing Your OMEN",
+    "description": "Complete guide to stress testing your HP OMEN laptop to detect defects and ensure peak performance. Test your CPU, GPU, and storage components.",
+    "category": "Hardware",
+    "metadata": {
+        "difficulty": "Intermediate",
+        "readTime": "20 min",
+        "lastUpdated": "Feb 2026"
+    },
+    "breadcrumbs": [
+        {
+            "label": "Hardware",
+            "path": "/hardware"
+        },
+        {
+            "label": "Stress Testing"
+        }
+    ],
+    "steps": [
+        {
+            "id": "disclaimer",
+            "title": "Disclaimer",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "disclaimer-warn",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "At Your Own Risk",
+                    "content": "<p><strong>DISCLAIMER:</strong> Stress testing pushes your hardware to its limits. While modern hardware has built-in protections, extreme stress testing can potentially cause system crashes, data loss, or in rare cases accelerated component wear. By following this guide, you acknowledge that you do so <strong>at your own risk</strong>. The author(s) are <strong>not responsible</strong> for any issues that may arise. Never stress test with unsaved work open.</p>"
+                }
+            ]
+        },
+        {
+            "id": "intro",
+            "title": "Why Stress Test?",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "intro-callout",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "New Laptop?",
+                    "content": "<p>Just got a new laptop? Stress testing helps identify hardware defects, thermal issues, or stability problems before they become serious. Run these tests within your return window!</p>"
+                },
+                {
+                    "id": "intro-text",
+                    "type": "text",
+                    "content": "<p>Stress testing pushes your hardware to its limits to verify stability and identify any potential issues. This is especially important for gaming laptops where thermal performance is critical.</p>"
+                }
+            ]
+        },
+        {
+            "id": "monitoring",
+            "title": "Monitoring Software",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "mon-text",
+                    "type": "text",
+                    "content": "<p>Before running any stress test, install monitoring software to track temperatures, clock speeds, and power consumption.</p>"
+                },
+                {
+                    "id": "mon-grid",
+                    "type": "grid",
+                    "columns": 3,
+                    "children": [
+                        {
+                            "id": "mon-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "mon-h1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "HWiNFO"
+                                },
+                                {
+                                    "id": "mon-t1",
+                                    "type": "text",
+                                    "content": "<p>Most comprehensive hardware monitoring tool. Shows all sensor data in real-time.</p>"
+                                },
+                                {
+                                    "id": "mon-code1",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.hwinfo.com/"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "mon-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "mon-h2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "MSI Afterburner"
+                                },
+                                {
+                                    "id": "mon-t2",
+                                    "type": "text",
+                                    "content": "<p>GPU monitoring and overclocking tool with on-screen display (OSD) overlay.</p>"
+                                },
+                                {
+                                    "id": "mon-code2",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.msi.com/page/afterburner"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "mon-c3",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "mon-h3",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "NVIDIA App"
+                                },
+                                {
+                                    "id": "mon-t3",
+                                    "type": "text",
+                                    "content": "<p>Built-in overlay for NVIDIA GPUs. Press <kbd>Alt + Z</kbd> to open while gaming.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "gpu-stress",
+            "title": "GPU Stress Tests",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "gpu-warn",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Temperature Limits",
+                    "content": "<p>Maximum safe GPU temperature is ~87°C (189°F) for 2019-2024 OMEN laptops. If temps exceed this, the GPU will throttle to prevent damage.</p>"
+                },
+                {
+                    "id": "gpu-text",
+                    "type": "text",
+                    "content": "<p>GPU stress tests push your graphics card to 100% load to test stability and thermal performance.</p>"
+                },
+                {
+                    "id": "gpu-table",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Tool", "Type", "Duration", "Download"],
+                        "rows": [
+                            ["FurMark", "Synthetic (Extreme)", "15-30 minutes", "https://geeks3d.com/furmark/downloads/"],
+                            ["Unigine Heaven", "Synthetic (Realistic)", "30+ minutes", "https://benchmark.unigine.com/heaven"],
+                            ["3DMark (Demo)", "Benchmark Suite", "Variable", "https://store.steampowered.com/app/223850/3DMark/"],
+                            ["AIDA64", "System Stress", "1+ hour", "https://www.aida64.com/downloads"]
+                        ]
+                    }
+                },
+                {
+                    "id": "gpu-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "Tip",
+                    "content": "<p>3DMark has a free demo version on Steam - click 'Download Demo' on the store page.</p>"
+                }
+            ]
+        },
+        {
+            "id": "cpu-stress",
+            "title": "CPU Stress Tests",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "cpu-warn",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Temperature Limits",
+                    "content": "<p>Maximum safe CPU temperature is ~100°C (212°F). OMEN laptops will throttle at this point. Sustained temps at 95°C+ indicate need for repasting.</p>"
+                },
+                {
+                    "id": "cpu-grid",
+                    "type": "grid",
+                    "columns": 2,
+                    "children": [
+                        {
+                            "id": "cpu-c1",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "cpu-h1",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "AIDA64"
+                                },
+                                {
+                                    "id": "cpu-t1",
+                                    "type": "text",
+                                    "content": "<p>Industry standard for CPU stress testing. Use the 'Stress Test' feature with CPU, FPU, and Cache selected.</p>"
+                                },
+                                {
+                                    "id": "cpu-code1",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.aida64.com/downloads"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "cpu-c2",
+                            "type": "column",
+                            "children": [
+                                {
+                                    "id": "cpu-h2",
+                                    "type": "heading",
+                                    "level": 3,
+                                    "content": "Cinebench R23"
+                                },
+                                {
+                                    "id": "cpu-t2",
+                                    "type": "text",
+                                    "content": "<p>CPU rendering benchmark. Run multi-core test for 10+ minutes to check stability.</p>"
+                                },
+                                {
+                                    "id": "cpu-code2",
+                                    "type": "code",
+                                    "language": "url",
+                                    "code": "https://www.maxon.net/en/cinebench"
+                                },
+                                {
+                                    "id": "cpu-note",
+                                    "type": "callout",
+                                    "variant": "info",
+                                    "title": "Note",
+                                    "content": "<p>Download from Maxon website, not from Microsoft Store for best results.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "storage-test",
+            "title": "Storage Speed Test",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "storage-text",
+                    "type": "text",
+                    "content": "<p>Verify your SSD is performing at expected speeds and check for any issues.</p>"
+                },
+                {
+                    "id": "storage-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "CrystalDiskMark"
+                },
+                {
+                    "id": "storage-desc",
+                    "type": "text",
+                    "content": "<p>Free tool to measure read/write speeds. Compare results with manufacturer specs for your drive model.</p>"
+                },
+                {
+                    "id": "storage-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://crystalmark.info/en/software/crystaldiskmark/"
+                },
+                {
+                    "id": "storage-expected",
+                    "type": "table",
+                    "content": {
+                        "headers": ["Drive Type", "Expected Sequential Read", "Expected Sequential Write"],
+                        "rows": [
+                            ["PCIe 3.0 NVMe", "~3,500 MB/s", "~3,000 MB/s"],
+                            ["PCIe 4.0 NVMe", "~7,000 MB/s", "~5,000 MB/s"],
+                            ["SATA SSD", "~550 MB/s", "~520 MB/s"]
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "ultimate-test",
+            "title": "Ultimate Stress Test",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "ultimate-text",
+                    "type": "text",
+                    "content": "<p>For a comprehensive stress test that combines CPU and GPU stress simultaneously, follow this video guide:</p>"
+                },
+                {
+                    "id": "ultimate-code",
+                    "type": "code",
+                    "language": "url",
+                    "code": "https://youtu.be/J4s3ghSNj8Q"
+                },
+                {
+                    "id": "ultimate-warn",
+                    "type": "callout",
+                    "variant": "danger",
+                    "title": "Warning: UserBenchmark",
+                    "content": "<p><strong>NEVER use UserBenchmark!</strong> Its statistics are unreliable, it often fails to detect your discrete GPU, and is known to provide incorrect information intentionally. Use the tools recommended above instead.</p>"
+                }
+            ]
+        },
+        {
+            "id": "interpreting",
+            "title": "Interpreting Results",
+            "content": "",
+            "blocks": [
+                {
+                    "id": "interpret-text",
+                    "type": "text",
+                    "content": "<p>After running stress tests, evaluate your results:</p>"
+                },
+                {
+                    "id": "interpret-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "<strong>Stable temps under 95°C CPU / 85°C GPU:</strong> Your laptop is performing well",
+                            "<strong>Temps hitting limits but stable:</strong> Consider repasting for better thermals",
+                            "<strong>System crashes or freezes:</strong> Potential hardware defect - contact HP Support",
+                            "<strong>Artifacts or visual glitches:</strong> GPU issue - may need replacement",
+                            "<strong>BSOD or sudden shutdowns:</strong> Power or thermal issue - check power brick connection"
+                        ]
+                    }
+                },
+                {
+                    "id": "interpret-success",
+                    "type": "callout",
+                    "variant": "success",
+                    "title": "Pass Criteria",
+                    "content": "<p>A successful stress test means: 30+ minutes of stress with no crashes, stable temperatures below thermal limits, and consistent clock speeds without excessive throttling.</p>"
+                }
+            ]
+        }
+    ]
+}

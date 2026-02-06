@@ -1,6 +1,6 @@
 import React from 'react';
-import { Volume2, Wifi, ExternalLink } from 'lucide-react';
-import { AnimatedSettings, AnimatedMonitor, AnimatedShield, AnimatedDownload } from '../components/animated-icons';
+import { ExternalLink, Volume2, Wifi } from 'lucide-react';
+import { AnimatedDownload, AnimatedMonitor, AnimatedSettings, AnimatedShield } from '../components/animated-icons';
 
 const DriversAndSoftware: React.FC = () => {
   const essentialDrivers = [
@@ -45,10 +45,10 @@ const DriversAndSoftware: React.FC = () => {
           priority: 'Critical',
         },
         {
-          name: 'NVIDIA GeForce Experience',
+          name: 'NVIDIA App',
           description: 'Game optimization and driver management',
           version: 'Latest',
-          url: 'https://www.nvidia.com/en-us/geforce/geforce-experience/',
+          url: 'https://www.nvidia.com/en-us/software/nvidia-app/',
           priority: 'Recommended',
         },
         {
@@ -282,7 +282,7 @@ const DriversAndSoftware: React.FC = () => {
         <h2 className="text-2xl font-bold text-white mb-6">Installation Guide</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {installationGuide.map((guide, index) => (
-            <div key={index} className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <div key={index} className="bg-black/50 rounded-lg border border-gray-700 p-6 hover:border-orange-500/50 transition-all duration-300">
               <div className="flex items-center space-x-3 mb-4">
                 <span className="flex-shrink-0 w-8 h-8 bg-orange-500/20 text-orange-400 rounded-full flex items-center justify-center text-sm font-bold border border-orange-500/30">
                   {index + 1}
@@ -308,7 +308,7 @@ const DriversAndSoftware: React.FC = () => {
         <h2 className="text-2xl font-bold text-white mb-6">Recommended Utility Software</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {utilitySoftware.map((software, index) => (
-            <div key={index} className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <div key={index} className="bg-black/50 rounded-lg border border-gray-700 p-6 hover:border-orange-500/50 transition-all duration-300">
               <div className="flex items-start justify-between mb-3">
                 <h3 className="text-lg font-semibold text-white">{software.name}</h3>
                 <span className="px-2 py-1 text-xs font-medium bg-orange-500/20 text-orange-300 rounded border border-orange-500/30">
@@ -342,7 +342,7 @@ const DriversAndSoftware: React.FC = () => {
       </div>
 
       {/* Best Practices */}
-      <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-6 mb-8">
+      <div className="bg-black/50 border border-gray-700 rounded-lg p-6 mb-8 hover:border-orange-500/50 transition-all duration-300">
         <h2 className="text-xl font-bold text-white mb-4">Driver Update Best Practices</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -369,7 +369,7 @@ const DriversAndSoftware: React.FC = () => {
       </div>
 
       {/* Emergency Support */}
-      <div className="bg-orange-900/20 border border-orange-500 rounded-lg p-6">
+      <div className="bg-black/50 border border-orange-500/50 rounded-lg p-6 hover:border-orange-500 transition-all duration-300">
         <div className="flex items-start space-x-3">
           <AnimatedShield className="h-6 w-6 text-orange-400 mt-1 flex-shrink-0" />
           <div>

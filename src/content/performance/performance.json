@@ -83,10 +83,22 @@
             "content": "",
             "blocks": [
                 {
+                    "id": "gpu-intro",
+                    "type": "text",
+                    "content": "<p>Optimize your NVIDIA or AMD GPU settings for the best balance of performance and image quality. These settings are accessed through your GPU's control panel.</p>"
+                },
+                {
                     "id": "b4",
                     "type": "heading",
                     "level": 3,
-                    "content": "NVIDIA Control Panel"
+                    "content": "NVIDIA Control Panel Settings"
+                },
+                {
+                    "id": "gpu-nvidia-tip",
+                    "type": "callout",
+                    "variant": "info",
+                    "title": "How to Access",
+                    "content": "<p>Right-click desktop → NVIDIA Control Panel → Manage 3D Settings → Global Settings</p>"
                 },
                 {
                     "id": "b5",
@@ -94,12 +106,40 @@
                     "content": {
                         "style": "unordered",
                         "items": [
-                            "Power Management Mode: Prefer Maximum Performance",
-                            "Texture Filtering Quality: High Performance",
-                            "Vertical Sync: Off (Use in-game settings)",
-                            "Max Frame Rate: Cap at your monitor's refresh rate (e.g. 144Hz) to reduce heat"
+                            "<strong>Power Management Mode:</strong> Prefer Maximum Performance",
+                            "<strong>Texture Filtering Quality:</strong> High Performance",
+                            "<strong>Vertical Sync:</strong> Off (use in-game settings or driver-level for specific games)",
+                            "<strong>Max Frame Rate:</strong> Cap at your monitor's refresh rate (e.g., 144 FPS) to reduce heat and power",
+                            "<strong>Low Latency Mode:</strong> On or Ultra for competitive games",
+                            "<strong>Threaded Optimization:</strong> On"
                         ]
                     }
+                },
+                {
+                    "id": "gpu-amd-h",
+                    "type": "heading",
+                    "level": 3,
+                    "content": "AMD Radeon Settings"
+                },
+                {
+                    "id": "gpu-amd-list",
+                    "type": "list",
+                    "content": {
+                        "style": "unordered",
+                        "items": [
+                            "<strong>Radeon Anti-Lag:</strong> Enable for reduced input lag",
+                            "<strong>Radeon Chill:</strong> Enable to save power when GPU isn't fully utilized",
+                            "<strong>Texture Filtering Quality:</strong> Performance",
+                            "<strong>Surface Format Optimization:</strong> On"
+                        ]
+                    }
+                },
+                {
+                    "id": "gpu-warning",
+                    "type": "callout",
+                    "variant": "warning",
+                    "title": "Game-Specific Overrides",
+                    "content": "<p>Some games work better with specific settings. Use the 'Program Settings' tab to create per-game profiles if you encounter issues.</p>"
                 }
             ]
         },

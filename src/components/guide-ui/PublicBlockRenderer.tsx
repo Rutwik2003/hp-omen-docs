@@ -1,9 +1,9 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
 import { motion } from 'framer-motion';
-import { Block, CodeBlock as CodeBlockType, CalloutBlock, GridBlock, TableBlock, ImageBlock, ColumnBlock } from '../../types/blocks';
+import { Block, CalloutBlock, CodeBlock as CodeBlockType, ColumnBlock, GridBlock, ImageBlock, TableBlock } from '../../types/blocks';
 import { InfoBox } from './index';
-import { Copy, Check, Terminal, ExternalLink } from 'lucide-react';
+import { Check, Copy, Terminal } from 'lucide-react';
 
 interface PublicBlockRendererProps {
   block: Block;
@@ -174,7 +174,7 @@ const PublicBlockRenderer: React.FC<PublicBlockRendererProps> = ({ block }) => {
         const image = block as ImageBlock;
         return (
             <motion.div 
-              className="mb-4 rounded-xl overflow-hidden border border-gray-700/50 bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm"
+              className="mb-4 w-fit max-w-full mx-auto rounded-xl overflow-hidden border border-gray-700/50 bg-gradient-to-br from-gray-900/60 to-black/60 backdrop-blur-sm"
               initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -183,7 +183,7 @@ const PublicBlockRenderer: React.FC<PublicBlockRendererProps> = ({ block }) => {
                     <img 
                         src={image.url} 
                         alt={image.alt || 'Content image'} 
-                        className="w-full h-auto object-contain max-h-[500px]"
+                        className="max-w-full h-auto object-contain max-h-[500px]"
                         loading="lazy"
                     />
                 ) : (

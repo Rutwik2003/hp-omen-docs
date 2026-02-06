@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { db } from '../services/draftDatabase';
 import { useToast } from '../context/ToastContext';
-import { parseError, logError } from '../utils/errorHandling';
+import { logError, parseError } from '../utils/errorHandling';
 import type { GuideDraftData, GuideStep } from '../types/docs';
 import type { Block } from '../types/blocks';
 

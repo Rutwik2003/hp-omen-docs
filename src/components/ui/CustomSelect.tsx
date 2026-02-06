@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, Check } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { Check, ChevronDown } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface Option {
   label: string;
