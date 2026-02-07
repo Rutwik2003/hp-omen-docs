@@ -9,7 +9,7 @@ interface TableBlockEditorProps {
 }
 
 const TableBlockEditor: React.FC<TableBlockEditorProps> = ({ stepId, block }) => {
-  const { updateBlock } = useEditorStore();
+  const updateBlock = useEditorStore((s) => s.updateBlock);
   
   // Safe defaults
   const headers = block.content?.headers || ['Header 1', 'Header 2'];
@@ -81,11 +81,11 @@ const TableBlockEditor: React.FC<TableBlockEditorProps> = ({ stepId, block }) =>
                <thead>
                    <tr>
                        {headers.map((header, i) => (
-                           <th key={i} className="group border border-neutral-700 p-0 min-w-[150px] relative">
+                           <th key={i} className="group border border-neutral-700 p-0 min-w-[100px] sm:min-w-[150px] relative">
                                <input 
                                    value={header}
                                    onChange={(e) => updateHeader(i, e.target.value)}
-                                   className="w-full bg-neutral-800 text-orange-500 font-bold p-2 focus:outline-none focus:bg-neutral-700"
+                                   className="w-full bg-neutral-800 text-orange-500 font-bold p-2 text-xs sm:text-sm focus:outline-none focus:bg-neutral-700"
                                />
                                <button 
                                  onClick={() => removeColumn(i)}

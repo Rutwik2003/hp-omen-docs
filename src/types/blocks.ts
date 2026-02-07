@@ -132,12 +132,11 @@ export type Block =
     | ListBlock;
 
 /**
- * A single step in a guide, containing a title and array of content blocks.
+ * Represents a partial update to any block.
+ * Omits `id` and `type` so callers can pass just the fields they want to change
+ * without needing the discriminator that `Partial<Block>` requires.
  */
-export interface GuideStep {
-    /** Unique identifier (UUID) */
-    id: string;
-    title: string;
-    /** Root-level blocks for this step's content */
-    blocks: Block[];
-}
+export type BlockUpdate = Partial<Omit<
+    TextBlock & HeadingBlock & ImageBlock & VideoBlock & CodeBlock & CalloutBlock & GridBlock & ColumnBlock & TableBlock & ListBlock,
+    'id' | 'type'
+>>;

@@ -9,7 +9,7 @@ interface ImageBlockEditorProps {
 }
 
 const ImageBlockEditor: React.FC<ImageBlockEditorProps> = ({ stepId, block }) => {
-  const { updateBlock } = useEditorStore();
+  const updateBlock = useEditorStore((s) => s.updateBlock);
   const [isValid, setIsValid] = useState(true);
 
   return (
@@ -48,7 +48,7 @@ const ImageBlockEditor: React.FC<ImageBlockEditorProps> = ({ stepId, block }) =>
                     value={block.url || ''}
                     onChange={(e) => {
                         setIsValid(true);
-                        updateBlock(stepId, block.id, { url: e.target.value } as any);
+                        updateBlock(stepId, block.id, { url: e.target.value });
                     }}
                     className="flex-1 bg-transparent border border-neutral-700 rounded px-3 py-1.5 text-sm text-white focus:border-orange-500 focus:outline-none transition-colors placeholder-neutral-600"
                     placeholder="Paste image URL here..."
@@ -59,13 +59,13 @@ const ImageBlockEditor: React.FC<ImageBlockEditorProps> = ({ stepId, block }) =>
             <div className="grid grid-cols-2 gap-3">
                 <input 
                     value={block.caption || ''}
-                    onChange={(e) => updateBlock(stepId, block.id, { caption: e.target.value } as any)}
+                    onChange={(e) => updateBlock(stepId, block.id, { caption: e.target.value })}
                     className="bg-transparent border-b border-neutral-800 py-1 text-xs text-neutral-400 focus:text-white focus:border-orange-500/50 focus:outline-none"
                     placeholder="Caption (optional)"
                 />
                  <input 
                     value={block.alt || ''}
-                    onChange={(e) => updateBlock(stepId, block.id, { alt: e.target.value } as any)}
+                    onChange={(e) => updateBlock(stepId, block.id, { alt: e.target.value })}
                     className="bg-transparent border-b border-neutral-800 py-1 text-xs text-neutral-400 focus:text-white focus:border-orange-500/50 focus:outline-none"
                     placeholder="Alt Text (SEO)"
                 />

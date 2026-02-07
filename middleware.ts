@@ -41,8 +41,12 @@ function buildCSP(nonce: string): string {
     // Default fallback - restrict to same origin
     "default-src 'self'",
     
-    // Scripts: Allow self, nonce for inline scripts, strict-dynamic, and Vercel Live (preview deployments)
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://vercel.live`,
+    // Scripts: Allow self and nonce for inline scripts
+    // Note: 'strict-dynamic' is removed to allow host-based allowlisting for Vercel Live
+    `script-src 'self' 'nonce-${nonce}' https://vercel.live https://*.vercel.live`,
+    
+    // Script elements: Explicitly allow Vercel Live scripts (needed for preview deployments)
+    `script-src-elem 'self' 'nonce-${nonce}' https://vercel.live https://*.vercel.live`,
     
     // Styles: Allow self, inline styles (needed for Tailwind), and Google Fonts
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
@@ -54,7 +58,10 @@ function buildCSP(nonce: string): string {
     "img-src 'self' data: https:",
     
     // Connect: Allow self, GitHub API, and Vercel Live (preview deployments)
-    "connect-src 'self' https://api.github.com https://vercel.live wss://ws-us3.pusher.com",
+    "connect-src 'self' https://api.github.com https://vercel.live https://*.vercel.live wss://ws-us3.pusher.com wss://*.pusher.com",
+    
+    // Frame sources: Allow Vercel Live iframes
+    "frame-src 'self' https://vercel.live https://*.vercel.live",
     
     // Frame ancestors: Prevent clickjacking
     "frame-ancestors 'none'",

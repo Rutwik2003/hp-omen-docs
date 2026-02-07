@@ -54,7 +54,7 @@ const SlashCommandMenu: React.FC<SlashCommandMenuProps> = ({ position, onSelect,
                 <button
                     key={item.type}
                     onClick={() => onSelect(item.type)}
-                    className={`w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded transition-colors ${
+                    className={`w-full flex items-center gap-2 px-2 py-2 sm:py-1.5 text-sm rounded transition-colors ${
                         index === selectedIndex ? 'bg-orange-600 text-white' : 'text-neutral-300 hover:bg-neutral-800'
                     }`}
                 >

@@ -74,44 +74,44 @@ const HardwareSkeleton = () => {
   }, [phase]);
 
   return (
-    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 border border-white/10 overflow-hidden relative font-mono">
+    <div className="flex flex-1 w-full h-full min-h-[10rem] sm:min-h-[8rem] md:min-h-[6rem] rounded-xl bg-neutral-900 border border-white/10 overflow-hidden relative font-mono">
       {/* Background grid pattern */}
       <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,white,transparent_80%)]" />
       
       {/* Header */}
-      <div className="absolute top-0 left-0 right-0 h-6 bg-neutral-950/80 border-b border-white/5 flex items-center justify-between px-3">
-        <div className="flex items-center gap-2">
+      <div className="absolute top-0 left-0 right-0 h-7 sm:h-6 bg-neutral-950/80 border-b border-white/5 flex items-center justify-between px-2 sm:px-3">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <motion.div 
-            className={`w-1.5 h-1.5 rounded-full ${phase === 'scan' ? 'bg-yellow-500' : 'bg-green-500'}`}
+            className={`w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full ${phase === 'scan' ? 'bg-yellow-500' : 'bg-green-500'}`}
             animate={{ opacity: phase === 'scan' ? [1, 0.3, 1] : 1 }}
             transition={{ duration: 0.8, repeat: phase === 'scan' ? Infinity : 0 }}
           />
-          <span className="text-[9px] text-gray-500 uppercase tracking-wider">
+          <span className="text-[10px] sm:text-[9px] text-gray-500 uppercase tracking-wider">
             {phase === 'scan' ? 'Scanning Hardware' : 'System Monitor'}
           </span>
         </div>
         <div className="flex gap-1">
-          <div className="w-1.5 h-1.5 rounded-full bg-red-500/40" />
-          <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/40" />
-          <div className="w-1.5 h-1.5 rounded-full bg-green-500/40" />
+          <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-red-500/40" />
+          <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-yellow-500/40" />
+          <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-green-500/40" />
         </div>
       </div>
 
       {/* Main content */}
-      <div className="absolute top-7 bottom-0 left-0 right-0 p-3 flex gap-2">
+      <div className="absolute top-8 sm:top-7 bottom-0 left-0 right-0 p-2 sm:p-3 grid grid-cols-1 sm:grid-cols-3 gap-2 overflow-auto">
         {components.map((component, index) => (
           <motion.div
             key={component.id}
-            className="flex-1 bg-neutral-950/50 rounded-lg border border-white/5 p-2 flex flex-col relative overflow-hidden"
+            className="bg-neutral-950/50 rounded-lg border border-white/5 p-2 sm:p-2 flex flex-col relative overflow-hidden min-h-[5rem] sm:min-h-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.3 }}
           >
               {/* Component header */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold text-orange-400">{component.label}</span>
+              <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                <span className="text-xs sm:text-[10px] font-bold text-orange-400">{component.label}</span>
                 <motion.div
-                  className={`w-1.5 h-1.5 rounded-full ${
+                  className={`w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full ${
                     component.status === 'scanning' ? 'bg-yellow-500' :
                     component.status === 'ready' ? 'bg-blue-500' : 'bg-green-500'
                   }`}
@@ -126,12 +126,12 @@ const HardwareSkeleton = () => {
               {/* Scanning state */}
               {component.status === 'scanning' && (
                 <motion.div 
-                  className="flex-1 flex items-center justify-center"
+                  className="flex-1 flex items-center justify-center py-2 sm:py-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 >
                   <motion.div
-                    className="w-8 h-8 border-2 border-orange-500/30 border-t-orange-500 rounded-full"
+                    className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-orange-500/30 border-t-orange-500 rounded-full"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   />
@@ -141,7 +141,7 @@ const HardwareSkeleton = () => {
               {/* Ready/Active state */}
               {(component.status === 'ready' || component.status === 'active') && (
                 <motion.div 
-                  className="flex-1 flex flex-col justify-between"
+                  className="flex-1 flex flex-col justify-between gap-1"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
@@ -149,9 +149,9 @@ const HardwareSkeleton = () => {
                   {/* Temperature - only for CPU and GPU */}
                   {component.id !== 'ram' ? (
                     <div className="flex items-center justify-between">
-                      <span className="text-[8px] text-gray-500">TEMP</span>
+                      <span className="text-[10px] sm:text-[8px] text-gray-500">TEMP</span>
                       <motion.span 
-                        className={`text-[10px] font-bold ${
+                        className={`text-xs sm:text-[10px] font-bold ${
                           (component.temp || 0) > 70 ? 'text-red-400' :
                           (component.temp || 0) > 55 ? 'text-yellow-400' : 'text-green-400'
                         }`}
@@ -164,20 +164,20 @@ const HardwareSkeleton = () => {
                     </div>
                   ) : (
                     <div className="flex items-center justify-between">
-                      <span className="text-[8px] text-gray-500">USED</span>
-                      <span className="text-[10px] font-bold text-orange-400">
+                      <span className="text-[10px] sm:text-[8px] text-gray-500">USED</span>
+                      <span className="text-xs sm:text-[10px] font-bold text-orange-400">
                         {Math.round((component.usage || 0) * 0.32)} GB
                       </span>
                     </div>
                   )}
 
                   {/* Usage bar */}
-                  <div className="mt-1">
+                  <div className="mt-0.5 sm:mt-1">
                     <div className="flex items-center justify-between mb-0.5">
-                      <span className="text-[8px] text-gray-500">USAGE</span>
-                      <span className="text-[8px] text-gray-400">{Math.round(component.usage || 0)}%</span>
+                      <span className="text-[10px] sm:text-[8px] text-gray-500">USAGE</span>
+                      <span className="text-[10px] sm:text-[8px] text-gray-400">{Math.round(component.usage || 0)}%</span>
                     </div>
-                    <div className="h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+                    <div className="h-2 sm:h-1.5 bg-neutral-800 rounded-full overflow-hidden">
                       <motion.div
                         className={`h-full rounded-full ${
                           (component.usage || 0) > 80 ? 'bg-red-500' :
@@ -190,8 +190,8 @@ const HardwareSkeleton = () => {
                     </div>
                   </div>
 
-                  {/* Chip icon */}
-                  <div className="mt-2 flex justify-center">
+                  {/* Chip icon - hidden on mobile to save space */}
+                  <div className="mt-1 sm:mt-2 hidden sm:flex justify-center">
                     <svg viewBox="0 0 24 24" className="w-4 h-4 text-orange-500/40">
                       <rect x="6" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
                       <rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" />

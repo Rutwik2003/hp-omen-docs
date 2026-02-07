@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,8 +18,14 @@ const devLog = (...args) => {
   }
 };
 
-app.use(cors());
-app.use(bodyParser.json());
+// Restrict CORS to Vite dev server origin only (prevents cross-origin attacks from malicious sites)
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST'],
+}));
+
+// Limit request body size to prevent large payload attacks
+app.use(express.json({ limit: '1mb' }));
 
 const CONTENT_DIR = path.join(__dirname, 'src', 'content');
 
@@ -67,19 +72,18 @@ app.post('/api/save', async (req, res) => {
   }
 
   try {
-    // Validate path to prevent directory traversal attacks
-    const normalizedId = path.normalize(id).replace(/^(\.\.[/\\])+/, '');
-    if (normalizedId.includes('..') || !normalizedId.endsWith('.json')) {
+    // Validate file extension
+    if (!id.endsWith('.json')) {
       return res.status(400).json({ error: 'Invalid file path' });
     }
 
-    const filePath = path.join(CONTENT_DIR, normalizedId);
+    const filePath = path.join(CONTENT_DIR, id);
     
-    // Ensure path is within CONTENT_DIR (prevent path traversal)
+    // Canonical path comparison: the ONLY reliable defense against path traversal
     const resolvedPath = path.resolve(filePath);
     const resolvedContentDir = path.resolve(CONTENT_DIR);
-    if (!resolvedPath.startsWith(resolvedContentDir)) {
-      return res.status(400).json({ error: 'Path outside content directory' });
+    if (!resolvedPath.startsWith(resolvedContentDir + path.sep) && resolvedPath !== resolvedContentDir) {
+      return res.status(400).json({ error: 'Invalid file path' });
     }
     
     // Ensure dir exists
@@ -88,7 +92,7 @@ app.post('/api/save', async (req, res) => {
     // Write file
     await fs.writeFile(filePath, JSON.stringify(content, null, 2));
     
-    devLog(`Saved: ${normalizedId}`);
+    devLog(`Saved: ${id}`);
     res.json({ success: true });
   } catch (error) {
     console.error('Error saving file:', error);
@@ -96,6 +100,7 @@ app.post('/api/save', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+// Bind to localhost only — prevents exposure to the local network
+app.listen(PORT, '127.0.0.1', () => {
   devLog(`⚡ Custom Admin API running on http://localhost:${PORT}`);
 });

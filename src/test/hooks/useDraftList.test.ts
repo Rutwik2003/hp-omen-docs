@@ -14,6 +14,7 @@ vi.mock('../../services/draftDatabase', () => {
       stepCount: 2,
       wordCount: 100,
       category: 'quickstart',
+      source: 'community',
     },
     {
       id: 'draft-2',
@@ -24,12 +25,29 @@ vi.mock('../../services/draftDatabase', () => {
       stepCount: 3,
       wordCount: 200,
       category: 'windows',
+      source: 'community',
+    },
+    {
+      id: 'admin-draft-1',
+      title: 'Admin Draft',
+      content: { title: 'Admin' },
+      lastModified: Date.now() - 500,
+      createdAt: Date.now() - 500,
+      stepCount: 1,
+      wordCount: 50,
+      category: 'performance',
+      source: 'admin',
     },
   ];
 
   return {
     db: {
-      getAllDrafts: vi.fn().mockResolvedValue(mockDrafts),
+      getAllDrafts: vi.fn().mockImplementation((source?: string) => {
+        if (source) {
+          return Promise.resolve(mockDrafts.filter(d => d.source === source));
+        }
+        return Promise.resolve(mockDrafts);
+      }),
       drafts: {
         delete: vi.fn().mockResolvedValue(undefined),
         clear: vi.fn().mockResolvedValue(undefined),
@@ -62,7 +80,7 @@ describe('useDraftList', () => {
       expect(result.current.loading).toBe(false);
     });
 
-    expect(result.current.drafts).toHaveLength(2);
+    expect(result.current.drafts).toHaveLength(3);
     expect(result.current.hasDrafts).toBe(true);
   });
 
@@ -133,7 +151,29 @@ describe('useDraftList', () => {
       await result.current.loadDrafts();
     });
 
+    expect(result.current.drafts).toHaveLength(3);
+  });
+
+  it('should filter drafts by source when provided', async () => {
+    const { result } = renderHook(() => useDraftList('community'));
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
     expect(result.current.drafts).toHaveLength(2);
+    expect(result.current.drafts.every(d => d.source === 'community')).toBe(true);
+  });
+
+  it('should filter admin drafts when source is admin', async () => {
+    const { result } = renderHook(() => useDraftList('admin'));
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(result.current.drafts).toHaveLength(1);
+    expect(result.current.drafts[0].title).toBe('Admin Draft');
   });
 
   it('should have hasDrafts as false when no drafts', async () => {

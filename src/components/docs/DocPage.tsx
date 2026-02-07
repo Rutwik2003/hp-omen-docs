@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Breadcrumbs from './Breadcrumbs';
 
 interface DocPageProps {
@@ -148,31 +149,31 @@ const DocPage: React.FC<DocPageProps> = ({
           <div className="flex justify-between items-center">
             <div className="flex-1">
               {prevPage && (
-                <a
-                  href={prevPage.path}
-                  className="inline-flex items-center text-orange-400 hover:text-orange-300 transition-colors group"
+                <Link
+                  to={prevPage.path}
+                  className="inline-flex items-center text-orange-400 hover:text-orange-300 transition-colors group min-h-[44px] py-2"
                 >
                   <span className="mr-2">←</span>
                   <div>
                     <div className="text-sm text-gray-400">Previous</div>
                     <div className="font-medium group-hover:underline">{prevPage.title}</div>
                   </div>
-                </a>
+                </Link>
               )}
             </div>
             
             <div className="flex-1 text-right">
               {nextPage && (
-                <a
-                  href={nextPage.path}
-                  className="inline-flex items-center text-orange-400 hover:text-orange-300 transition-colors group"
+                <Link
+                  to={nextPage.path}
+                  className="inline-flex items-center text-orange-400 hover:text-orange-300 transition-colors group min-h-[44px] py-2"
                 >
                   <div>
                     <div className="text-sm text-gray-400">Next</div>
                     <div className="font-medium group-hover:underline">{nextPage.title}</div>
                   </div>
                   <span className="ml-2">→</span>
-                </a>
+                </Link>
               )}
             </div>
           </div>

@@ -16,7 +16,7 @@ const extensions = [
 ];
 
 const CalloutBlockEditor = ({ stepId, block }: { stepId: string; block: CalloutBlock }) => {
-  const { updateBlock } = useEditorStore();
+  const updateBlock = useEditorStore((s) => s.updateBlock);
   
   const editor = useEditor({
     extensions,
@@ -27,7 +27,7 @@ const CalloutBlockEditor = ({ stepId, block }: { stepId: string; block: CalloutB
         },
     },
     onUpdate: ({ editor }) => {
-       updateBlock(stepId, block.id, { content: editor.getHTML() } as any);
+       updateBlock(stepId, block.id, { content: editor.getHTML() });
     },
   });
 
@@ -79,7 +79,7 @@ const CalloutBlockEditor = ({ stepId, block }: { stepId: string; block: CalloutB
             <Icon className={`w-4 h-4 ${current.color}`} />
             <input 
                 value={block.title || ''}
-                onChange={(e) => updateBlock(stepId, block.id, { title: e.target.value } as any)}
+                onChange={(e) => updateBlock(stepId, block.id, { title: e.target.value })}
                 className="bg-transparent text-sm font-bold text-white focus:outline-none w-full placeholder-white/20"
                 placeholder="Callout Title (Optional)"
             />
@@ -100,7 +100,7 @@ const CalloutBlockEditor = ({ stepId, block }: { stepId: string; block: CalloutB
                             <button
                                 key={opt}
                                 onClick={() => {
-                                    updateBlock(stepId, block.id, { variant: opt } as any);
+                                    updateBlock(stepId, block.id, { variant: opt as CalloutBlock['variant'] });
                                     setIsOpen(false);
                                 }}
                                 className={`w-full text-left px-3 py-2 text-xs uppercase font-medium tracking-wide hover:bg-white/5 transition-colors flex items-center justify-between ${

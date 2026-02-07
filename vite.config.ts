@@ -38,11 +38,6 @@ export default defineConfig({
           if (id.includes('node_modules/lucide-react')) {
             return 'icons';
           }
-          // Syntax highlighting
-          if (id.includes('node_modules/react-syntax-highlighter') ||
-            id.includes('node_modules/highlight.js')) {
-            return 'syntax-highlighter';
-          }
           // Helmet for SEO
           if (id.includes('react-helmet')) {
             return 'helmet';

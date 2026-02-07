@@ -160,7 +160,7 @@ export const DEFAULT_SIDEBAR_CONFIG: SidebarConfig = {
     discord: {
       visible: true,
       url: 'https://discord.gg/xGnTHm7GJK',
-      label: 'Discord',
+      label: 'Join Discord ',
     },
     branding: {
       title: 'OMEN Gaming',

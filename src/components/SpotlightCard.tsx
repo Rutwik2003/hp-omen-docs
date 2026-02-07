@@ -15,12 +15,14 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
-  const xTo = useRef<any>();
-  const yTo = useRef<any>();
+  const xTo = useRef<gsap.QuickToFunc | null>(null);
+  const yTo = useRef<gsap.QuickToFunc | null>(null);
+  const ctxRef = useRef<gsap.Context | null>(null);
 
   useGSAP(() => {
     xTo.current = gsap.quickTo(spotlightRef.current, "x", { duration: 0.1, ease: "power3" });
     yTo.current = gsap.quickTo(spotlightRef.current, "y", { duration: 0.1, ease: "power3" });
+    ctxRef.current = gsap.context(() => {}, divRef.current!);
   }, { scope: divRef });
 
   const handleMouseMove = ({ clientX, clientY }: React.MouseEvent<HTMLDivElement>) => {
@@ -32,11 +34,15 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
   };
 
   const handleMouseEnter = () => {
-    gsap.to(spotlightRef.current, { opacity: 1, duration: 0.3 });
+    ctxRef.current?.add(() => {
+      gsap.to(spotlightRef.current, { opacity: 1, duration: 0.3 });
+    });
   };
 
   const handleMouseLeave = () => {
-    gsap.to(spotlightRef.current, { opacity: 0, duration: 0.3 });
+    ctxRef.current?.add(() => {
+      gsap.to(spotlightRef.current, { opacity: 0, duration: 0.3 });
+    });
   };
 
   return (

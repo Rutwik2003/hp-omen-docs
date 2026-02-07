@@ -1,6 +1,7 @@
 import CustomSelect from '../../../components/ui/CustomSelect';
 import { useEditorStore } from '../../../store/editorStore';
 import { Difficulty } from '../../../types/docs';
+import { useShallow } from 'zustand/react/shallow';
 
 interface MetadataUpdate {
   difficulty?: Difficulty;
@@ -10,7 +11,7 @@ interface MetadataUpdate {
 }
 
 const GuideForm = () => {
-  const { guide, setGuide } = useEditorStore();
+  const { guide, setGuide } = useEditorStore(useShallow((s) => ({ guide: s.guide, setGuide: s.setGuide })));
   
   const updateGuide = (fields: Partial<typeof guide>) => {
       setGuide({ ...guide, ...fields });

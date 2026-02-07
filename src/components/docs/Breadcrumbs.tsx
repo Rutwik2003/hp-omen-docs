@@ -13,10 +13,13 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
   return (
-    <nav className="flex items-center space-x-2 text-sm mb-6" aria-label="Breadcrumb">
+    <nav 
+      className="flex items-center space-x-1 sm:space-x-2 text-sm mb-6 overflow-x-auto scrollbar-hide min-w-0 -mx-1 px-1" 
+      aria-label="Breadcrumb"
+    >
       <Link 
         to="/" 
-        className="flex items-center text-gray-400 hover:text-orange-400 transition-colors"
+        className="flex items-center justify-center min-w-[44px] min-h-[44px] p-2 text-gray-400 hover:text-orange-400 transition-colors rounded-lg flex-shrink-0"
         aria-label="Home"
       >
         <Home className="h-4 w-4" />
@@ -24,16 +27,16 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
       
       {items.map((item, index) => (
         <React.Fragment key={index}>
-          <ChevronRight className="h-4 w-4 text-gray-500" />
+          <ChevronRight className="h-4 w-4 text-gray-500 flex-shrink-0" aria-hidden="true" />
           {item.path && index < items.length - 1 ? (
             <Link
               to={item.path}
-              className="text-gray-400 hover:text-orange-400 transition-colors"
+              className="text-gray-400 hover:text-orange-400 transition-colors whitespace-nowrap py-2 px-1 min-h-[44px] flex items-center"
             >
               {item.label}
             </Link>
           ) : (
-            <span className="text-white font-medium">{item.label}</span>
+            <span className="text-white font-medium whitespace-nowrap py-2 px-1 truncate">{item.label}</span>
           )}
         </React.Fragment>
       ))}

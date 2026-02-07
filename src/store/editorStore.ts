@@ -3,7 +3,7 @@ import { temporal } from 'zundo';
 import { produce } from 'immer';
 import { v4 as uuidv4 } from 'uuid';
 import { DocPage, GuideStep } from '../types/docs';
-import { Block, BlockType, CalloutBlock, CodeBlock, ColumnBlock, GridBlock, HeadingBlock, ImageBlock, TableBlock, TextBlock, VideoBlock } from '../types/blocks';
+import { Block, BlockType, BlockUpdate, CalloutBlock, CodeBlock, ColumnBlock, GridBlock, HeadingBlock, ImageBlock, TableBlock, TextBlock, VideoBlock } from '../types/blocks';
 
 /**
  * Factory function to create a new block with proper default values.
@@ -77,7 +77,7 @@ interface EditorState {
     /** Add a new block to a step, optionally at a specific index or inside a parent container */
     addBlock: (stepId: string, type: BlockType, index?: number, parentId?: string) => void;
     /** Update a block's properties */
-    updateBlock: (stepId: string, blockId: string, data: Partial<Block>) => void;
+    updateBlock: (stepId: string, blockId: string, data: BlockUpdate) => void;
     /** Remove a block from a step */
     removeBlock: (stepId: string, blockId: string) => void;
     /** Move a block within the same step (for drag-and-drop) */
@@ -141,7 +141,7 @@ const removeBlockRecursive = (blocks: Block[], blockId: string): boolean => {
  * @param data - Partial block data to merge with existing properties
  * @returns true if block was found and updated, false otherwise
  */
-const updateBlockRecursive = (blocks: Block[], blockId: string, data: Partial<Block>): boolean => {
+const updateBlockRecursive = (blocks: Block[], blockId: string, data: BlockUpdate): boolean => {
     const index = blocks.findIndex(b => b.id === blockId);
     if (index !== -1) {
         // Merge existing block with new data, preserving the type

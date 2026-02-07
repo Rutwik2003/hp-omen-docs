@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import ScrollToTop from '../ScrollToTop';
 import { getPageIllustration } from './PageIllustrations';
+import DocsNavigation from './DocsNavigation';
 
 interface GuideLayoutProps {
   title: string;
@@ -133,6 +134,9 @@ const GuideLayout: React.FC<GuideLayoutProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-4xl mx-auto space-y-12">
            {children}
+           
+           {/* Previous / Next Navigation */}
+           <DocsNavigation />
         </div>
       </div>
     </div>

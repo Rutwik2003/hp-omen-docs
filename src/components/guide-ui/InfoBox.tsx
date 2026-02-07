@@ -58,7 +58,7 @@ const InfoBox: React.FC<InfoBoxProps> = ({ type, title, children }) => {
 
   return (
     <motion.div 
-      className={`relative overflow-hidden bg-gradient-to-br ${currentStyle.bg} ${currentStyle.border} border rounded-xl p-5 md:p-6 my-4 shadow-lg ${currentStyle.glow} backdrop-blur-sm`}
+      className={`relative overflow-hidden bg-gradient-to-br ${currentStyle.bg} ${currentStyle.border} border rounded-xl p-4 sm:p-5 md:p-6 my-4 shadow-lg ${currentStyle.glow} backdrop-blur-sm`}
       initial={{ opacity: 0, x: -8 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
@@ -70,14 +70,14 @@ const InfoBox: React.FC<InfoBoxProps> = ({ type, title, children }) => {
       {/* Decorative corner glow */}
       <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-bl ${currentStyle.iconBg} rounded-full blur-2xl opacity-40 pointer-events-none`} />
       
-      <div className="flex items-start gap-4 relative z-10">
+      <div className="flex items-start gap-3 sm:gap-4 relative z-10">
         {/* Icon with gradient background */}
-        <div className={`flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br ${currentStyle.iconBg} flex items-center justify-center border ${currentStyle.border}`}>
-           <Icon className={`w-5 h-5 ${currentStyle.text}`} />
+        <div className={`flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br ${currentStyle.iconBg} flex items-center justify-center border ${currentStyle.border}`}>
+           <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${currentStyle.text}`} />
         </div>
         <div className="flex-1 min-w-0">
           {title && (
-            <h4 className={`text-base font-bold ${currentStyle.text} mb-2`}>
+            <h4 className={`text-sm sm:text-base font-bold ${currentStyle.text} mb-2`}>
               {title}
             </h4>
           )}

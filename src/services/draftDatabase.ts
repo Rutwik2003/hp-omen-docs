@@ -5,8 +5,11 @@ import { GuideDraftData } from '../types/docs';
  * Represents a saved draft guide in IndexedDB.
  * Contains both metadata (for listing) and full content (for restoration).
  */
+/** Where the draft originated — admin panel or community /contribute page */
+export type DraftSource = 'admin' | 'community';
+
 export interface DraftGuide {
-    /** Unique identifier - either the guide ID being edited or 'new_guide_draft' */
+    /** Unique identifier - either the guide ID being edited or a well-known draft constant */
     id: string;
     /** Guide title for display in draft list */
     title: string;
@@ -22,6 +25,8 @@ export interface DraftGuide {
     wordCount?: number;
     /** Category for filtering (e.g., 'Performance', 'Troubleshooting') */
     category?: string;
+    /** Origin of the draft — keeps admin and community drafts separated */
+    source?: DraftSource;
 }
 
 /**
@@ -44,15 +49,27 @@ export class HpOmenDocsDB extends Dexie {
         this.version(2).stores({
             drafts: 'id, lastModified, createdAt'
         });
+        // v3: Add source index for filtering admin vs community drafts
+        this.version(3).stores({
+            drafts: 'id, lastModified, createdAt, source'
+        });
     }
 
     /**
      * Retrieves all drafts sorted by last modified date (newest first).
-     * Used for displaying the draft list in the Contribute page.
+     * Optionally filtered by source (admin or community).
      * 
-     * @returns Array of all drafts, sorted by lastModified descending
+     * @param source - If provided, only returns drafts from this source
+     * @returns Array of drafts, sorted by lastModified descending
      */
-    async getAllDrafts(): Promise<DraftGuide[]> {
+    async getAllDrafts(source?: DraftSource): Promise<DraftGuide[]> {
+        if (source) {
+            return await this.drafts
+                .where('source')
+                .equals(source)
+                .reverse()
+                .sortBy('lastModified');
+        }
         return await this.drafts.orderBy('lastModified').reverse().toArray();
     }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GuideLayout, InfoBox, StepSection } from '../components/guide-ui';
 import { AlertTriangle, ChevronRight, Clock, Edit, FileText, Github, GitPullRequest, Loader2, Trash2, X } from 'lucide-react';
@@ -34,6 +34,53 @@ const DeleteConfirmModal = ({
   draftTitle: string;
   isDeleting: boolean;
 }) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  // Focus trap + Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Store previously focused element to restore later
+    previousFocusRef.current = document.activeElement as HTMLElement;
+
+    // Focus the dialog container
+    const timer = setTimeout(() => {
+      dialogRef.current?.focus();
+    }, 50);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !isDeleting) {
+        onClose();
+        return;
+      }
+      // Trap focus inside the dialog
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('keydown', handleKeyDown);
+      // Restore focus to the previously focused element
+      previousFocusRef.current?.focus();
+    };
+  }, [isOpen, isDeleting, onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -47,31 +94,38 @@ const DeleteConfirmModal = ({
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100]"
             onClick={onClose}
+            aria-hidden="true"
           />
           
           {/* Modal Container - Full screen flex centering */}
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
             <motion.div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="delete-modal-title"
+              tabIndex={-1}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', duration: 0.3 }}
-              className="w-full max-w-md pointer-events-auto"
+              className="w-full max-w-md pointer-events-auto outline-none"
             >
               <div className="bg-neutral-900 border border-neutral-800 rounded-xl shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-neutral-800">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 bg-red-500/10 rounded-lg flex items-center justify-center">
-                      <AlertTriangle className="h-5 w-5 text-red-400" />
+                      <AlertTriangle className="h-5 w-5 text-red-400" aria-hidden="true" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">Delete Draft</h3>
+                    <h3 id="delete-modal-title" className="text-lg font-bold text-white">Delete Draft</h3>
                   </div>
                   <button 
                     onClick={onClose}
                   className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Close dialog"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
               
@@ -125,7 +179,7 @@ const DeleteConfirmModal = ({
 };
 
 const Contribute: React.FC = () => {
-  const { drafts, loading, deleteDraft, hasDrafts } = useDraftList();
+  const { drafts, loading, deleteDraft, hasDrafts } = useDraftList('community');
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; id: string; title: string }>({
     isOpen: false,
@@ -217,9 +271,11 @@ const Contribute: React.FC = () => {
             <a 
               href="https://github.com/rutwi123/hp-omen-reborn" 
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center w-full px-4 py-2.5 sm:py-2 bg-neutral-800 text-white border border-neutral-700 rounded-lg font-medium hover:bg-neutral-700 transition-all text-sm sm:text-base"
             >
-              View Repository <GitPullRequest className="ml-2 h-4 w-4" />
+              View Repository <GitPullRequest className="ml-2 h-4 w-4" aria-hidden="true" />
+              <span className="sr-only"> (opens in new tab)</span>
             </a>
           </div>
         </section>
@@ -291,7 +347,7 @@ const Contribute: React.FC = () => {
                       <button
                         onClick={(e) => openDeleteModal(draft.id, draft.title, e)}
                         className="p-1.5 sm:p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
-                        title="Delete draft"
+                        aria-label={`Delete draft: ${draft.title || 'Untitled Draft'}`}
                       >
                         {deletingId === draft.id ? (
                           <Loader2 className="h-4 w-4 animate-spin" />

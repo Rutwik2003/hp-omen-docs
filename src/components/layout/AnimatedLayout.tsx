@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { AnimatePresence, motion, useIsPresent } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
 interface AnimatedLayoutProps {
@@ -30,11 +30,19 @@ const pageVariants = {
   },
 };
 
-// This component "freezes" its children on mount
-// so the content doesn't change during exit animation
+// Freeze children only during exit animation so the exiting page
+// doesn't flash new content. During enter/visible phase, allow
+// normal React updates (Suspense resolution, data loading, etc.)
 const FrozenRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [frozenChildren] = useState(children);
-  return <>{frozenChildren}</>;
+  const isPresent = useIsPresent();
+  const frozenRef = useRef(children);
+
+  // While the component is present (entering or visible), keep updating
+  if (isPresent) {
+    frozenRef.current = children;
+  }
+  // When exiting (isPresent = false), render the last snapshot
+  return <>{frozenRef.current}</>;
 };
 
 const AnimatedLayout: React.FC<AnimatedLayoutProps> = ({ children }) => {

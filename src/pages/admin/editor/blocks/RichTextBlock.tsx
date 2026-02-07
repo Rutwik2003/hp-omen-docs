@@ -11,7 +11,7 @@ import { useState } from 'react';
 type TextLikeBlock = TextBlock | HeadingBlock;
 
 const RichTextBlock = ({ stepId, block }: { stepId: string; block: Block }) => {
-  const { updateBlock } = useEditorStore();
+  const updateBlock = useEditorStore((s) => s.updateBlock);
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number } | null>(null);
   
   // Type guard to check if block has content property

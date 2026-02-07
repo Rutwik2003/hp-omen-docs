@@ -153,7 +153,55 @@ describe('editorStore', () => {
       });
 
       const block = result.current.guide.steps![0].blocks?.[0];
-      expect((block as any).content).toBe('new content');
+      expect(block?.type).toBe('text');
+      if (block?.type === 'text') {
+        expect(block.content).toBe('new content');
+      }
+    });
+
+    it('should update image block properties without requiring type discriminator', () => {
+      const { result } = renderHook(() => useEditorStore());
+      
+      act(() => {
+        result.current.setGuide({ 
+          title: 'Test', 
+          steps: [{ 
+            id: 'step-1', 
+            title: 'Step 1',
+            content: '',
+            blocks: [{ id: 'block-1', type: 'image', url: '', alt: '' }] 
+          }] 
+        });
+        result.current.updateBlock('step-1', 'block-1', { url: 'https://img.png', caption: 'My caption' });
+      });
+
+      const block = result.current.guide.steps![0].blocks?.[0];
+      expect(block?.type).toBe('image');
+      if (block?.type === 'image') {
+        expect(block.url).toBe('https://img.png');
+        expect(block.caption).toBe('My caption');
+      }
+    });
+
+    it('should preserve block type when updating', () => {
+      const { result } = renderHook(() => useEditorStore());
+      
+      act(() => {
+        result.current.setGuide({ 
+          title: 'Test', 
+          steps: [{ 
+            id: 'step-1', 
+            title: 'Step 1',
+            content: '',
+            blocks: [{ id: 'block-1', type: 'code', language: 'js', code: 'old' }] 
+          }] 
+        });
+        result.current.updateBlock('step-1', 'block-1', { code: 'new code' });
+      });
+
+      const block = result.current.guide.steps![0].blocks?.[0];
+      expect(block?.type).toBe('code');
+      expect(block?.id).toBe('block-1');
     });
   });
 

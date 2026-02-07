@@ -156,7 +156,7 @@ describe('useGuideDraft', () => {
   it('should clear draft successfully', async () => {
     const { db } = await import('../../services/draftDatabase');
     
-    // For new guide (isNew=true), storageId becomes 'new_guide_draft'
+    // storageId is now the passed guideId directly (no internal override)
     const { result } = renderHook(
       () => useGuideDraft('test-id', { title: 'Test' }, true),
       { wrapper }
@@ -166,7 +166,7 @@ describe('useGuideDraft', () => {
       await result.current.clearDraft();
     });
 
-    expect(db.drafts.delete).toHaveBeenCalledWith('new_guide_draft');
+    expect(db.drafts.delete).toHaveBeenCalledWith('test-id');
     expect(result.current.hasDraft).toBe(false);
   });
 });

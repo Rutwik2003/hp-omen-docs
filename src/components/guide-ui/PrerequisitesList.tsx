@@ -3,10 +3,15 @@ import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 
 interface PrerequisitesListProps {
-  items: string[];
+  items?: string[];
 }
 
 const PrerequisitesList: React.FC<PrerequisitesListProps> = ({ items }) => {
+  // Guard against undefined or empty items
+  if (!items || items.length === 0) {
+    return null;
+  }
+
   return (
     <ul className="space-y-3">
       {items.map((item, index) => (

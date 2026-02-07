@@ -15,7 +15,8 @@ interface StepEditorProps {
 }
 
 const StepEditor: React.FC<StepEditorProps> = ({ step, index }) => {
-  const { updateStepTitle, removeStep } = useEditorStore();
+  const updateStepTitle = useEditorStore((s) => s.updateStepTitle);
+  const removeStep = useEditorStore((s) => s.removeStep);
 
   return (
     <Draggable draggableId={step.id} index={index}>
@@ -51,8 +52,9 @@ const StepEditor: React.FC<StepEditorProps> = ({ step, index }) => {
              <button 
                 onClick={() => removeStep(step.id)} 
                 className="p-1.5 sm:p-2 text-neutral-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-all flex-shrink-0"
+                aria-label={`Delete step ${index + 1}: ${step.title || 'Untitled'}`}
              >
-                <Trash className="w-4 h-4" />
+                <Trash className="w-4 h-4" aria-hidden="true" />
              </button>
           </div>
 

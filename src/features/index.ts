@@ -1,24 +1,12 @@
 /**
  * Features Module Index
- * 
- * Central export point for all feature modules.
- * Each feature is a self-contained module with its own:
- * - Components
- * - Hooks
- * - Types
- * - Store (if needed)
- * 
- * Usage:
- * ```tsx
- * // Import from specific feature
- * import { useEditorStore } from '@/features/editor';
- * import { BaseLayout } from '@/features/layouts';
- * import { validateGuide } from '@/features/validation';
- * ```
+ *
+ * Central export point for feature modules.
+ * Each feature is a self-contained module with its own components, types, etc.
+ *
+ * Note: Editor functionality lives in src/store/editorStore.ts,
+ * src/pages/admin/editor/, and src/hooks/ — not in features/.
  */
-
-// Editor feature - guide editing functionality
-export * from './editor';
 
 // Layouts feature - composable layout components
 export * from './layouts';

@@ -47,7 +47,8 @@ const StepSection: React.FC<StepSectionProps> = ({ number, title, children }) =>
   return (
     <motion.section 
       ref={containerRef}
-      className="relative bg-gradient-to-br from-gray-900/60 to-gray-900/30 border border-gray-700/50 rounded-2xl p-6 md:p-8 backdrop-blur-sm hover:border-orange-500/30 transition-all duration-300 overflow-hidden group"
+      aria-label={`Step ${number}: ${title}`}
+      className="relative bg-gradient-to-br from-gray-900/60 to-gray-900/30 border border-gray-700/50 rounded-2xl p-4 sm:p-6 md:p-8 backdrop-blur-sm hover:border-orange-500/30 transition-all duration-300 overflow-hidden group"
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -88,21 +89,28 @@ const StepSection: React.FC<StepSectionProps> = ({ number, title, children }) =>
         </div>
       )}
       
-      <div className="flex items-start gap-4 mb-6 relative z-10">
+      <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6 relative z-10">
+        {/* Custom OMEN-themed step badge - matches container style */}
         <motion.div 
-          className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-orange-500/25 border border-orange-400/20"
+          className="relative flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12"
           initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3, delay: 0.1 }}
         >
-          {number}
+          {/* Main badge - dark with orange tint */}
+          <div className="relative w-full h-full bg-gradient-to-br from-orange-950/90 to-gray-900/90 rounded-xl border border-orange-500/30 backdrop-blur-sm">
+            {/* Number */}
+            <span className="absolute inset-0 flex items-center justify-center text-orange-400 font-bold text-base sm:text-lg tabular-nums">
+              {number}
+            </span>
+          </div>
         </motion.div>
-        <div className="flex-1 pt-2">
-          <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">{title}</h2>
+        <div className="flex-1 pt-1 sm:pt-2">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight">{title}</h2>
         </div>
       </div>
-      <div className="pl-0 md:pl-16 text-gray-300 space-y-4 relative z-10">
+      <div className="pl-0 sm:pl-14 md:pl-16 text-gray-300 space-y-4 relative z-10">
         {children}
       </div>
     </motion.section>

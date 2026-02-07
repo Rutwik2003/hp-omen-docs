@@ -1,82 +1,16 @@
-import React from 'react';
-import DOMPurify from 'dompurify';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Block, CalloutBlock, CodeBlock as CodeBlockType, ColumnBlock, GridBlock, ImageBlock, TableBlock } from '../../types/blocks';
 import { InfoBox } from './index';
-import { Check, Copy, Terminal } from 'lucide-react';
+import { sanitizeHtml } from '../../utils/markdown';
+import EnhancedCodeBlock from '../common/EnhancedCodeBlock';
 
 interface PublicBlockRendererProps {
   block: Block;
 }
 
-// Enhanced markdown to HTML converter with visual improvements
-const parseMarkdown = (text: string): string => {
-  if (!text) return '';
-  return text
-    // Bold: **text** or __text__ - with gradient styling
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
-    .replace(/__(.+?)__/g, '<strong class="text-white font-semibold">$1</strong>')
-    // Italic: *text* or _text_
-    .replace(/\*([^*]+)\*/g, '<em class="text-gray-200">$1</em>')
-    .replace(/_([^_]+)_/g, '<em class="text-gray-200">$1</em>')
-    // Inline code: `code` - enhanced pill style
-    .replace(/`([^`]+)`/g, '<code class="bg-gradient-to-r from-orange-500/20 to-red-500/20 px-2 py-0.5 rounded-md text-orange-300 text-sm font-mono border border-orange-500/30">$1</code>')
-    // Links: [text](url) - with icon hint
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-orange-400 hover:text-orange-300 underline decoration-orange-500/50 underline-offset-2 transition-colors">$1</a>')
-    // Checkmark items: ✓ text - highlight
-    .replace(/✓\s*([^<\n]+)/g, '<span class="inline-flex items-center gap-1"><span class="text-green-400">✓</span><span class="text-green-300">$1</span></span>');
-};
-
-const sanitize = (content: string) => ({
-  __html: DOMPurify.sanitize(parseMarkdown(content), { 
-      ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'br', 'p', 'ul', 'li', 'ol', 'code', 'pre', 'h1', 'h2', 'h3', 'h4', 'span'],
-      ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'style']
-  })
-});
-
-// Code block with syntax highlighting appearance
-const EnhancedCodeBlock: React.FC<{ code: string; language?: string }> = ({ code, language }) => {
-  const [copied, setCopied] = React.useState(false);
-  
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <motion.div 
-      className="relative group mb-4 rounded-xl overflow-hidden"
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      {/* Header bar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-orange-400" />
-          <span className="text-xs text-gray-400 font-medium">{language || 'Command'}</span>
-        </div>
-        <button 
-          onClick={handleCopy}
-          className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-all"
-        >
-          {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
-          {copied ? 'Copied!' : 'Copy'}
-        </button>
-      </div>
-      {/* Code content */}
-      <div className="bg-black/80 backdrop-blur-sm p-4 border border-gray-800 border-t-0 rounded-b-xl">
-        <code className="text-green-400 block whitespace-pre overflow-x-auto font-mono text-sm leading-relaxed">
-          {code}
-        </code>
-      </div>
-    </motion.div>
-  );
-};
-
-// Enhanced grid card component
-const GridCard: React.FC<{ children: React.ReactNode; index: number }> = ({ children, index }) => (
+// Memoized grid card component
+const GridCard = memo<{ children: React.ReactNode; index: number }>(({ children, index }) => (
   <motion.div 
     className="flex flex-col gap-2 min-w-0 p-4 rounded-xl bg-gradient-to-br from-gray-900/80 to-gray-900/40 border border-gray-700/50 hover:border-orange-500/30 transition-all duration-300 backdrop-blur-sm"
     initial={{ opacity: 0, y: 12 }}
@@ -86,16 +20,18 @@ const GridCard: React.FC<{ children: React.ReactNode; index: number }> = ({ chil
   >
     {children}
   </motion.div>
-);
+));
 
-const PublicBlockRenderer: React.FC<PublicBlockRendererProps> = ({ block }) => {
+GridCard.displayName = 'GridCard';
+
+const PublicBlockRenderer = memo<PublicBlockRendererProps>(({ block }) => {
   switch (block.type) {
     case 'text':
     case 'heading':
       return (
         <motion.div 
           className="prose prose-invert max-w-none text-gray-300 mb-2 break-words leading-relaxed"
-          dangerouslySetInnerHTML={sanitize('content' in block ? (block.content || '') : '')} 
+          dangerouslySetInnerHTML={sanitizeHtml('content' in block ? (block.content || '') : '')} 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -116,7 +52,7 @@ const PublicBlockRenderer: React.FC<PublicBlockRendererProps> = ({ block }) => {
            viewport={{ once: true }}
          >
            <InfoBox type={callout.variant || 'info'} title={callout.title}>
-              <div dangerouslySetInnerHTML={sanitize(callout.content || '')} />
+              <div dangerouslySetInnerHTML={sanitizeHtml(callout.content || '')} />
            </InfoBox>
          </motion.div>
        );
@@ -201,6 +137,8 @@ const PublicBlockRenderer: React.FC<PublicBlockRendererProps> = ({ block }) => {
     default:
         return null;
   }
-};
+});
+
+PublicBlockRenderer.displayName = 'PublicBlockRenderer';
 
 export default PublicBlockRenderer;

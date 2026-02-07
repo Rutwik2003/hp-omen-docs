@@ -1,10 +1,11 @@
-import { getAllDocs } from './contentLoader';
+import { DocWithContent, getAllDocs } from './contentLoader';
 import { logError, parseError } from './errorHandling';
 
 const IS_DEV = import.meta.env.DEV;
 
 /**
  * Verifies admin password against dev environment variable or production API.
+ * On success, stores a signed session token for subsequent requests.
  * @param password - The password to verify
  * @returns true if authenticated, false otherwise
  */
@@ -26,7 +27,15 @@ export const checkAuth = async (password: string): Promise<boolean> => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password })
         });
-        return res.ok;
+        if (res.ok) {
+            const data = await res.json();
+            // Store the signed session token for future save requests
+            if (data.token) {
+                sessionStorage.setItem('admin_token', data.token);
+            }
+            return true;
+        }
+        return false;
     } catch (error) {
         const appError = parseError(error, 'verifying your password');
         logError(appError, 'checkAuth');
@@ -39,11 +48,11 @@ export const checkAuth = async (password: string): Promise<boolean> => {
  * In dev: fetches from local server.js on port 3001
  * In prod: uses build-time content (for listing only)
  */
-export const fetchAdminContent = async () => {
+export const fetchAdminContent = async (): Promise<DocWithContent[]> => {
     if (IS_DEV) {
         // Local: Fetch from our custom server.js
         const res = await fetch('http://localhost:3001/api/content');
-        return res.json();
+        return res.json() as Promise<DocWithContent[]>;
     } else {
         // Prod: Re-use build time content
         // Note: For a true dynamic admin, you might want to fetch fresh JSONs from GitHub here too via a proxy.
@@ -73,13 +82,16 @@ export const saveContent = async (id: string, content: Record<string, unknown>, 
         return res.json();
     } else {
         // Prod: Save via Vercel Serverless Proxy
+        // Prefer sending the signed session token (from /api/verify) over the raw password
+        const token = sessionStorage.getItem('admin_token');
         const res = await fetch('/api/save', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 id,
                 content,
-                password // Send custom password to authorize the proxy
+                token,
+                password // Fallback if token is not available
             }),
         });
 

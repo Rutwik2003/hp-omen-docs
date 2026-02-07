@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 import { Block, BlockType } from '../../../../types/blocks';
 import BlockRenderer from './BlockRenderer';
 import { useEditorStore } from '../../../../store/editorStore';
+import { useShallow } from 'zustand/react/shallow';
 
 interface BlockListProps {
   stepId: string;
@@ -12,7 +13,7 @@ interface BlockListProps {
 }
 
 const BlockList: React.FC<BlockListProps> = ({ stepId, parentId, initialBlocks }) => {
-  const { guide, addBlock, moveBlock } = useEditorStore();
+  const { guide, addBlock, moveBlock } = useEditorStore(useShallow((s) => ({ guide: s.guide, addBlock: s.addBlock, moveBlock: s.moveBlock })));
   
   // If parentId is not provided, we look at the step's root blocks
   const step = guide.steps?.find(s => s.id === stepId);

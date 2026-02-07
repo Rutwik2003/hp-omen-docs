@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { db } from '../services/draftDatabase';
+import type { DraftSource } from '../services/draftDatabase';
 import { useToast } from '../context/ToastContext';
 import { logError, parseError } from '../utils/errorHandling';
 import type { GuideDraftData, GuideStep } from '../types/docs';
@@ -46,7 +47,7 @@ const countWords = (data: GuideDraftData): number => {
  * @param storageId - Unique identifier for the draft (guide ID or 'new_guide_draft')
  * @param data - The current guide draft data to save
  */
-const saveDataSync = async (storageId: string, data: GuideDraftData) => {
+const saveDataSync = async (storageId: string, data: GuideDraftData, source: DraftSource) => {
     if (!data || !data.title) return;
     
     try {
@@ -59,7 +60,8 @@ const saveDataSync = async (storageId: string, data: GuideDraftData) => {
             createdAt: existingDraft?.createdAt || Date.now(),
             stepCount: data.steps?.length || 0,
             wordCount: countWords(data),
-            category: data.category || 'Uncategorized'
+            category: data.category || 'Uncategorized',
+            source,
         });
     } catch (error) {
         if (import.meta.env.DEV) {
@@ -78,9 +80,10 @@ const saveDataSync = async (storageId: string, data: GuideDraftData) => {
  * - Manual save with user feedback
  * - Draft restoration from IndexedDB
  * 
- * @param guideId - The ID of the guide being edited (or any string for new guides)
+ * @param guideId - The storage ID for this draft (caller computes the correct key)
  * @param currentData - Current form data to auto-save
- * @param isNew - Whether this is a new guide (uses 'new_guide_draft' as storage key)
+ * @param isNew - Whether this is a new guide (unused — kept for API compat, caller provides correct guideId)
+ * @param source - Origin of the draft ('admin' or 'community')
  * 
  * @returns Object containing:
  *   - hasDraft: boolean - Whether a saved draft exists
@@ -99,7 +102,7 @@ const saveDataSync = async (storageId: string, data: GuideDraftData) => {
  *   setFormData(restored);
  * }
  */
-export const useGuideDraft = (guideId: string, currentData: GuideDraftData | null, isNew: boolean) => {
+export const useGuideDraft = (guideId: string, currentData: GuideDraftData | null, isNew: boolean, source: DraftSource = 'community') => {
     const { addToast } = useToast();
     const [hasDraft, setHasDraft] = useState(false);
     const [draftData, setDraftData] = useState<GuideDraftData | null>(null);
@@ -112,9 +115,9 @@ export const useGuideDraft = (guideId: string, currentData: GuideDraftData | nul
     const currentDataRef = useRef<GuideDraftData | null>(currentData);
     const storageIdRef = useRef('');
 
-    // Unique ID for draft storage
-    // If creating new, use a constant key, otherwise use the edit ID
-    const storageId = isNew ? 'new_guide_draft' : guideId;
+    // Use the caller-provided guideId directly as the storage key.
+    // The caller (GuideEditor) already computes the correct key via DRAFT_IDS constants.
+    const storageId = guideId;
 
     // Keep refs updated
     useEffect(() => {
@@ -136,7 +139,7 @@ export const useGuideDraft = (guideId: string, currentData: GuideDraftData | nul
             setIsOnline(false);
             // Immediately save when going offline
             if (currentDataRef.current?.title) {
-                saveDataSync(storageIdRef.current, currentDataRef.current);
+                saveDataSync(storageIdRef.current, currentDataRef.current, source);
                 addToast('warning', 'You\'re Offline', 'Don\'t worry! Your draft is saved locally and will sync when you\'re back online.');
             }
         };
@@ -155,14 +158,14 @@ export const useGuideDraft = (guideId: string, currentData: GuideDraftData | nul
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'hidden' && currentDataRef.current?.title) {
                 // Save immediately when tab becomes hidden
-                saveDataSync(storageIdRef.current, currentDataRef.current);
+                saveDataSync(storageIdRef.current, currentDataRef.current, source);
             }
         };
 
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
             if (currentDataRef.current?.title) {
                 // Save immediately before unload
-                saveDataSync(storageIdRef.current, currentDataRef.current);
+                saveDataSync(storageIdRef.current, currentDataRef.current, source);
                 
                 // Some browsers need this to show a confirmation dialog
                 // We'll set it but modern browsers may not show custom messages
@@ -174,7 +177,7 @@ export const useGuideDraft = (guideId: string, currentData: GuideDraftData | nul
         // Also handle page hide (works better on mobile)
         const handlePageHide = () => {
             if (currentDataRef.current?.title) {
-                saveDataSync(storageIdRef.current, currentDataRef.current);
+                saveDataSync(storageIdRef.current, currentDataRef.current, source);
             }
         };
 
@@ -227,7 +230,8 @@ export const useGuideDraft = (guideId: string, currentData: GuideDraftData | nul
                     createdAt: existingDraft?.createdAt || Date.now(),
                     stepCount: currentData.steps?.length || 0,
                     wordCount: countWords(currentData),
-                    category: currentData.category || 'Uncategorized'
+                    category: currentData.category || 'Uncategorized',
+                    source,
                 });
                 setLastSaved(new Date());
                 setHasDraft(true);
@@ -262,7 +266,8 @@ export const useGuideDraft = (guideId: string, currentData: GuideDraftData | nul
                 createdAt: existingDraft?.createdAt || Date.now(),
                 stepCount: currentData.steps?.length || 0,
                 wordCount: countWords(currentData),
-                category: currentData.category || 'Uncategorized'
+                category: currentData.category || 'Uncategorized',
+                source,
             });
             setLastSaved(new Date());
             setHasDraft(true);
@@ -294,11 +299,11 @@ export const useGuideDraft = (guideId: string, currentData: GuideDraftData | nul
     // Force save function for immediate saves
     const forceSave = useCallback(async () => {
         if (currentData?.title) {
-            await saveDataSync(storageId, currentData);
+            await saveDataSync(storageId, currentData, source);
             setLastSaved(new Date());
             setHasDraft(true);
         }
-    }, [currentData, storageId]);
+    }, [currentData, storageId, source]);
 
     return {
         hasDraft,

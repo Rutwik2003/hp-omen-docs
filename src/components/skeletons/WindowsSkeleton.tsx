@@ -152,6 +152,7 @@ const WindowsSkeleton = () => {
     if (mode !== 'interactive') return;
 
     let animationFrameId: number;
+    let exitTimeoutId: number | undefined;
     const state = gameState.current;
     state.isPlaying = true;
     state.lastInteraction = Date.now();
@@ -189,7 +190,7 @@ const WindowsSkeleton = () => {
           preserveStateOnExit.current = true;
           setExitMessage(true);
           // Brief delay to show message, then switch
-          setTimeout(() => {
+          exitTimeoutId = window.setTimeout(() => {
             setMode('game');
             setExitMessage(false);
             setIdleWarning(false);
@@ -295,6 +296,7 @@ const WindowsSkeleton = () => {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      if (exitTimeoutId) clearTimeout(exitTimeoutId);
       state.isPlaying = false;
     };
   }, [mode]);
@@ -473,25 +475,25 @@ const WindowsSkeleton = () => {
              className="absolute inset-0 flex flex-col"
            >
               {/* Game Header */}
-              <div className="h-7 bg-neutral-900/80 border-b border-white/5 flex items-center justify-between px-3">
-                <div className="flex items-center gap-2">
-                  <div className={`w-1.5 h-1.5 rounded-full ${mode === 'interactive' ? 'bg-cyan-500' : 'bg-green-500'}`} />
-                  <span className="text-[9px] text-gray-500 uppercase tracking-wider">
+              <div className="h-8 sm:h-7 bg-neutral-900/80 border-b border-white/5 flex items-center justify-between px-2 sm:px-3">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <div className={`w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full ${mode === 'interactive' ? 'bg-cyan-500' : 'bg-green-500'}`} />
+                  <span className="text-[10px] sm:text-[9px] text-gray-500 uppercase tracking-wider">
                     {mode === 'interactive' ? `vs ${aiProfile.name}` : 'Auto Mode'}
                   </span>
                 </div>
                 
                 {/* Score */}
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex items-center gap-1 sm:gap-1.5">
                     <div className="w-2 h-2 bg-cyan-500 rounded-sm" />
-                    <span className={`text-xs font-bold transition-colors ${score.p1 >= score.p2 ? 'text-cyan-400' : 'text-gray-500'}`}>
+                    <span className={`text-sm sm:text-xs font-bold transition-colors ${score.p1 >= score.p2 ? 'text-cyan-400' : 'text-gray-500'}`}>
                       {score.p1}
                     </span>
                   </div>
-                  <span className="text-[8px] text-gray-600">VS</span>
-                  <div className="flex items-center gap-1.5">
-                    <span className={`text-xs font-bold transition-colors ${score.p2 > score.p1 ? 'text-orange-400' : 'text-gray-500'}`}>
+                  <span className="text-[9px] sm:text-[8px] text-gray-600">VS</span>
+                  <div className="flex items-center gap-1 sm:gap-1.5">
+                    <span className={`text-sm sm:text-xs font-bold transition-colors ${score.p2 > score.p1 ? 'text-orange-400' : 'text-gray-500'}`}>
                       {score.p2}
                     </span>
                     <div className="w-2 h-2 bg-orange-500 rounded-sm" />
@@ -499,9 +501,9 @@ const WindowsSkeleton = () => {
                 </div>
 
                 <div className="flex gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-500/40" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/40" />
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-500/40" />
+                  <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-red-500/40" />
+                  <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-yellow-500/40" />
+                  <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-green-500/40" />
                 </div>
               </div>
 
@@ -558,7 +560,7 @@ const WindowsSkeleton = () => {
               </div>
 
               {/* Footer */}
-              <div className="h-6 bg-neutral-900/80 border-t border-white/5 flex items-center justify-between px-3">
+              <div className="h-7 sm:h-6 bg-neutral-900/80 border-t border-white/5 flex items-center justify-between px-2 sm:px-3">
                 {mode === 'game' && (
                     <motion.button
                         initial={{ opacity: 0 }}
@@ -567,13 +569,13 @@ const WindowsSkeleton = () => {
                         whileTap={{ scale: 0.98 }}
                         onClick={startInteractive}
                         onTouchEnd={startInteractive}
-                        className="px-2 py-0.5 bg-cyan-500/10 hover:bg-cyan-500/20 active:bg-cyan-500/30 border border-cyan-500/30 rounded text-[8px] text-cyan-400 transition-colors uppercase tracking-wider cursor-pointer"
+                        className="px-2.5 sm:px-2 py-1 sm:py-0.5 bg-cyan-500/10 hover:bg-cyan-500/20 active:bg-cyan-500/30 border border-cyan-500/30 rounded text-[10px] sm:text-[8px] text-cyan-400 transition-colors uppercase tracking-wider cursor-pointer"
                     >
                         Play
                     </motion.button>
                 )}
                 {mode === 'interactive' && !exitMessage && (
-                  <span className="text-[8px] text-gray-400">
+                  <span className="text-[10px] sm:text-[8px] text-gray-400">
                     <span className="hidden sm:inline">Move mouse to control</span>
                     <span className="sm:hidden">Touch & drag</span>
                     <span className="text-yellow-400/60"> • 5s idle to exit</span>
@@ -581,14 +583,14 @@ const WindowsSkeleton = () => {
                 )}
                 {exitMessage && (
                   <motion.span 
-                    className="text-[8px] text-yellow-400"
+                    className="text-[10px] sm:text-[8px] text-yellow-400"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                   >
                     Returning to Auto Mode...
                   </motion.span>
                 )}
-                <span className="text-[8px] text-gray-600 ml-auto">60 FPS</span>
+                <span className="text-[10px] sm:text-[8px] text-gray-600 ml-auto">60 FPS</span>
               </div>
            </motion.div>
         )}

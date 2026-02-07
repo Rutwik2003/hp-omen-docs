@@ -66,42 +66,77 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
     ? decodeURIComponent(id) 
     : (isPublic ? DRAFT_IDS.PUBLIC_NEW : DRAFT_IDS.ADMIN_NEW);
 
-  // Draft System Hook - Adapted to use Store Data
-  const { hasDraft, restoreDraft, clearDraft, saveDraft, lastSaved, isSaving: isDraftSaving, isOnline } = useGuideDraft(draftStorageId, guide, isNew && !isPublic);
+  const draftSource = isPublic ? 'community' : 'admin';
 
-  // Load draft from IndexedDB for public edit mode
-  const loadDraftFromDB = async (draftId: string) => {
-    setLoading(true);
-    try {
-      const { db } = await import('../../services/draftDatabase');
-      const draft = await db.drafts.get(draftId);
-      devLog('Loading draft:', draftId, draft);
-      if (draft && draft.content) {
-        setGuide(draft.content);
-        // Only show success toast if this is not a silent reload
-        if (!guide.title) {
-          addToast('success', 'Draft Loaded', 'Your saved draft has been restored.');
-        }
-      } else {
-        // Draft not found - redirect with error message
-        addToast('error', 'Draft Not Found', 'This draft no longer exists. It may have been deleted.');
-        navigate('/contribute', { replace: true });
-      }
-    } catch (error) {
-      devError('Failed to load draft', error);
-      addToast('error', 'Load Failed', 'Could not load draft from browser storage.');
-      navigate('/contribute', { replace: true });
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Draft System Hook - Adapted to use Store Data
+  const { hasDraft, restoreDraft, clearDraft, saveDraft, lastSaved, isSaving: isDraftSaving, isOnline } = useGuideDraft(draftStorageId, guide, isNew && !isPublic, draftSource);
+
+  const generateId = () => Math.random().toString(36).substr(2, 9);
 
   // Initialize Store
   useEffect(() => {
+    let cancelled = false;
+
+    const loadDraftFromDB = async (draftId: string) => {
+      setLoading(true);
+      try {
+        const { db } = await import('../../services/draftDatabase');
+        if (cancelled) return;
+        const draft = await db.drafts.get(draftId);
+        if (cancelled) return;
+        devLog('Loading draft:', draftId, draft);
+        if (draft && draft.content) {
+          setGuide(draft.content);
+          if (!guide.title) {
+            addToast('success', 'Draft Loaded', 'Your saved draft has been restored.');
+          }
+        } else {
+          addToast('error', 'Draft Not Found', 'This draft no longer exists. It may have been deleted.');
+          navigate('/contribute', { replace: true });
+        }
+      } catch (error) {
+        if (cancelled) return;
+        devError('Failed to load draft', error);
+        addToast('error', 'Load Failed', 'Could not load draft from browser storage.');
+        navigate('/contribute', { replace: true });
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    const loadGuide = async (guideId: string) => {
+      setLoading(true);
+      try {
+        const allDocs = await fetchAdminContent() as DocWithContent[];
+        if (cancelled) return;
+        const doc = allDocs.find((d) => d.id === guideId);
+        if (doc) {
+          const hydratedSteps = (doc.steps || []).map((s) => ({
+              ...s,
+              id: s.id || generateId(),
+              blocks: migrateStepToBlocks(s)
+          }));
+          setGuide({ 
+            ...doc, 
+            steps: hydratedSteps,
+            metadata: {
+              ...doc.metadata,
+              difficulty: doc.metadata.difficulty as Difficulty
+            }
+          });
+        }
+      } catch (e) {
+        if (cancelled) return;
+        devError('Failed to load guide:', e);
+        addToast('error', 'Failed to load guide', 'Could not fetch guide content');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
     if (playground) {
         setGuide(PLAYGROUND_GUIDE);
     } else if (isPublic && id) {
-        // Public mode with ID = editing a draft from IndexedDB
         loadDraftFromDB(decodeURIComponent(id));
     } else if (isNew) {
         setGuide({
@@ -118,38 +153,9 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
     } else if (!isPublic && id) {
       loadGuide(decodeURIComponent(id));
     }
+
+    return () => { cancelled = true; };
   }, [id, isPublic, isNew, playground]);
-
-  const generateId = () => Math.random().toString(36).substr(2, 9);
-
-  const loadGuide = async (guideId: string) => {
-    setLoading(true);
-    try {
-      const allDocs = await fetchAdminContent() as DocWithContent[];
-      const doc = allDocs.find((d) => d.id === guideId);
-      if (doc) {
-        // Hydrate steps with blocks if missing (Migration)
-        const hydratedSteps = (doc.steps || []).map((s) => ({
-            ...s,
-            id: s.id || generateId(),
-            blocks: migrateStepToBlocks(s) // MIGRATE LEGACY DATA
-        }));
-        setGuide({ 
-          ...doc, 
-          steps: hydratedSteps,
-          metadata: {
-            ...doc.metadata,
-            difficulty: doc.metadata.difficulty as Difficulty
-          }
-        });
-      }
-    } catch (e) {
-      devError('Failed to load guide:', e);
-      addToast('error', 'Failed to load guide', 'Could not fetch guide content');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleRestoreDraft = () => {
     const draft = restoreDraft();
@@ -269,7 +275,7 @@ const GuideEditor: React.FC<GuideEditorProps> = ({ mode = 'admin', playground = 
              <GuideLayout 
                 title={guide.title || 'Untitled Guide'}
                 description={guide.description || 'No description provided.'}
-                metadata={guide.metadata as any}
+                metadata={guide.metadata}
                 breadcrumbs={[
                     { label: guide.category || 'Category', path: '#' },
                     { label: guide.title || 'Preview' }

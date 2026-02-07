@@ -74,7 +74,7 @@ const DraggableItem: React.FC<{
           {/* Drag handle */}
           <button
             onPointerDown={(e) => dragControls.start(e)}
-            className="cursor-grab active:cursor-grabbing p-1 text-gray-500 hover:text-gray-300 touch-none"
+            className="cursor-grab active:cursor-grabbing p-2 sm:p-1 text-gray-500 hover:text-gray-300 touch-none"
           >
             <GripVertical className="w-5 h-5" />
           </button>

@@ -31,8 +31,13 @@ function buildCSP(nonce: string, isDev: boolean): string {
     // Scripts: Allow self, the nonce for inline scripts
     // In dev mode, we need unsafe-eval for HMR and unsafe-inline as fallback
     isDev 
-      ? `script-src 'self' 'nonce-${nonce}' 'unsafe-eval' 'unsafe-inline'`
-      : `script-src 'self' 'nonce-${nonce}'`,
+      ? `script-src 'self' 'nonce-${nonce}' 'unsafe-eval' 'unsafe-inline' https://vercel.live https://*.vercel.live`
+      : `script-src 'self' 'nonce-${nonce}' https://vercel.live https://*.vercel.live`,
+    
+    // Script elements: Explicitly allow Vercel Live scripts
+    isDev
+      ? `script-src-elem 'self' 'nonce-${nonce}' 'unsafe-inline' https://vercel.live https://*.vercel.live`
+      : `script-src-elem 'self' 'nonce-${nonce}' https://vercel.live https://*.vercel.live`,
     
     // Styles: Allow self, inline styles (needed for Tailwind/HMR), and Google Fonts
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
@@ -43,8 +48,11 @@ function buildCSP(nonce: string, isDev: boolean): string {
     // Images: Allow self, data URIs (for inline SVGs), and HTTPS sources
     "img-src 'self' data: https:",
     
-    // Connect: Allow self, localhost for dev, and GitHub API
-    "connect-src 'self' ws://localhost:* http://localhost:* https://api.github.com",
+    // Connect: Allow self, localhost for dev, GitHub API, and Vercel Live
+    "connect-src 'self' ws://localhost:* http://localhost:* https://api.github.com https://vercel.live https://*.vercel.live wss://*.pusher.com",
+    
+    // Frame sources: Allow Vercel Live iframes
+    "frame-src 'self' https://vercel.live https://*.vercel.live",
     
     // Frame ancestors: Prevent clickjacking
     "frame-ancestors 'none'",

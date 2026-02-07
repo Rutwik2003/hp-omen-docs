@@ -22,7 +22,7 @@
   --neon-purple: #bd00ff;
   --neon-orange: #ff6b35;
   
-  /* Layout */
+  /* Layout — referenced via var() in JS and components for consistency */
   --sidebar-width: 280px;
   --header-height: 64px;
 }
@@ -62,24 +62,26 @@ select:focus-visible {
   outline: none;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+/* Custom scrollbar — only for mouse/trackpad devices to avoid interfering with touch scroll */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
 
-::-webkit-scrollbar-track {
-  background: var(--omen-darker);
-}
+  ::-webkit-scrollbar-track {
+    background: var(--omen-darker);
+  }
 
-::-webkit-scrollbar-thumb {
-  background: var(--omen-light-gray);
-  border-radius: 4px;
-  border: 2px solid var(--omen-darker);
-}
+  ::-webkit-scrollbar-thumb {
+    background: var(--omen-light-gray);
+    border-radius: 4px;
+    border: 2px solid var(--omen-darker);
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--omen-primary);
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--omen-primary);
+  }
 }
 
 /* OMEN glow effects */
@@ -120,12 +122,12 @@ select:focus-visible {
 }
 
 .documentation-content h1 {
-  @apply text-4xl font-bold text-white mb-8 mt-4 tracking-tight;
+  @apply text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-8 mt-4 tracking-tight;
   font-family: 'Outfit', sans-serif;
 }
 
 .documentation-content h2 {
-  @apply text-2xl font-semibold text-white mb-6 mt-10 flex items-center;
+  @apply text-xl sm:text-2xl font-semibold text-white mb-6 mt-10 flex items-center;
   font-family: 'Outfit', sans-serif;
 }
 
@@ -194,4 +196,13 @@ select:focus-visible {
 .safe-area-inset {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+}
+
+/* Hide scrollbar for breadcrumb overflow */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

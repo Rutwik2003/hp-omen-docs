@@ -8,7 +8,7 @@ interface TOCItem {
   title: string;
   path?: string;
   children?: TOCItem[];
-  icon?: React.ComponentType<any>;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
 interface TableOfContentsProps {
@@ -76,7 +76,8 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ items, className = ''
           {hasChildren && (
             <button
               onClick={() => toggleExpanded(item.id)}
-              className="p-1 rounded hover:bg-gray-700/50 transition-colors mr-2"
+              className="p-2 rounded hover:bg-gray-700/50 transition-colors mr-1 min-w-[36px] min-h-[36px] flex items-center justify-center"
+              aria-label={isExpanded ? `Collapse ${item.title}` : `Expand ${item.title}`}
             >
               <motion.div
                 animate={{ rotate: isExpanded ? 90 : 0 }}

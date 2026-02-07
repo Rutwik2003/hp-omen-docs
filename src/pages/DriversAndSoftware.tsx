@@ -239,31 +239,31 @@ const DriversAndSoftware: React.FC = () => {
         <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Essential Drivers</h2>
         <div className="space-y-6 sm:space-y-8">
           {essentialDrivers.map((category, index) => (
-            <div key={index} className="bg-black/50 border border-gray-700 rounded-lg p-6 hover:border-orange-500/50 transition-all duration-300">
-              <div className="flex items-center space-x-4 mb-6">
-                <div className="w-12 h-12 bg-orange-500/20 border border-orange-500/30 rounded-lg flex items-center justify-center">
-                  <category.icon className="h-6 w-6 text-orange-400" />
+            <div key={index} className="bg-black/50 border border-gray-700 rounded-lg p-4 sm:p-6 hover:border-orange-500/50 transition-all duration-300">
+              <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500/20 border border-orange-500/30 rounded-lg flex items-center justify-center">
+                  <category.icon className="h-5 w-5 sm:h-6 sm:w-6 text-orange-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-white">{category.category}</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-white">{category.category}</h3>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {category.drivers.map((driver, driverIndex) => (
-                  <div key={driverIndex} className="border border-gray-600 rounded-lg p-4 bg-gray-800/50">
-                    <div className="flex items-start justify-between mb-3">
-                      <h4 className="text-lg font-semibold text-white">{driver.name}</h4>
-                      <span className={`px-2 py-1 text-xs font-medium rounded ${getPriorityColor(driver.priority)}`}>
+                  <div key={driverIndex} className="border border-gray-600 rounded-lg p-3 sm:p-4 bg-gray-800/50">
+                    <div className="flex items-start justify-between mb-2 sm:mb-3 gap-2">
+                      <h4 className="text-base sm:text-lg font-semibold text-white">{driver.name}</h4>
+                      <span className={`px-2 py-1 text-xs font-medium rounded shrink-0 ${getPriorityColor(driver.priority)}`}>
                         {driver.priority}
                       </span>
                     </div>
-                    <p className="text-gray-300 text-sm mb-3">{driver.description}</p>
-                    <div className="flex items-center justify-between">
+                    <p className="text-gray-300 text-xs sm:text-sm mb-3">{driver.description}</p>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <span className="text-xs text-gray-400">Version: {driver.version}</span>
                       <a
                         href={driver.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center px-3 py-1 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 transition-colors"
+                        className="inline-flex items-center justify-center px-3 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 transition-colors w-full sm:w-auto"
                       >
                         <AnimatedDownload className="h-3 w-3 mr-1" />
                         Download
@@ -278,23 +278,23 @@ const DriversAndSoftware: React.FC = () => {
       </div>
 
       {/* Installation Guide */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-6">Installation Guide</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="mb-8 sm:mb-12">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Installation Guide</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {installationGuide.map((guide, index) => (
-            <div key={index} className="bg-black/50 rounded-lg border border-gray-700 p-6 hover:border-orange-500/50 transition-all duration-300">
-              <div className="flex items-center space-x-3 mb-4">
+            <div key={index} className="bg-black/50 rounded-lg border border-gray-700 p-4 sm:p-6 hover:border-orange-500/50 transition-all duration-300">
+              <div className="flex items-center space-x-3 mb-3 sm:mb-4">
                 <span className="flex-shrink-0 w-8 h-8 bg-orange-500/20 text-orange-400 rounded-full flex items-center justify-center text-sm font-bold border border-orange-500/30">
                   {index + 1}
                 </span>
-                <h3 className="text-lg font-semibold text-white">{guide.step}</h3>
+                <h3 className="text-base sm:text-lg font-semibold text-white">{guide.step}</h3>
               </div>
-              <p className="text-gray-300 text-sm mb-4">{guide.description}</p>
+              <p className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4">{guide.description}</p>
               <ul className="space-y-2">
                 {guide.actions.map((action, actionIndex) => (
                   <li key={actionIndex} className="flex items-start space-x-2">
                     <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-sm text-gray-300">{action}</span>
+                    <span className="text-xs sm:text-sm text-gray-300">{action}</span>
                   </li>
                 ))}
               </ul>
@@ -304,20 +304,20 @@ const DriversAndSoftware: React.FC = () => {
       </div>
 
       {/* Utility Software */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-6">Recommended Utility Software</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="mb-8 sm:mb-12">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Recommended Utility Software</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {utilitySoftware.map((software, index) => (
-            <div key={index} className="bg-black/50 rounded-lg border border-gray-700 p-6 hover:border-orange-500/50 transition-all duration-300">
-              <div className="flex items-start justify-between mb-3">
-                <h3 className="text-lg font-semibold text-white">{software.name}</h3>
-                <span className="px-2 py-1 text-xs font-medium bg-orange-500/20 text-orange-300 rounded border border-orange-500/30">
+            <div key={index} className="bg-black/50 rounded-lg border border-gray-700 p-4 sm:p-6 hover:border-orange-500/50 transition-all duration-300">
+              <div className="flex items-start justify-between mb-2 sm:mb-3 gap-2">
+                <h3 className="text-base sm:text-lg font-semibold text-white">{software.name}</h3>
+                <span className="px-2 py-1 text-xs font-medium bg-orange-500/20 text-orange-300 rounded border border-orange-500/30 shrink-0">
                   {software.category}
                 </span>
               </div>
-              <p className="text-gray-300 text-sm mb-4">{software.description}</p>
-              <div className="mb-4">
-                <h4 className="text-sm font-medium text-white mb-2">Features:</h4>
+              <p className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4">{software.description}</p>
+              <div className="mb-3 sm:mb-4">
+                <h4 className="text-xs sm:text-sm font-medium text-white mb-2">Features:</h4>
                 <ul className="text-xs text-gray-300 space-y-1">
                   {software.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start space-x-2">
@@ -331,7 +331,7 @@ const DriversAndSoftware: React.FC = () => {
                 href={software.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-3 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 transition-colors"
+                className="inline-flex items-center justify-center w-full sm:w-auto px-3 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 transition-colors"
               >
                 <ExternalLink className="h-3 w-3 mr-2" />
                 Visit Website
@@ -342,12 +342,12 @@ const DriversAndSoftware: React.FC = () => {
       </div>
 
       {/* Best Practices */}
-      <div className="bg-black/50 border border-gray-700 rounded-lg p-6 mb-8 hover:border-orange-500/50 transition-all duration-300">
-        <h2 className="text-xl font-bold text-white mb-4">Driver Update Best Practices</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-black/50 border border-gray-700 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 hover:border-orange-500/50 transition-all duration-300">
+        <h2 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Driver Update Best Practices</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <h3 className="font-semibold text-white mb-2">Do's</h3>
-            <ul className="space-y-1 text-gray-300 text-sm">
+            <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">Do's</h3>
+            <ul className="space-y-1 text-gray-300 text-xs sm:text-sm">
               <li>✓ Create system restore point before updates</li>
               <li>✓ Use HP Support Assistant for HP-specific drivers</li>
               <li>✓ Download drivers directly from manufacturer websites</li>
@@ -356,8 +356,8 @@ const DriversAndSoftware: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-white mb-2">Don'ts</h3>
-            <ul className="space-y-1 text-gray-300 text-sm">
+            <h3 className="font-semibold text-white mb-2 text-sm sm:text-base">Don'ts</h3>
+            <ul className="space-y-1 text-gray-300 text-xs sm:text-sm">
               <li>✗ Install beta drivers on production systems</li>
               <li>✗ Use driver update software from unknown sources</li>
               <li>✗ Skip compatibility checks</li>
@@ -369,15 +369,15 @@ const DriversAndSoftware: React.FC = () => {
       </div>
 
       {/* Emergency Support */}
-      <div className="bg-black/50 border border-orange-500/50 rounded-lg p-6 hover:border-orange-500 transition-all duration-300">
+      <div className="bg-black/50 border border-orange-500/50 rounded-lg p-4 sm:p-6 hover:border-orange-500 transition-all duration-300">
         <div className="flex items-start space-x-3">
-          <AnimatedShield className="h-6 w-6 text-orange-400 mt-1 flex-shrink-0" />
+          <AnimatedShield className="h-5 w-5 sm:h-6 sm:w-6 text-orange-400 mt-0.5 flex-shrink-0" />
           <div>
-            <h3 className="text-lg font-semibold text-white mb-2">Driver Issues?</h3>
-            <p className="text-gray-300 mb-4">
+            <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Driver Issues?</h3>
+            <p className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4">
               If you encounter issues after driver installation, try these recovery steps:
             </p>
-            <ul className="space-y-1 text-gray-300 text-sm">
+            <ul className="space-y-1 text-gray-300 text-xs sm:text-sm">
               <li>• Boot into Safe Mode and uninstall problematic driver</li>
               <li>• Use System Restore to revert to previous working state</li>
               <li>• Download and use DDU to completely remove graphics drivers</li>

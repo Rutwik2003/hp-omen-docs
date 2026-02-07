@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { db, DraftGuide } from '../services/draftDatabase';
+import type { DraftSource } from '../services/draftDatabase';
 import { logError, parseError } from '../utils/errorHandling';
 
 /**
  * Hook for managing the list of saved drafts in IndexedDB.
  * Provides CRUD operations for drafts with loading states.
  * 
+ * @param source - If provided, only returns drafts from this source ('admin' or 'community')
  * @returns Object containing:
- *   - drafts: DraftGuide[] - Array of all saved drafts, sorted by lastModified
+ *   - drafts: DraftGuide[] - Array of saved drafts, sorted by lastModified
  *   - loading: boolean - Whether drafts are being loaded
  *   - loadDrafts: () => Promise<void> - Refresh the draft list
  *   - deleteDraft: (id: string) => Promise<boolean> - Delete a specific draft
@@ -17,12 +19,10 @@ import { logError, parseError } from '../utils/errorHandling';
  *   - error: string | null - Error message if load failed
  * 
  * @example
- * const { drafts, deleteDraft, loading } = useDraftList();
- * if (!loading && drafts.length > 0) {
- *   // Show draft list UI
- * }
+ * // Show only community drafts on the /contribute page
+ * const { drafts, deleteDraft, loading } = useDraftList('community');
  */
-export const useDraftList = () => {
+export const useDraftList = (source?: DraftSource) => {
     const [drafts, setDrafts] = useState<DraftGuide[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -31,7 +31,7 @@ export const useDraftList = () => {
         setLoading(true);
         setError(null);
         try {
-            const allDrafts = await db.getAllDrafts();
+            const allDrafts = await db.getAllDrafts(source);
             setDrafts(allDrafts);
         } catch (err) {
             const appError = parseError(err, 'loading your drafts');
@@ -40,7 +40,7 @@ export const useDraftList = () => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [source]);
 
     useEffect(() => {
         loadDrafts();

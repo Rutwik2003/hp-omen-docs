@@ -21,6 +21,8 @@ export const ROUTES = {
   // Admin section
   ADMIN: '/admin',
   ADMIN_NEW: '/admin/new',
+  ADMIN_PLAYGROUND: '/admin/playground',
+  ADMIN_SIDEBAR: '/admin/sidebar',
   ADMIN_EDIT: (id: string) => `/admin/edit/${id}`,
 } as const;
 

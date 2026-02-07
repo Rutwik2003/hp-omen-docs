@@ -19,7 +19,7 @@ interface BlockRendererProps {
 }
 
 const BlockRenderer: React.FC<BlockRendererProps> = ({ stepId, block, dragHandleProps, level = 0 }) => {
-  const { removeBlock } = useEditorStore();
+  const removeBlock = useEditorStore((s) => s.removeBlock);
   const isNested = level > 0;
 
   const renderContent = () => {

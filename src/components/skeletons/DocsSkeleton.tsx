@@ -47,27 +47,39 @@ const DocsSkeleton = () => {
         ];
 
         let currentIndex = 0;
-        // Variable speed typing effect
+        let cancelled = false;
+        const timeoutIds: number[] = [];
+
+        // Variable speed typing effect with proper cleanup
         const queueNext = () => {
+             if (cancelled) return;
              const delay = Math.random() * 800 + 400; // Random delay between 400-1200ms
-             setTimeout(() => {
+             const id = window.setTimeout(() => {
+                 if (cancelled) return;
                  if (currentIndex < logEntries.length) {
                      setLogs(prev => [...prev.slice(-4), logEntries[currentIndex]]);
                      currentIndex++;
                      queueNext();
                  } else {
                      // Reset loop
-                     setTimeout(() => {
+                     const resetId = window.setTimeout(() => {
+                         if (cancelled) return;
                          setLogs([]);
                          currentIndex = 0;
                          queueNext();
                      }, 3000);
+                     timeoutIds.push(resetId);
                  }
              }, delay);
+             timeoutIds.push(id);
         };
         
         queueNext();
-        return () => {}; // Cleanup difficult with recursive timeout, relying on component unmount
+
+        return () => {
+            cancelled = true;
+            timeoutIds.forEach(clearTimeout);
+        };
     }, []);
 
   return (

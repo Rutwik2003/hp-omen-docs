@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
+const drivers = [
+    { name: "HP Support Assistant", size: "128MB", color: "bg-blue-500" },
+    { name: "NVIDIA GeForce Driver", size: "645MB", color: "bg-green-500" },
+    { name: "OMEN Gaming Hub SDK", size: "128MB", color: "bg-orange-500" },
+    { name: "Realtek Audio Control", size: "45MB", color: "bg-blue-500" },
+    { name: "Discord", size: "110MB", color: "bg-indigo-500" },
+    { name: "Steam", size: "25MB", color: "bg-blue-700" },
+    { name: "Epic Games Launcher", size: "165MB", color: "bg-slate-500" }
+];
+
 const DriversSkeleton = () => {
-    const drivers = [
-        { name: "HP Support Assistant", size: "128MB", color: "bg-blue-500" },
-        { name: "NVIDIA GeForce Driver", size: "645MB", color: "bg-green-500" },
-        { name: "OMEN Gaming Hub SDK", size: "128MB", color: "bg-orange-500" },
-        { name: "Realtek Audio Control", size: "45MB", color: "bg-blue-500" },
-        { name: "Discord", size: "110MB", color: "bg-indigo-500" },
-        { name: "Steam", size: "25MB", color: "bg-blue-700" },
-        { name: "Epic Games Launcher", size: "165MB", color: "bg-slate-500" }
-    ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [status, setStatus] = useState<'downloading' | 'verifying' | 'installing' | 'completed'>('downloading');
@@ -85,16 +86,16 @@ const DriversSkeleton = () => {
     }));
 
   return (
-    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-900 p-4 border border-white/10 overflow-hidden relative flex flex-col justify-between font-mono group">
+    <div className="flex flex-1 w-full h-full min-h-[12rem] sm:min-h-[10rem] md:min-h-[6rem] rounded-xl bg-neutral-900 p-3 sm:p-4 border border-white/10 overflow-hidden relative flex flex-col justify-between font-mono group">
        {/* Background Grid */}
       <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_top_right,white,transparent)]" />
       
       <div className="flex justify-between items-center relative z-10 border-b border-white/5 pb-2 mb-2">
-           <div className="text-[10px] text-gray-500">DRIVER_MANAGER_V4.0</div>
+           <div className="text-[11px] sm:text-[10px] text-gray-500">DRIVER_MANAGER_V4.0</div>
            <div className="flex space-x-1">
-               <div className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
-               <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/50" />
-               <div className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
+               <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-red-500/50" />
+               <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-yellow-500/50" />
+               <div className="w-2 h-2 sm:w-1.5 sm:h-1.5 rounded-full bg-green-500/50" />
            </div>
       </div>
 
@@ -107,13 +108,13 @@ const DriversSkeleton = () => {
                 exit={{ opacity: 0, y: -10 }}
                 className="space-y-1"
               >
-                  <div className="flex justify-between text-[11px] text-gray-300 font-bold">
+                  <div className="flex justify-between text-xs sm:text-[11px] text-gray-300 font-bold">
                       <span className="truncate pr-2">{currentDriver.name}</span>
-                      <span className="text-gray-500 text-[9px]">{currentDriver.size}</span>
+                      <span className="text-gray-500 text-[10px] sm:text-[9px]">{currentDriver.size}</span>
                   </div>
                   
                   {/* Progress Bar Container */}
-                  <div className="h-2 w-full bg-gray-800 rounded-full overflow-hidden relative group-hover:bg-gray-700 transition-colors">
+                  <div className="h-2.5 sm:h-2 w-full bg-gray-800 rounded-full overflow-hidden relative group-hover:bg-gray-700 transition-colors">
                       {status === 'installing' || status === 'verifying' ? (
                           <div className={`h-full w-full ${currentDriver.color} opacity-80 relative overflow-hidden`}>
                                {/* Smooth shimmer effect moving right */}
@@ -139,7 +140,7 @@ const DriversSkeleton = () => {
                   </div>
 
                   {/* Status Text */}
-                  <div className="flex justify-between items-center text-[10px] h-4">
+                  <div className="flex justify-between items-center text-[11px] sm:text-[10px] h-4">
                       <motion.span 
                          key={status}
                          initial={{ opacity: 0 }}
@@ -175,11 +176,11 @@ const DriversSkeleton = () => {
       </div>
 
       {/* Queue Preview (Sliding Window) */}
-      <div className="mt-2 pt-2 border-t border-white/5 flex flex-col space-y-1 opacity-50 min-h-[50px]">
+      <div className="mt-2 pt-2 border-t border-white/5 flex flex-col space-y-1.5 sm:space-y-1 opacity-50 min-h-[50px]">
           {visibleDrivers.map((d) => (
-              <div key={d.name} className={`flex items-center space-x-2 text-[9px] ${d.originalIndex === currentIndex ? 'text-white font-bold' : 'text-gray-600'}`}>
-                   <div className={`w-1 h-1 rounded-full ${d.originalIndex < currentIndex ? 'bg-green-500' : d.originalIndex === currentIndex ? 'bg-orange-500 animate-pulse' : 'bg-gray-700'}`} />
-                   <span className="truncate max-w-[150px]">{d.name}</span>
+              <div key={d.name} className={`flex items-center space-x-2 text-[10px] sm:text-[9px] ${d.originalIndex === currentIndex ? 'text-white font-bold' : 'text-gray-600'}`}>
+                   <div className={`w-1.5 h-1.5 sm:w-1 sm:h-1 rounded-full ${d.originalIndex < currentIndex ? 'bg-green-500' : d.originalIndex === currentIndex ? 'bg-orange-500 animate-pulse' : 'bg-gray-700'}`} />
+                   <span className="truncate max-w-[180px] sm:max-w-[150px]">{d.name}</span>
               </div>
           ))}
           {/* Indicator that there are more items */}

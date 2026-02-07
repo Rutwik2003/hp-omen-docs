@@ -21,7 +21,7 @@ export default tseslint.config({ ignores: ['dist'] }, {
       'warn',
       { allowConstantExport: true },
     ],
-    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': 'warn',
     // Consistent patterns
     '@typescript-eslint/ban-ts-comment': ['error', {

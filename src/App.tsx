@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { ToastProvider } from './context/ToastContext';
 import { DocsLayout, RootLayout } from './components/layout';
@@ -20,13 +20,19 @@ const Dashboard = lazy(() => import('./pages/admin/Dashboard'));
 const GuideEditor = lazy(() => import('./pages/admin/GuideEditor'));
 const SidebarConfigurator = lazy(() => import('./pages/admin/SidebarConfigurator'));
 
+// Wraps ErrorBoundary so it resets automatically on route change
+function LocationAwareErrorBoundary({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  return <ErrorBoundary key={location.pathname}>{children}</ErrorBoundary>;
+}
+
 function App() {
   return (
-    <ErrorBoundary>
-      <Router>
-        <ToastProvider>
-          <ScrollToTop />
-          <RootLayout>
+    <Router>
+      <ToastProvider>
+        <ScrollToTop />
+        <RootLayout>
+          <LocationAwareErrorBoundary>
             <Suspense fallback={
               <div className="min-h-screen bg-black" />
             }>
@@ -72,10 +78,10 @@ function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
-        </RootLayout>
-      </ToastProvider>
-    </Router>
-  </ErrorBoundary>
+        </LocationAwareErrorBoundary>
+      </RootLayout>
+    </ToastProvider>
+  </Router>
   );
 }
 

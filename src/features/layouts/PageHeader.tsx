@@ -41,11 +41,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
             {/* Title and Actions row */}
             <div className={`flex items-start gap-4 ${centered ? 'justify-center' : 'justify-between'}`}>
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-white omen-text-glow">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white omen-text-glow">
                         {title}
                     </h1>
                     {description && (
-                        <p className="mt-2 text-lg text-gray-400 max-w-2xl">
+                        <p className="mt-2 text-base sm:text-lg text-gray-400 max-w-2xl">
                             {description}
                         </p>
                     )}

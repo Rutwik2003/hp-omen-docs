@@ -7,29 +7,42 @@ import { Block } from './blocks';
 
 /**
  * A single step in a guide.
- * Supports both legacy markdown format and new block-based content.
+ * 
+ * Unified type supporting both:
+ * - Legacy format: `content` (HTML string) + optional `codeBlock`, `infoBox`, `prerequisites`, `grid`
+ * - Modern format: `blocks[]` array with typed block system
+ * 
+ * The `migrateStepToBlocks()` utility in `blockMigration.ts` converts legacy → modern at load time.
  */
 export interface GuideStep {
-    /** UUID for editor tracking */
+    /** UUID for editor tracking (required for new content, optional for legacy) */
     id?: string;
     title: string;
-    /** Legacy markdown content */
-    content: string;
+    
+    // --- Modern block-based content ---
+    /** New block-based content model. Takes priority over legacy fields when rendering. */
+    blocks?: Block[];
+    
+    // --- Legacy markdown/HTML content (deprecated, migrated at load time) ---
+    /** @deprecated Legacy markdown/HTML content. Use blocks[] instead. */
+    content?: string;
+    /** @deprecated Legacy image URL */
     image?: string;
-    /** Legacy code block */
+    /** @deprecated Legacy code block */
     codeBlock?: {
         language: string;
         code: string;
         copyable?: boolean;
     };
-    /** Legacy info box */
+    /** @deprecated Legacy info box */
     infoBox?: {
         type: InfoBoxType;
         title: string;
         content: string;
     };
+    /** @deprecated Legacy prerequisites list */
     prerequisites?: string[];
-    /** Legacy grid layout */
+    /** @deprecated Legacy grid layout */
     grid?: {
         columns: number;
         items: Array<{
@@ -37,8 +50,6 @@ export interface GuideStep {
             content: string;
         }>;
     };
-    /** New block-based content model */
-    blocks?: Block[];
 }
 
 /**

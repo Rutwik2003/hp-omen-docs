@@ -1,42 +1,62 @@
 # Architecture: Custom Admin & Community Contributions
 
-You want a setup where:
-1.  **Admin (You)**: Have a secure, private "Superuser" login to manage everything.
-2.  **Community**: Can visit a public page to submit content, which you approve.
+## Overview
 
-## 1. The Superuser Admin Panel
-**Clarification**: The "Invite Only" setting in Netlify Identity *does exactly what you want*.
-*   **Public Site**: Accessible to everyone.
-*   **Admin Panel (`/admin`)**: Locked. **Only you** (with your email/password) can enter.
-*   **Security**: It uses "JSON Web Tokens". This is the standard secure "ID/Pass" system.
+This project uses a **custom-built admin panel** with a local Express API server for content management. There is no CMS dependency (no Decap/Netlify CMS). The site deploys on **Vercel**.
 
-Since you prefer not to use GitHub/Netlify UI, we can technically build a **Custom Firebase Admin**, but that requires building a full backend (API, Database, Auth) which is overkill for a static site.
-**Recommendation**: Stick to the Decap CMS + "Invite Only" Identity. It gives you the "Private Admin / Public Site" separation out of the box.
+1. **Admin (You)**: Secure password-protected panel at `/admin` for full content management.
+2. **Community**: Public `/contribute` page for drafting and submitting guide proposals.
 
-## 2. The Community Contribution Page
-We will build a new page: **`/contribute`**.
+---
+
+## 1. The Superuser Admin Panel (`/admin`)
+
+### Authentication
+- Password-based login via `/admin/login`.
+- The password is verified against the Express dev server (`POST /api/verify`) using HMAC-signed session tokens.
+- Sessions are stored client-side via `sessionManager.ts` with timing-safe comparison on the server.
 
 ### Features
-*   **No Login Required**: Accessible to anyone.
-*   **Simple Form**: Fields for Title, Category, Description, and Steps.
-*   **"Submit" Action**:
-    *   Since we don't have a backend server, we can't "save to database" directly.
-    *   **Option A (GitHub Issue)**: Clicking Submit formats their guide into Markdown and opens a pre-filled GitHub Issue. You can then copy-paste it into your Admin panel.
-    *   **Option B (Email)**: Opens their email client with the JSON attached, sending it to you.
-    *   **Option C (Pull Request)**: Requires them to login with GitHub (which you wanted to avoid).
+- **Dashboard** (`/admin/dashboard`): Lists all content files from `src/content/` with edit/create actions.
+- **Guide Editor** (`/admin/editor/:id`): Block-based drag-and-drop editor powered by Zustand (`editorStore.ts`) + Immer + Zundo (undo/redo).
+- **Sidebar Configurator** (`/admin/sidebar`): Configure the docs sidebar navigation order.
+- **Block Types**: Text, code, image, callout, list, table, and more — defined in `src/types/blocks.ts`.
+- **Auto-save**: Drafts are persisted to IndexedDB via Dexie (`src/services/draftDatabase.ts`).
+- **Save to Disk**: `POST /api/save` writes JSON content files to `src/content/`.
 
-### Proposed UI: `/contribute`
-A beautiful "Guide Creator" interface.
-1.  **Metadata Section**: Title, Difficulty, Time.
-2.  **Editor**: A text area or simple step-builder.
-3.  **Preview**: Real-time preview of how the card looks.
-4.  **Submit Button**: "Send to Admin".
+### Local Dev Server
+```bash
+node server.js          # Starts Express API on http://localhost:3001
+npm run dev             # Starts Vite dev server (separate terminal)
+```
+The Express server binds to `127.0.0.1` only — it is never exposed to the network.
+
+---
+
+## 2. The Community Contribution Page (`/contribute`)
+
+### Features
+- **No Login Required**: Accessible to anyone visiting the site.
+- **Draft System**: Users create guide drafts stored in their browser's IndexedDB (via Dexie).
+- **Draft Management**: List, edit, delete, and resume drafts with relative timestamps.
+- **Submission**: Drafts are formatted as Markdown and opened as a pre-filled GitHub Issue for admin review.
+
+### How It Works
+1. User visits `/contribute` and clicks "New Draft".
+2. They fill in title, category, difficulty, estimated time, and step content.
+3. Progress auto-saves to IndexedDB — they can close the browser and return later.
+4. When ready, they click "Submit" which opens a GitHub Issue with their guide content.
+5. The admin reviews the issue and, if approved, recreates it via the admin editor.
+
+---
 
 ## 3. The Approval Workflow
-1.  User submits guide via `/contribute`.
-2.  You receive the content (via GitHub Issue/Email).
-3.  You log in to `/admin`.
-4.  You click "New Guide" and paste their content.
-5.  You click "Publish".
 
-This keeps your repository secure (no stranger has write access) while allowing community submissions.
+1. User submits a guide draft via `/contribute` → GitHub Issue is created.
+2. Admin reviews the issue on GitHub.
+3. Admin logs in to `/admin` and creates a new guide using the admin editor.
+4. Admin copies/adapts the community content into the block editor.
+5. Admin clicks "Save" → content is written to `src/content/` as a JSON file.
+6. Changes are committed and deployed via Vercel.
+
+This keeps the repository secure — no external user has write access to content files.

@@ -85,7 +85,7 @@
                                 {
                                     "id": "ssd-img1",
                                     "type": "image",
-                                    "url": "/images/m.2_nvme.png",
+                                    "url": "/images/m.2_nvme.avif",
                                     "alt": "M.2 NVMe SSD"
                                 },
                                 {
@@ -108,7 +108,7 @@
                                 {
                                     "id": "ssd-img2",
                                     "type": "image",
-                                    "url": "/images/m.2_sata.png",
+                                    "url": "/images/m.2_sata.avif",
                                     "alt": "M.2 SATA SSD"
                                 },
                                 {

@@ -101,9 +101,11 @@ export const getSessionHash = (): string | null => {
 
 /**
  * Clears the current session (logout).
+ * Removes both the legacy session data and the server-issued token.
  */
 export const clearSession = (): void => {
     sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem('admin_token');
 };
 
 /**

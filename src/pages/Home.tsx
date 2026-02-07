@@ -127,12 +127,12 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
-      <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
         {/* Hero Section */}
         <div className="hero-container text-center mb-16 opacity-0"> {/* Changed to class selector */}
           <div className="hero-logo flex justify-center mb-8">
-            <div className="w-20 h-20 bg-black/50 border border-orange-500/30 rounded-2xl flex items-center justify-center shadow-lg omen-glow relative p-3">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-black/50 border border-orange-500/30 rounded-2xl flex items-center justify-center shadow-lg omen-glow relative p-3">
               <img 
                 src="/HP_Omen_logo.svg" 
                 alt="HP OMEN Logo" 
@@ -142,26 +142,26 @@ const Home: React.FC = () => {
             </div>
           </div>
           
-          <h1 className="hero-title text-5xl md:text-6xl font-bold text-white mb-6 overflow-hidden">
+          <h1 className="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 overflow-hidden">
             <span className="inline-block relative">HP</span> <span className="text-orange-400 omen-text-glow inline-block relative">OMEN</span> 
-            <span className="hero-subtitle text-gray-300 block text-3xl md:text-4xl mt-2 opacity-0">Documentation</span>
+            <span className="hero-subtitle text-gray-300 block text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-2 opacity-0">Documentation</span>
           </h1>
           
-          <p className="hero-text text-xl text-gray-300 mb-8 max-w-3xl mx-auto opacity-0">
+          <p className="hero-text text-lg sm:text-xl text-gray-300 mb-8 max-w-3xl mx-auto px-4 opacity-0">
             Your comprehensive guide to getting the most out of your HP OMEN gaming laptop. 
           </p>
 
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center opacity-0">
              <Link
               to="/quickstart"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-red-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+              className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-red-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
             >
               <AnimatedBook className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Get Started
             </Link>
             <button 
               onClick={() => setIsSearchOpen(true)}
-              className="inline-flex items-center px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:border-orange-500 hover:text-orange-400 transition-all duration-200 group"
+              className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 border border-gray-600 text-gray-300 font-semibold rounded-lg hover:border-orange-500 hover:text-orange-400 transition-all duration-200 group"
             >
               <AnimatedSearch className="mr-2 h-5 w-5 group-hover:text-orange-400" />
               Search Docs
